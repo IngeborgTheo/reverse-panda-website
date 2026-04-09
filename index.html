@@ -9,6 +9,9 @@
 <meta property="og:title" content="ReversePanda - Coming Soon">
 <meta property="og:description" content="ReversePanda is under construction. Get notified when the app launches.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="assets/logo/reverse-panda-logo.png">
+<link rel="icon" type="image/png" href="assets/logo/reverse-panda-logo.png">
+<link rel="apple-touch-icon" href="assets/logo/reverse-panda-logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -96,6 +99,13 @@ nav {
   align-items: center;
   gap: 10px;
   text-decoration: none;
+}
+
+.nav-logo-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
 }
 
 .nav-wordmark {
@@ -636,23 +646,7 @@ textarea:focus-visible {
 
 <nav aria-label="Primary">
   <a class="nav-logo" href="#">
-    <svg width="22" height="22" viewBox="0 0 64 64" fill="none">
-      <rect x="7"  y="7"  width="10" height="10" fill="#FAF6EE"/>
-      <rect x="7"  y="17" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="7"  y="27" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="7"  y="37" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="7"  y="47" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="17" y="7"  width="10" height="10" fill="#FAF6EE"/>
-      <rect x="27" y="7"  width="10" height="10" fill="#FAF6EE"/>
-      <rect x="37" y="7"  width="10" height="10" fill="#FAF6EE"/>
-      <rect x="47" y="7"  width="10" height="10" fill="#FAF6EE"/>
-      <rect x="47" y="17" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="17" y="27" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="27" y="27" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="37" y="27" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="47" y="27" width="10" height="10" fill="#FAF6EE"/>
-      <rect x="47" y="47" width="10" height="10" fill="#FAF6EE"/>
-    </svg>
+    <img class="nav-logo-img" src="assets/logo/reverse-panda-logo.png" alt="ReversePanda logo">
     <span class="nav-wordmark">REVERSE<em>PANDA</em></span>
   </a>
   <ul class="nav-menu">
@@ -756,7 +750,7 @@ textarea:focus-visible {
       <p>When it goes live, it should not only look finished - it should feel finished too.</p>
     </div>
     <hr class="panel-divider">
-    <a class="panel-link" href="mailto:hello@reversepanda.app">hello@reversepanda.app</a>
+    <a class="panel-link" href="mailto:reverse-panda@outlook.com">reverse-panda@outlook.com</a>
   </div>
 </div>
 
