@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReversePanda - Coming Soon</title>
+<meta name="description" content="ReversePanda is under construction. Get notified when the app launches.">
+<meta name="theme-color" content="#0E0D0B">
+<meta property="og:title" content="ReversePanda - Coming Soon">
+<meta property="og:description" content="ReversePanda is under construction. Get notified when the app launches.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --paper: #F0EBE0;
+  --paper-dark: #E2DAC8;
+  --ink: #0E0D0B;
+  --blue: #89C4E1;
+  --blue-pale: #D6EEF8;
+  --red: #E8180C;
+  --cream: #FAF6EE;
+  --mid: #B8B0A0;
+  --dark: #1C1A16;
+}
+
+html, body {
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: 'Courier Prime', monospace;
+  cursor: default;
+  line-height: 1.5;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 10000;
+  background: var(--cream);
+  color: var(--ink);
+  padding: 8px 12px;
+  text-decoration: none;
+  border: 1px solid var(--blue);
+}
+.skip-link:focus { top: 12px; }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 36px;
+  height: 56px;
+  border-bottom: 1px solid rgba(137,196,225,0.15);
+  background: rgba(14,13,11,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  animation: fadeIn 0.8s 0.2s forwards;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+}
+.nav-wordmark em { color: var(--blue); font-style: normal; }
+
+.nav-menu {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+
+.nav-menu li a {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  padding: 6px 18px;
+  display: block;
+  border-left: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.2s, background 0.2s;
+  position: relative;
+}
+.nav-menu li:last-child a { border-right: 1px solid rgba(255,255,255,0.06); }
+.nav-menu li button { border-right: 1px solid rgba(255,255,255,0.06); }
+
+.nav-menu li a:hover { color: var(--blue); background: rgba(137,196,225,0.05); }
+.nav-menu li button:hover { color: var(--blue); background: rgba(137,196,225,0.05); }
+
+.nav-menu button {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  padding: 6px 18px;
+  display: block;
+  border: none;
+  border-left: 1px solid rgba(255,255,255,0.06);
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-menu li a .badge {
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  background: var(--blue);
+  color: var(--ink);
+  padding: 1px 5px;
+  margin-left: 6px;
+  vertical-align: middle;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 56px 36px 0;
+}
+
+main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(137,196,225,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(137,196,225,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+}
+
+.bg-accent {
+  position: absolute;
+  width: 200%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  top: 50%;
+  left: -50%;
+  transform: rotate(-4deg);
+  opacity: 0.12;
+  z-index: 0;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: rotate(-4deg) translateY(-20px); }
+  to   { transform: rotate(-4deg) translateY(20px); }
+}
+
+.corner {
+  position: absolute;
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(137,196,225,0.25);
+  z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s 1.2s forwards;
+}
+.corner-tl { top: 72px; left: 36px; }
+.corner-tr { top: 72px; right: 36px; text-align: right; }
+.corner-bl { bottom: 28px; left: 36px; }
+.corner-br { bottom: 28px; right: 36px; text-align: right; }
+
+.halftone {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.04;
+  background-image: radial-gradient(circle, var(--blue) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.stage {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0;
+}
+
+.logo-mark {
+  opacity: 0;
+  animation: dropIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.5s forwards;
+  margin-bottom: 28px;
+}
+
+.logo-mark svg { display: block; }
+
+.wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 12vw, 150px);
+  line-height: 0.88;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  position: relative;
+  opacity: 0;
+  animation: dropIn 0.9s cubic-bezier(0.22,1,0.36,1) 0.65s forwards;
+  user-select: none;
+}
+
+.wordmark-ghost {
+  position: absolute;
+  inset: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  -webkit-text-stroke: 1px rgba(137,196,225,0.15);
+  color: transparent;
+  transform: translate(5px, 5px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.wordmark .blue { color: var(--blue); }
+
+.launch-line {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  opacity: 0;
+  animation: fadeUp 0.7s 1.1s forwards;
+}
+
+.launch-line::before,
+.launch-line::after {
+  content: '';
+  height: 1px;
+  width: 48px;
+  background: rgba(137,196,225,0.3);
+  display: block;
+}
+
+.launch-badge {
+  font-family: 'Courier Prime', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--blue);
+  border: 1px solid rgba(137,196,225,0.3);
+  padding: 5px 14px;
+  position: relative;
+}
+
+.launch-badge::after {
+  content: '|';
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+  color: var(--blue);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.tagline {
+  margin-top: 28px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  line-height: 1.85;
+  letter-spacing: 0.05em;
+  color: var(--mid);
+  max-width: 460px;
+  text-align: center;
+  opacity: 0;
+  animation: fadeUp 0.7s 1.3s forwards;
+}
+
+.notify-form {
+  margin-top: 36px;
+  display: flex;
+  gap: 0;
+  opacity: 0;
+  animation: fadeUp 0.7s 1.5s forwards;
+}
+
+.notify-input {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(137,196,225,0.2);
+  border-right: none;
+  padding: 11px 18px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cream);
+  outline: none;
+  width: 240px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.notify-input::placeholder { color: rgba(184,176,160,0.4); }
+.notify-input:focus {
+  border-color: rgba(137,196,225,0.5);
+  background: rgba(137,196,225,0.04);
+}
+
+.notify-btn {
+  background: var(--blue);
+  border: 1px solid var(--blue);
+  color: var(--ink);
+  padding: 11px 20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.notify-btn:hover { background: var(--cream); border-color: var(--cream); }
+
+.notify-success {
+  display: none;
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-top: 0;
+  padding: 11px 20px;
+  border: 1px solid rgba(137,196,225,0.2);
+}
+
+.ticker-wrap {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 50;
+  background: rgba(14,13,11,0.9);
+  border-top: 1px solid rgba(137,196,225,0.15);
+  padding: 9px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  animation: fadeIn 0.8s 1.8s forwards;
+}
+
+.ticker-inner {
+  display: inline-flex;
+  animation: ticker 32s linear infinite;
+}
+
+.ticker-item {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: rgba(137,196,225,0.35);
+  padding: 0 36px;
+}
+.ticker-item .sep { color: rgba(137,196,225,0.15); margin: 0 4px; }
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.panel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.panel-overlay.open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.panel-overlay.visible { opacity: 1; }
+
+.panel-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(14,13,11,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.panel {
+  position: relative;
+  z-index: 10;
+  background: var(--dark);
+  border: 1px solid rgba(137,196,225,0.15);
+  border-top: 3px solid var(--blue);
+  max-width: 520px;
+  width: calc(100% - 48px);
+  padding: 40px 40px 36px;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.panel-overlay.visible .panel { transform: translateY(0); }
+
+.panel-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: none;
+  border: none;
+  color: var(--mid);
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.panel-close:hover { color: var(--cream); }
+
+.panel-kicker {
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.panel-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  line-height: 0.9;
+  margin-bottom: 20px;
+}
+
+.panel-body {
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  line-height: 1.85;
+  color: var(--mid);
+}
+.panel-body p + p { margin-top: 14px; }
+
+.panel-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin: 24px 0;
+}
+
+.panel-link {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(137,196,225,0.3);
+  padding-bottom: 1px;
+  transition: color 0.2s;
+}
+.panel-link:hover { color: var(--cream); }
+.focus-ring:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.panel-form { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+.panel-form label {
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(184,176,160,0.6);
+  display: block;
+  margin-bottom: 5px;
+}
+.panel-form input,
+.panel-form textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(137,196,225,0.3);
+  padding: 10px 12px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.panel-form input::placeholder,
+.panel-form textarea::placeholder { color: rgba(184,176,160,0.3); }
+.panel-form input:focus,
+.panel-form textarea:focus { border-color: rgba(137,196,225,0.5); }
+.panel-form textarea { resize: vertical; min-height: 80px; }
+.panel-form button {
+  background: var(--blue);
+  border: none;
+  color: var(--ink);
+  padding: 12px 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+.panel-form button:hover { background: var(--cream); }
+
+.coming-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 20px;
+}
+.coming-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-left: 2px solid rgba(137,196,225,0.15);
+  transition: background 0.2s;
+}
+.coming-item:hover { background: rgba(137,196,225,0.04); }
+.coming-item-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+}
+.coming-item-status {
+  font-family: 'Courier Prime', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  padding: 3px 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.coming-item-status.soon {
+  color: var(--blue);
+  border-color: rgba(137,196,225,0.25);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 16px; }
+  .nav-wordmark { font-size: 18px; }
+  .nav-menu li a { padding: 6px 10px; font-size: 9px; }
+  .wordmark { font-size: clamp(44px, 14vw, 90px); }
+  .corner { display: none; }
+  .notify-form { flex-direction: column; gap: 10px; width: 100%; max-width: 300px; }
+  .notify-input { width: 100%; border-right: 1px solid rgba(137,196,225,0.2); }
+  .notify-btn { width: 100%; }
+  .panel { padding: 32px 24px 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<nav aria-label="Primary">
+  <a class="nav-logo" href="#">
+    <svg width="22" height="22" viewBox="0 0 64 64" fill="none">
+      <rect x="7"  y="7"  width="10" height="10" fill="#FAF6EE"/>
+      <rect x="7"  y="17" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="7"  y="27" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="7"  y="37" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="7"  y="47" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="17" y="7"  width="10" height="10" fill="#FAF6EE"/>
+      <rect x="27" y="7"  width="10" height="10" fill="#FAF6EE"/>
+      <rect x="37" y="7"  width="10" height="10" fill="#FAF6EE"/>
+      <rect x="47" y="7"  width="10" height="10" fill="#FAF6EE"/>
+      <rect x="47" y="17" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="17" y="27" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="27" y="27" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="37" y="27" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="47" y="27" width="10" height="10" fill="#FAF6EE"/>
+      <rect x="47" y="47" width="10" height="10" fill="#FAF6EE"/>
+    </svg>
+    <span class="nav-wordmark">REVERSE<em>PANDA</em></span>
+  </a>
+  <ul class="nav-menu">
+    <li><button type="button" aria-current="page">ReversePanda App</button></li>
+    <li><button type="button" data-open-panel="about">About</button></li>
+    <li><button type="button" data-open-panel="contact">Contact</button></li>
+    <li><button type="button" data-open-panel="more">More to come <span class="badge">Soon</span></button></li>
+  </ul>
+</nav>
+
+<main id="main-content">
+  <div class="halftone"></div>
+  <div class="bg-accent"></div>
+
+  <span class="corner corner-tl">reversepanda.app</span>
+  <span class="corner corner-tr">Est. 2026</span>
+  <span class="corner corner-bl">Vol. I</span>
+  <span class="corner corner-br">Preview Edition</span>
+
+  <div class="stage">
+    <div class="logo-mark">
+      <svg width="48" height="48" viewBox="0 0 64 64" fill="none">
+        <rect x="7"  y="7"  width="10" height="10" fill="#FAF6EE"/>
+        <rect x="17" y="7"  width="10" height="10" fill="#FAF6EE"/>
+        <rect x="27" y="7"  width="10" height="10" fill="#FAF6EE"/>
+        <rect x="37" y="7"  width="10" height="10" fill="#FAF6EE"/>
+        <rect x="47" y="7"  width="10" height="10" fill="#FAF6EE"/>
+        <rect x="7"  y="17" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="27" y="17" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="47" y="17" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="7"  y="27" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="17" y="27" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="27" y="27" width="10" height="10" fill="#89C4E1"/>
+        <rect x="37" y="27" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="47" y="27" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="7"  y="37" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="47" y="37" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="7"  y="47" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="17" y="47" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="27" y="47" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="37" y="47" width="10" height="10" fill="#FAF6EE"/>
+        <rect x="47" y="47" width="10" height="10" fill="#FAF6EE"/>
+      </svg>
+    </div>
+
+    <div class="wordmark" style="position:relative;">
+      <span class="wordmark-ghost" aria-hidden="true">REVERSEPANDA</span>
+      REVERSE<span class="blue">PANDA</span>
+    </div>
+
+    <div class="launch-line">
+      <span class="launch-badge">Launching</span>
+    </div>
+
+    <p class="tagline">
+      ReversePanda is under construction.<br>
+      You are early - and that is exactly the point.
+    </p>
+
+    <form class="notify-form" id="notifyForm" novalidate>
+      <label class="sr-only" for="notifyEmail">Email address</label>
+      <input class="notify-input focus-ring" type="email" placeholder="you@email.com" id="notifyEmail" name="email" autocomplete="email" required>
+      <button class="notify-btn focus-ring" type="submit">Notify me -></button>
+    </form>
+    <div class="notify-success" id="notifySuccess" role="status" aria-live="polite">
+      You are on the list.
+    </div>
+  </div>
+</main>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">REVERSEPANDA APP<span class="sep"> · </span></span>
+    <span class="ticker-item">SOMETHING IS BEING BUILT<span class="sep"> · </span></span>
+    <span class="ticker-item">EST. 2026<span class="sep"> · </span></span>
+    <span class="ticker-item">STAY CLOSE<span class="sep"> · </span></span>
+    <span class="ticker-item">VOL. I<span class="sep"> · </span></span>
+    <span class="ticker-item">MORE TO COME<span class="sep"> · </span></span>
+    <span class="ticker-item">REVERSEPANDA.APP<span class="sep"> · </span></span>
+    <span class="ticker-item">EARLY ACCESS<span class="sep"> · </span></span>
+    <span class="ticker-item">REVERSEPANDA APP<span class="sep"> · </span></span>
+    <span class="ticker-item">SOMETHING IS BEING BUILT<span class="sep"> · </span></span>
+    <span class="ticker-item">EST. 2026<span class="sep"> · </span></span>
+    <span class="ticker-item">STAY CLOSE<span class="sep"> · </span></span>
+    <span class="ticker-item">VOL. I<span class="sep"> · </span></span>
+    <span class="ticker-item">MORE TO COME<span class="sep"> · </span></span>
+    <span class="ticker-item">REVERSEPANDA.APP<span class="sep"> · </span></span>
+    <span class="ticker-item">EARLY ACCESS<span class="sep"> · </span></span>
+  </div>
+</div>
+
+<div class="panel-overlay" id="panel-about" role="dialog" aria-modal="true" aria-labelledby="about-title" aria-hidden="true">
+  <div class="panel-bg"></div>
+  <div class="panel">
+    <button class="panel-close focus-ring" type="button" data-close-panel="about">Close x</button>
+    <span class="panel-kicker">01 / About</span>
+    <h2 class="panel-title" id="about-title">WHAT IS<br>REVERSEPANDA.</h2>
+    <div class="panel-body">
+      <p>ReversePanda is currently in development. This is a temporary landing page while the app is being finalized.</p>
+      <p>The goal: a clear product with real quality, not just hype.</p>
+      <p>When it goes live, it should not only look finished - it should feel finished too.</p>
+    </div>
+    <hr class="panel-divider">
+    <a class="panel-link" href="mailto:hello@reversepanda.app">hello@reversepanda.app</a>
+  </div>
+</div>
+
+<div class="panel-overlay" id="panel-contact" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-hidden="true">
+  <div class="panel-bg"></div>
+  <div class="panel">
+    <button class="panel-close focus-ring" type="button" data-close-panel="contact">Close x</button>
+    <span class="panel-kicker">02 / Contact</span>
+    <h2 class="panel-title" id="contact-title">SAY<br>HELLO.</h2>
+    <form class="panel-form" id="contactForm" novalidate>
+      <div>
+        <label for="contactName">Your name</label>
+        <input id="contactName" class="focus-ring" type="text" placeholder="Alex Chen" autocomplete="name" required>
+      </div>
+      <div>
+        <label for="contactEmail">Email</label>
+        <input id="contactEmail" class="focus-ring" type="email" placeholder="alex@email.com" autocomplete="email" required>
+      </div>
+      <div>
+        <label for="contactMessage">What is on your mind?</label>
+        <textarea id="contactMessage" class="focus-ring" placeholder="Project idea, question, or just a hello..." required></textarea>
+      </div>
+      <button class="focus-ring" type="submit">Send -></button>
+    </form>
+  </div>
+</div>
+
+<div class="panel-overlay" id="panel-more" role="dialog" aria-modal="true" aria-labelledby="more-title" aria-hidden="true">
+  <div class="panel-bg"></div>
+  <div class="panel">
+    <button class="panel-close focus-ring" type="button" data-close-panel="more">Close x</button>
+    <span class="panel-kicker">03 / More to come</span>
+    <h2 class="panel-title" id="more-title">WHAT IS<br>NEXT.</h2>
+    <div class="panel-body">
+      <p>This is just the first signal. Here is what is planned next:</p>
+    </div>
+    <div class="coming-list">
+      <div class="coming-item">
+        <span class="coming-item-name">ReversePanda App</span>
+        <span class="coming-item-status soon">In build</span>
+      </div>
+      <div class="coming-item">
+        <span class="coming-item-name">Public Launch</span>
+        <span class="coming-item-status soon">Soon</span>
+      </div>
+      <div class="coming-item">
+        <span class="coming-item-name">Early Features</span>
+        <span class="coming-item-status">Later</span>
+      </div>
+      <div class="coming-item">
+        <span class="coming-item-name">Community</span>
+        <span class="coming-item-status">When ready</span>
+      </div>
+      <div class="coming-item">
+        <span class="coming-item-name">More</span>
+        <span class="coming-item-status">Unknown</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let activePanelId = null;
+let triggerEl = null;
+
+function openPanel(id) {
+  const el = document.getElementById('panel-' + id);
+  if (!el) return;
+  triggerEl = document.activeElement;
+  activePanelId = id;
+  el.setAttribute('aria-hidden', 'false');
+  el.style.display = 'flex';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => el.classList.add('visible'));
+  });
+  document.body.style.overflow = 'hidden';
+  const focusTarget = el.querySelector('[data-close-panel]');
+  if (focusTarget) focusTarget.focus();
+}
+
+function closePanel(id) {
+  const el = document.getElementById('panel-' + id);
+  if (!el) return;
+  el.classList.remove('visible');
+  el.setAttribute('aria-hidden', 'true');
+  setTimeout(() => {
+    el.style.display = 'none';
+    const stillOpen = document.querySelector('.panel-overlay.visible');
+    document.body.style.overflow = stillOpen ? 'hidden' : '';
+  }, 320);
+  activePanelId = null;
+  if (triggerEl) triggerEl.focus();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    ['about', 'contact', 'more'].forEach(id => {
+      const el = document.getElementById('panel-' + id);
+      if (el.classList.contains('visible')) closePanel(id);
+    });
+  }
+});
+
+document.querySelectorAll('[data-open-panel]').forEach(btn => {
+  btn.addEventListener('click', () => openPanel(btn.dataset.openPanel));
+});
+
+document.querySelectorAll('[data-close-panel]').forEach(btn => {
+  btn.addEventListener('click', () => closePanel(btn.dataset.closePanel));
+});
+
+document.querySelectorAll('.panel-overlay').forEach(panel => {
+  panel.addEventListener('click', e => {
+    if (e.target === panel || e.target.classList.contains('panel-bg')) {
+      closePanel(panel.id.replace('panel-', ''));
+    }
+  });
+});
+
+function handleNotifySubmit(e) {
+  e.preventDefault();
+  const emailInput = document.getElementById('notifyEmail');
+  if (!emailInput.checkValidity()) {
+    emailInput.style.borderColor = 'rgba(232,24,12,0.6)';
+    emailInput.focus();
+    return;
+  }
+  emailInput.style.borderColor = '';
+  document.getElementById('notifyForm').style.display = 'none';
+  const success = document.getElementById('notifySuccess');
+  success.style.display = 'block';
+  success.style.opacity = '0';
+  success.style.transition = 'opacity 0.4s';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => { success.style.opacity = '1'; });
+  });
+}
+
+function handleContactSubmit(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  const btn = form.querySelector('button[type="submit"]');
+  btn.textContent = 'Sent';
+  btn.style.background = 'var(--cream)';
+  btn.disabled = true;
+}
+
+document.getElementById('notifyForm').addEventListener('submit', handleNotifySubmit);
+document.getElementById('contactForm').addEventListener('submit', handleContactSubmit);
+</script>
+</body>
+</html>

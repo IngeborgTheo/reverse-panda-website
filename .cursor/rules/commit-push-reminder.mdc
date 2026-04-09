@@ -1,0 +1,24 @@
+---
+description: Remind to commit and push after meaningful changes
+alwaysApply: true
+---
+
+# Commit and Push Reminder
+
+When a coding task is finished and changes were made, remind the user to:
+
+1. Review the diff and run a quick local check.
+2. Commit with a clear message.
+3. Push the branch to GitHub.
+
+Use this concise reminder format:
+
+- "Changes are ready. Want me to help you commit and push?"
+
+If the user agrees, guide with:
+
+```bash
+git add .
+git commit -m "your message"
+git push
+```
