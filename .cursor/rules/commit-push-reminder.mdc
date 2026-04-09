@@ -15,6 +15,31 @@ Use this concise reminder format:
 
 - "Changes are ready. Want me to help you commit and push?"
 
+## Commit Message Quality
+
+Always write clean, specific commit messages:
+
+- Use Conventional Commits format: `<type>: <subject>`.
+- Keep subject concise, descriptive, and in imperative mood.
+- Mention user-facing goal or reason, not only file names.
+- Prefer lowercase type and sentence-style subject.
+
+Use these types:
+
+- `feat`: new feature or noticeable enhancement
+- `fix`: bug fix or regression fix
+- `refactor`: internal code improvements without behavior change
+- `style`: formatting/styling-only changes
+- `docs`: documentation-only changes
+- `test`: tests added/updated
+- `chore`: maintenance, config, tooling, non-feature tasks
+
+Preferred examples:
+
+- "feat: add temporary ReversePanda coming-soon landing page"
+- "fix: improve dialog close handling on Escape"
+- "chore: add Cursor rule for commit and push reminders"
+
 If the user agrees, guide with:
 
 ```bash
