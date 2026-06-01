@@ -242,28 +242,146 @@ nav {
   padding: 3rem 2rem;
 }
 
-.phone-frame {
-  width: min(280px, 78vw);
-  background: var(--cream);
-  border-radius: var(--radius-phone);
-  border: var(--border);
-  overflow: hidden;
-  box-shadow: var(--shadow-brutal);
+/* ── Android device mockups ── */
+.device-stage {
   position: relative;
-  z-index: 2;
-  transform: rotate(-2deg);
-  animation: float 4s ease-in-out infinite;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 420px;
 }
 
-.phone-frame img {
+.device-stage--hero {
+  min-height: 520px;
+  padding: 1rem 0;
+}
+
+.device-stage--showcase {
+  min-height: 560px;
+}
+
+.device-mockup {
+  position: relative;
+  width: var(--device-width, 272px);
+  filter: drop-shadow(12px 16px 0 rgba(17, 17, 17, 0.22));
+}
+
+.device-stage--hero .device-mockup--front {
+  --device-width: min(290px, 76vw);
+  z-index: 3;
+  transform: rotate(-5deg);
+  animation: device-float 5s ease-in-out infinite;
+}
+
+.device-stage--hero .device-mockup--back {
+  --device-width: min(250px, 64vw);
+  position: absolute;
+  z-index: 1;
+  right: 8%;
+  top: 10%;
+  transform: rotate(9deg) translateY(24px);
+  opacity: 0.55;
+  filter: drop-shadow(8px 10px 0 rgba(17, 17, 17, 0.15));
+}
+
+.device-mockup--showcase {
+  --device-width: min(330px, 84vw);
+  transform: rotate(3deg);
+}
+
+.device-chassis {
+  position: relative;
+  padding: 11px;
+  border-radius: 44px;
+  background: linear-gradient(145deg, #2a2a2a 0%, #111 42%, #1c1c1c 100%);
+  border: var(--border);
+  box-shadow:
+    var(--shadow-brutal),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -10px 20px rgba(0, 0, 0, 0.35);
+}
+
+.device-chassis::before,
+.device-chassis::after {
+  content: "";
+  position: absolute;
+  background: #0a0a0a;
+  border-radius: 2px;
+  z-index: 4;
+}
+
+.device-chassis::before {
+  width: 3px;
+  height: 52px;
+  right: -5px;
+  top: 108px;
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+.device-chassis::after {
+  width: 3px;
+  height: 34px;
+  right: -5px;
+  top: 178px;
+}
+
+.device-island {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #050505;
+  border: 2px solid #000;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  z-index: 5;
+}
+
+.device-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 34px;
+  border: 2px solid #000;
+  background: var(--cream);
+  aspect-ratio: 9 / 19.5;
+}
+
+.device-screen img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
-@keyframes float {
-  0%, 100% { transform: rotate(-2deg) translateY(0); }
-  50% { transform: rotate(-2deg) translateY(-10px); }
+.device-chin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22px;
+  padding-top: 6px;
+}
+
+.device-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.device-nav-bar span {
+  width: 96px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(245, 240, 232, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+@keyframes device-float {
+  0%, 100% { transform: rotate(-5deg) translateY(0); }
+  50% { transform: rotate(-5deg) translateY(-12px); }
 }
 
 .ticker {
@@ -473,22 +591,6 @@ nav {
   overflow: hidden;
 }
 
-.settings-preview {
-  width: min(340px, 90vw);
-  background: var(--cream);
-  border: var(--border);
-  border-radius: var(--radius-phone);
-  overflow: hidden;
-  box-shadow: var(--shadow-brutal);
-  position: relative;
-  z-index: 2;
-}
-
-.settings-preview img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
 
 .manifesto {
   background: var(--black);
@@ -727,6 +829,16 @@ button:focus-visible {
 
   .hero-right {
     min-height: 55vw;
+    padding: 2rem 1rem;
+  }
+
+  .device-stage--hero {
+    min-height: 460px;
+  }
+
+  .device-stage--hero .device-mockup--back {
+    right: 2%;
+    top: 14%;
   }
 
   .features {
@@ -750,6 +862,15 @@ button:focus-visible {
 
   .showcase-visual {
     min-height: 60vw;
+    padding: 2.5rem 1rem;
+  }
+
+  .device-stage--showcase {
+    min-height: 480px;
+  }
+
+  .device-mockup--showcase {
+    transform: rotate(1deg);
   }
 
   .manifesto {
@@ -786,5 +907,13 @@ button:focus-visible {
   .fade-in {
     opacity: 1;
     transform: none;
+  }
+
+  .device-mockup--front {
+    animation: none !important;
+  }
+
+  .device-stage--hero .device-mockup--front {
+    transform: rotate(-5deg);
   }
 }
