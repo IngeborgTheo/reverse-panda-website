@@ -1,9 +1,17 @@
 :root {
+  /* Launcher design tokens */
   --blue: #89c4e1;
   --cream: #f5f0e8;
   --black: #111111;
-  --orange: #e8a020;
-  --border: 1.5px solid var(--black);
+  --white: #ffffff;
+  --orange: #f0b429;
+  --border: 2px solid var(--black);
+  --shadow-brutal: 5px 5px 0 var(--black);
+  --shadow-brutal-sm: 3px 3px 0 var(--black);
+  --radius-card: 22px;
+  --radius-phone: 32px;
+  --dot-grid: radial-gradient(circle, rgba(17, 17, 17, 0.14) 1px, transparent 1px);
+  --dot-size: 7px 7px;
 }
 
 *, *::before, *::after {
@@ -27,10 +35,17 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: var(--dot-grid);
+  background-size: var(--dot-size);
   pointer-events: none;
-  z-index: 1000;
-  opacity: 0.5;
+  z-index: 0;
+  opacity: 0.35;
+}
+
+.surface-blue-dots {
+  background-color: var(--blue);
+  background-image: var(--dot-grid);
+  background-size: var(--dot-size);
 }
 
 .preview-banner {
@@ -81,8 +96,13 @@ nav {
   object-fit: contain;
 }
 
-.nav-logo span {
-  color: var(--blue);
+.nav-logo .brand-panda {
+  display: inline-block;
+  background: var(--blue);
+  color: var(--white);
+  padding: 0 0.2em;
+  margin-left: 0.05em;
+  box-shadow: var(--shadow-brutal-sm);
 }
 
 .nav-links {
@@ -152,8 +172,12 @@ nav {
   margin-bottom: 1.5rem;
 }
 
-.hero-title .blue {
-  color: var(--blue);
+.hero-title .hero-panda {
+  display: inline-block;
+  background: var(--blue);
+  color: var(--white);
+  padding: 0 0.12em;
+  box-shadow: var(--shadow-brutal);
 }
 
 .hero-sub {
@@ -170,43 +194,46 @@ nav {
   flex-wrap: wrap;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-secondary {
   font-family: "Bebas Neue", sans-serif;
   font-size: 1.1rem;
   letter-spacing: 0.1em;
-  background: var(--black);
-  color: var(--cream);
   padding: 0.8rem 2.2rem;
   border: var(--border);
   text-decoration: none;
   display: inline-block;
-  transition: background 0.15s, color 0.15s;
+  box-shadow: var(--shadow-brutal);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s;
+}
+
+.btn-primary {
+  background: var(--black);
+  color: var(--cream);
 }
 
 .btn-primary:hover {
   background: var(--orange);
   color: var(--black);
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--black);
 }
 
 .btn-secondary {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
-  background: transparent;
+  background: var(--cream);
   color: var(--black);
-  padding: 0.8rem 2.2rem;
-  border: var(--border);
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.15s;
 }
 
 .btn-secondary:hover {
   background: var(--blue);
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--black);
 }
 
 .hero-right {
   background: var(--blue);
+  background-image: var(--dot-grid);
+  background-size: var(--dot-size);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -215,112 +242,28 @@ nav {
   padding: 3rem 2rem;
 }
 
-.hero-right::before {
-  content: "REVERSE PANDA";
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 10rem;
-  color: rgba(0, 0, 0, 0.07);
-  position: absolute;
-  white-space: nowrap;
-  transform: rotate(-15deg);
-  pointer-events: none;
-  letter-spacing: 0.05em;
-}
-
 .phone-frame {
-  width: 240px;
+  width: min(280px, 78vw);
   background: var(--cream);
-  border-radius: 36px;
+  border-radius: var(--radius-phone);
   border: var(--border);
-  border-width: 2px;
   overflow: hidden;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-brutal);
   position: relative;
   z-index: 2;
-  transform: rotate(-3deg);
+  transform: rotate(-2deg);
   animation: float 4s ease-in-out infinite;
 }
 
+.phone-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 @keyframes float {
-  0%, 100% { transform: rotate(-3deg) translateY(0); }
-  50% { transform: rotate(-3deg) translateY(-10px); }
-}
-
-.phone-statusbar {
-  background: var(--blue);
-  padding: 0.6rem 1.2rem 0.4rem;
-  font-size: 0.6rem;
-  font-weight: 700;
-  display: flex;
-  justify-content: space-between;
-}
-
-.phone-header {
-  background: var(--blue);
-  padding: 1rem 1rem 1.2rem;
-  text-align: center;
-}
-
-.phone-header h1 {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.5rem;
-  line-height: 1;
-  letter-spacing: 0.02em;
-}
-
-.phone-header h1 span {
-  color: white;
-}
-
-.settings-label {
-  display: inline-block;
-  background: var(--orange);
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 0.7rem;
-  padding: 0.18rem 0.5rem;
-  letter-spacing: 0.08em;
-  transform: rotate(-2deg);
-  margin-top: 0.2rem;
-}
-
-.phone-body {
-  background: var(--cream);
-  padding: 0.8rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-}
-
-.mini-card {
-  background: var(--blue);
-  border: 1.5px solid var(--black);
-  border-radius: 12px;
-  padding: 0.7rem 0.6rem 0.5rem;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 0.7rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 70px;
-}
-
-.mini-card.wide {
-  grid-column: 1 / -1;
-}
-
-.mini-card .arrow {
-  text-align: right;
-  font-size: 0.8rem;
-}
-
-.phone-footer {
-  background: var(--cream);
-  padding: 0.5rem 1rem 0.8rem;
-  font-size: 0.42rem;
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  opacity: 0.6;
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(-2deg) translateY(-10px); }
 }
 
 .ticker {
@@ -373,7 +316,9 @@ nav {
 }
 
 .feature-card:hover {
-  background: var(--blue);
+  background-color: var(--blue);
+  background-image: var(--dot-grid);
+  background-size: var(--dot-size);
 }
 
 .feature-num {
@@ -390,8 +335,9 @@ nav {
 .feature-icon {
   width: 48px;
   height: 48px;
-  background: var(--black);
+  background: var(--blue);
   border: var(--border);
+  box-shadow: var(--shadow-brutal-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -402,7 +348,7 @@ nav {
 .feature-icon svg {
   width: 22px;
   height: 22px;
-  fill: var(--cream);
+  fill: var(--black);
 }
 
 .feature-title {
@@ -465,37 +411,60 @@ nav {
 
 .settings-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 1rem;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 0.8rem 1rem;
+  padding: 0.9rem 1rem;
   border: var(--border);
-  background: transparent;
-  transition: background 0.15s;
+  border-radius: var(--radius-card);
+  background-color: var(--blue);
+  background-image: var(--dot-grid);
+  background-size: var(--dot-size);
+  box-shadow: var(--shadow-brutal-sm);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .settings-item:hover {
-  background: var(--blue);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-brutal);
   cursor: default;
 }
 
-.settings-item .dot {
-  width: 8px;
-  height: 8px;
-  background: var(--blue);
-  border: 1px solid var(--black);
-  flex-shrink: 0;
+.settings-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
 }
 
-.settings-item:hover .dot {
-  background: var(--orange);
+.settings-item-text small {
+  font-size: 0.68rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+  opacity: 0.85;
+}
+
+.settings-item .arrow-chip {
+  width: 28px;
+  height: 28px;
+  border: var(--border);
+  background: var(--cream);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 0.85rem;
 }
 
 .showcase-visual {
   background: var(--blue);
+  background-image: var(--dot-grid);
+  background-size: var(--dot-size);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -504,100 +473,21 @@ nav {
   overflow: hidden;
 }
 
-.showcase-visual::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 20px,
-    rgba(0, 0, 0, 0.03) 20px,
-    rgba(0, 0, 0, 0.03) 21px
-  );
-  pointer-events: none;
-}
-
 .settings-preview {
-  width: 280px;
+  width: min(340px, 90vw);
   background: var(--cream);
-  border: 2px solid var(--black);
-  border-radius: 24px;
+  border: var(--border);
+  border-radius: var(--radius-phone);
   overflow: hidden;
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-brutal);
   position: relative;
   z-index: 2;
 }
 
-.sp-header {
-  background: var(--blue);
-  padding: 1.5rem 1.5rem 2rem;
-  border-bottom: 2px solid var(--black);
-}
-
-.sp-header h2 {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 2rem;
-  line-height: 1;
-}
-
-.sp-header h2 span {
-  color: white;
-}
-
-.sp-badge {
-  display: inline-block;
-  background: var(--orange);
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 0.62rem;
-  padding: 0.1rem 0.5rem;
-  letter-spacing: 0.08em;
-  transform: rotate(-1deg);
-  margin-top: 0.3rem;
-}
-
-.sp-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  padding: 1.2rem;
-}
-
-.sp-card {
-  background: var(--blue);
-  border: 1.5px solid var(--black);
-  border-radius: 14px;
-  padding: 1rem 0.9rem 0.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  min-height: 100px;
-}
-
-.sp-card.full {
-  grid-column: 1 / -1;
-  min-height: 72px;
-}
-
-.sp-card-title {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  line-height: 1.1;
-}
-
-.sp-card-desc {
-  font-family: "Courier Prime", monospace;
-  font-size: 0.52rem;
-  opacity: 0.7;
-  line-height: 1.4;
-  flex: 1;
-}
-
-.sp-arrow {
-  font-size: 0.75rem;
-  text-align: right;
-  margin-top: 0.2rem;
+.settings-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .manifesto {
@@ -683,7 +573,8 @@ nav {
 .tag {
   display: inline-block;
   background: var(--blue);
-  border: 1px solid var(--black);
+  border: var(--border);
+  box-shadow: 2px 2px 0 var(--black);
   font-size: 0.7rem;
   padding: 0.15rem 0.5rem;
   font-weight: 700;
@@ -698,6 +589,8 @@ nav {
 
 .cta-section {
   background: var(--blue);
+  background-image: var(--dot-grid);
+  background-size: var(--dot-size);
   padding: 7rem 3.5rem;
   border-bottom: var(--border);
   display: flex;
@@ -765,7 +658,7 @@ footer {
   letter-spacing: 0.03em;
 }
 
-.footer-logo span {
+.footer-logo .brand-panda {
   color: var(--blue);
 }
 

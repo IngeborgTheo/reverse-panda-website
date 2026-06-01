@@ -24,7 +24,7 @@
   <nav aria-label="Primary">
     <a href="#" class="nav-logo">
       <img src="../assets/logo/reverse-panda-logo.png" alt="Reverse Panda logo">
-      REVERSE<span>PANDA</span>
+      REVERSE<span class="brand-panda">PANDA</span>
     </a>
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
@@ -37,7 +37,7 @@
   <section class="hero">
     <div class="hero-left fade-in">
       <p class="hero-eyebrow">Android Launcher · V1.0</p>
-      <h1 class="hero-title">REVERSE<br><span class="blue">PANDA</span></h1>
+      <h1 class="hero-title">REVERSE<br><span class="hero-panda">PANDA</span></h1>
       <p class="hero-sub">A launcher that flips the script. Different by design — built for the ones who never fit the default.</p>
       <div class="hero-buttons">
         <a href="#download" class="btn-primary">Get it Free</a>
@@ -46,34 +46,13 @@
     </div>
     <div class="hero-right">
       <div class="phone-frame">
-        <div class="phone-statusbar"><span>19:43</span><span>▲ ᯤ 37</span></div>
-        <div class="phone-header">
-          <h1>REVERSE<span>PANDA</span></h1>
-          <div class="settings-label">SETTINGS</div>
-        </div>
-        <div class="phone-body">
-          <div class="mini-card">
-            <div><strong>LOOK</strong></div>
-            <div class="arrow">→</div>
-          </div>
-          <div class="mini-card">
-            <div><strong>HOME SCREEN</strong></div>
-            <div class="arrow">→</div>
-          </div>
-          <div class="mini-card">
-            <div><strong>APP DRAWER</strong></div>
-            <div class="arrow">→</div>
-          </div>
-          <div class="mini-card">
-            <div><strong>GESTURES &amp; TRANSITIONS</strong></div>
-            <div class="arrow">→</div>
-          </div>
-          <div class="mini-card wide">
-            <div><strong>DATA &amp; GENERAL</strong></div>
-            <div class="arrow">→</div>
-          </div>
-        </div>
-        <div class="phone-footer"><span>V1.0</span><span>reverse-panda.ch</span><span>⊕</span></div>
+        <img
+          src="../assets/screenshots/reverse-panda-settings.png"
+          alt="Reverse Panda settings screen"
+          width="1080"
+          height="1920"
+          loading="eager"
+        >
       </div>
     </div>
   </section>
@@ -132,46 +111,37 @@
       <h2 class="section-title">CONTROL EVERYTHING</h2>
       <p class="section-body">Five focused settings categories. No bloat, no buried options — every setting is where you'd expect it, with a clear description of what it does.</p>
       <div class="settings-list">
-        <div class="settings-item"><span class="dot"></span>LOOK — Themes, fonts, icon packs</div>
-        <div class="settings-item"><span class="dot"></span>HOME SCREEN — Layout, dock, wallpaper</div>
-        <div class="settings-item"><span class="dot"></span>APP DRAWER — Groups, folders, sorting</div>
-        <div class="settings-item"><span class="dot"></span>GESTURES &amp; TRANSITIONS — Swipe actions</div>
-        <div class="settings-item"><span class="dot"></span>DATA &amp; GENERAL — Backup, onboarding</div>
+        <div class="settings-item">
+          <div class="settings-item-text"><strong>LOOK</strong><small>Themes, fonts, icon packs</small></div>
+          <span class="arrow-chip" aria-hidden="true">→</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-text"><strong>HOME SCREEN</strong><small>Layout, dock, wallpaper</small></div>
+          <span class="arrow-chip" aria-hidden="true">→</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-text"><strong>APP DRAWER</strong><small>Groups, folders, sorting</small></div>
+          <span class="arrow-chip" aria-hidden="true">→</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-text"><strong>GESTURES &amp; TRANSITIONS</strong><small>Swipe actions and transitions</small></div>
+          <span class="arrow-chip" aria-hidden="true">→</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-text"><strong>DATA &amp; GENERAL</strong><small>Backup, onboarding, support</small></div>
+          <span class="arrow-chip" aria-hidden="true">→</span>
+        </div>
       </div>
     </div>
     <div class="showcase-visual">
       <div class="settings-preview">
-        <div class="sp-header">
-          <h2>REVERSE<span>PANDA</span></h2>
-          <div class="sp-badge">SETTINGS</div>
-        </div>
-        <div class="sp-grid">
-          <div class="sp-card">
-            <div class="sp-card-title">LOOK</div>
-            <div class="sp-card-desc">Theme Mode, Fonts, icon packs/shape and visual styling.</div>
-            <div class="sp-arrow">→</div>
-          </div>
-          <div class="sp-card">
-            <div class="sp-card-title">HOME SCREEN</div>
-            <div class="sp-card-desc">Layout, dock, pages and wallpaper.</div>
-            <div class="sp-arrow">→</div>
-          </div>
-          <div class="sp-card">
-            <div class="sp-card-title">APP DRAWER</div>
-            <div class="sp-card-desc">Layout, appearance, groups and folders.</div>
-            <div class="sp-arrow">→</div>
-          </div>
-          <div class="sp-card">
-            <div class="sp-card-title">GESTURES &amp; TRANSITIONS</div>
-            <div class="sp-card-desc">Swipe actions and page or drawer transitions.</div>
-            <div class="sp-arrow">→</div>
-          </div>
-          <div class="sp-card full">
-            <div class="sp-card-title">DATA &amp; GENERAL</div>
-            <div class="sp-card-desc">Backups, onboarding, default launcher and support.</div>
-            <div class="sp-arrow">→</div>
-          </div>
-        </div>
+        <img
+          src="../assets/screenshots/reverse-panda-settings.png"
+          alt="Reverse Panda settings screen with category cards"
+          width="1080"
+          height="1920"
+          loading="lazy"
+        >
       </div>
     </div>
   </section>
@@ -223,7 +193,7 @@
   </section>
 
   <footer>
-    <div class="footer-logo">REVERSE<span>PANDA</span></div>
+    <div class="footer-logo">REVERSE<span class="brand-panda">PANDA</span></div>
     <ul class="footer-links">
       <li><a href="../">Coming Soon</a></li>
       <li><a href="#features">Features</a></li>
