@@ -263,14 +263,14 @@ nav {
   max-height: min(82vh, 760px);
 }
 
-/* Screen-only mockup (no device bezel) */
+/* Phone mockup image only — no extra frame or shadow in CSS */
 .device-mockup--composite {
   width: 100%;
   max-width: 280px;
   flex-shrink: 0;
+  margin: 0;
+  padding: 0;
   border: none;
-  border-radius: 0;
-  overflow: visible;
   background: transparent;
   box-shadow: none;
   line-height: 0;
@@ -284,8 +284,8 @@ nav {
   object-fit: contain;
   object-position: top center;
   border: none;
-  border-radius: 24px;
-  box-shadow: 0 20px 48px rgba(17, 17, 17, 0.18);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .device-stage--hero .device-mockup--composite {
