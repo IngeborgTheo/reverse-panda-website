@@ -33,7 +33,8 @@ This repository hosts the public website for ReversePanda on GitHub Pages.
 ├── assets/logo/            # Shared brand assets
 └── live/                   # Full website (preview until launch)
     ├── index.html
-    └── styles.css
+    ├── styles.css
+    └── script.js
 ```
 
 ## Commits
