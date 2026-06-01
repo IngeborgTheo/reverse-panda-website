@@ -238,63 +238,31 @@ nav {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   padding: 2rem 1.5rem;
 }
 
-/* ── Android device mockups ── */
-.device-stage {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 360px;
-  margin: 0 auto;
-}
-
-.device-stage--hero {
-  max-height: min(78vh, 720px);
-  padding: 0.5rem 0;
-}
-
-.device-stage--showcase {
-  max-width: 380px;
-  max-height: min(82vh, 760px);
-}
-
-/* Phone mockup image only — no extra frame or shadow in CSS */
-.device-mockup--composite {
-  width: 100%;
-  max-width: 280px;
-  flex-shrink: 0;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  box-shadow: none;
-  line-height: 0;
-}
-
-.device-mockup--composite img {
+/* Phone mockup PNG only — no wrapper frame or shadow */
+.mockup-img {
   display: block;
   width: 100%;
   height: auto;
   max-height: min(74vh, 680px);
   object-fit: contain;
-  object-position: top center;
+  object-position: center;
   border: none;
   border-radius: 0;
   box-shadow: none;
+  background: transparent;
 }
 
-.device-stage--hero .device-mockup--composite {
+.mockup-img--hero {
   max-width: min(280px, 100%);
   transform: rotate(-4deg);
   animation: device-float 5s ease-in-out infinite;
 }
 
-.device-stage--showcase .device-mockup--composite {
+.mockup-img--showcase {
   max-width: min(320px, 100%);
   transform: rotate(2deg);
 }
@@ -598,9 +566,8 @@ nav {
   justify-content: center;
   padding: 4rem 2rem;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
-
 
 .manifesto {
   background: var(--black);
@@ -842,13 +809,13 @@ button:focus-visible {
     padding: 2rem 1rem 2.5rem;
   }
 
-  .device-stage--hero,
-  .device-stage--showcase {
-    max-width: min(300px, 88vw);
+  .mockup-img {
+    max-height: min(62vh, 560px);
   }
 
-  .device-mockup--composite img {
-    max-height: min(62vh, 560px);
+  .mockup-img--hero,
+  .mockup-img--showcase {
+    max-width: min(300px, 88vw);
   }
 
   .features {
@@ -875,7 +842,7 @@ button:focus-visible {
     padding: 2.5rem 1rem;
   }
 
-  .device-stage--showcase .device-mockup--composite {
+  .mockup-img--showcase {
     transform: rotate(1deg);
   }
 
@@ -915,7 +882,7 @@ button:focus-visible {
     transform: none;
   }
 
-  .device-stage--hero .device-mockup--composite {
+  .mockup-img--hero {
     animation: none !important;
     transform: rotate(-4deg);
   }
