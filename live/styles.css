@@ -239,71 +239,61 @@ nav {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
 }
 
 /* ── Android device mockups ── */
 .device-stage {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  min-height: 420px;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 .device-stage--hero {
-  min-height: 520px;
-  padding: 1rem 0;
+  max-height: min(78vh, 720px);
+  padding: 0.5rem 0;
 }
 
 .device-stage--showcase {
-  min-height: 560px;
-}
-
-.device-mockup {
-  position: relative;
-  width: var(--device-width, 272px);
-  filter: drop-shadow(12px 16px 0 rgba(17, 17, 17, 0.22));
+  max-width: 380px;
+  max-height: min(82vh, 760px);
 }
 
 /* Full phone mockup image (includes device frame + status bar) */
 .device-mockup--composite {
-  width: var(--device-width, 300px);
+  width: 100%;
+  max-width: 280px;
+  flex-shrink: 0;
   border: var(--border);
-  border-radius: 40px;
+  border-radius: 36px;
   overflow: hidden;
   background: #111;
   box-shadow: var(--shadow-brutal);
+  line-height: 0;
 }
 
 .device-mockup--composite img {
   display: block;
   width: 100%;
   height: auto;
-  vertical-align: top;
+  max-height: min(74vh, 680px);
+  object-fit: contain;
+  object-position: top center;
 }
 
-.device-stage--hero .device-mockup--front {
-  --device-width: min(300px, 78vw);
-  z-index: 3;
-  transform: rotate(-5deg);
+.device-stage--hero .device-mockup--composite {
+  max-width: min(280px, 100%);
+  transform: rotate(-4deg);
   animation: device-float 5s ease-in-out infinite;
 }
 
-.device-stage--hero .device-mockup--back {
-  --device-width: min(260px, 66vw);
-  position: absolute;
-  z-index: 1;
-  right: 6%;
-  top: 8%;
-  transform: rotate(8deg) translateY(20px);
-  opacity: 0.5;
-  filter: drop-shadow(8px 10px 0 rgba(17, 17, 17, 0.15));
-}
-
-.device-mockup--showcase.device-mockup--composite {
-  --device-width: min(340px, 88vw);
-  transform: rotate(3deg);
+.device-stage--showcase .device-mockup--composite {
+  max-width: min(320px, 100%);
+  transform: rotate(2deg);
 }
 
 .device-chassis {
@@ -845,17 +835,17 @@ button:focus-visible {
   }
 
   .hero-right {
-    min-height: 55vw;
-    padding: 2rem 1rem;
+    min-height: auto;
+    padding: 2rem 1rem 2.5rem;
   }
 
-  .device-stage--hero {
-    min-height: 460px;
+  .device-stage--hero,
+  .device-stage--showcase {
+    max-width: min(300px, 88vw);
   }
 
-  .device-stage--hero .device-mockup--back {
-    right: 2%;
-    top: 14%;
+  .device-mockup--composite img {
+    max-height: min(62vh, 560px);
   }
 
   .features {
@@ -882,11 +872,7 @@ button:focus-visible {
     padding: 2.5rem 1rem;
   }
 
-  .device-stage--showcase {
-    min-height: 480px;
-  }
-
-  .device-mockup--showcase {
+  .device-stage--showcase .device-mockup--composite {
     transform: rotate(1deg);
   }
 
@@ -926,11 +912,8 @@ button:focus-visible {
     transform: none;
   }
 
-  .device-mockup--front {
+  .device-stage--hero .device-mockup--composite {
     animation: none !important;
-  }
-
-  .device-stage--hero .device-mockup--front {
-    transform: rotate(-5deg);
+    transform: rotate(-4deg);
   }
 }
