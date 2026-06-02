@@ -1,23 +1,51 @@
 ---
-description: Remind to commit and push after meaningful changes
+description: Remind to commit and push only when it makes sense
 alwaysApply: true
 ---
 
 # Commit and Push Reminder
 
-When a coding task is finished and changes were made, remind the user to:
+Do **not** remind after every task. Remind only when it is a natural stopping point and uncommitted work is worth saving.
 
-1. Review the diff and run a quick local check.
-2. Commit with a clear message.
-3. Push the branch to GitHub.
+## When to remind
 
-Use this concise reminder format:
+Remind briefly (one short line) only if **all** apply:
+
+1. You made **meaningful** file changes in this session (not just read/explore).
+2. The work feels **complete** for the current request (feature, fix, or agreed milestone).
+3. The user has **not** already asked you to commit/push in the same flow.
+4. There is a **clear benefit** to saving now (deployable state, end of task, before context switch).
+
+Good moments:
+
+- A user-facing change is done and tested locally.
+- The user says they are finished, happy, or moving on.
+- A batch of related edits is ready and would be hard to recreate.
+
+## When NOT to remind
+
+Skip the reminder if any of these apply:
+
+- Question-only, review-only, or planning-only work.
+- Tiny or partial WIP the user will likely continue soon.
+- You already committed or pushed in this conversation.
+- The user said they will commit later or did not ask for git actions.
+- Only rule/docs tweaks unless the user asked to save them now.
+- The user explicitly asked you **not** to remind.
+
+If unsure, **do not remind**.
+
+## Reminder format (only when reminding)
+
+Use one concise line:
 
 - "Changes are ready. Want me to help you commit and push?"
 
+Do not repeat this in the same thread unless new meaningful changes accumulated.
+
 ## Commit Message Quality
 
-Always write clean, specific commit messages:
+When committing (reminder or user request), always write clean, specific messages:
 
 - Use Conventional Commits format: `<type>: <subject>`.
 - Keep subject concise, descriptive, and in imperative mood.

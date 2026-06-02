@@ -19,13 +19,13 @@
 :root {
   --paper: #F0EBE0;
   --paper-dark: #E2DAC8;
-  --ink: #0E0D0B;
-  --blue: #89C4E1;
-  --blue-pale: #D6EEF8;
+  --ink: #1B1915;
+  --blue: #83BCDD;
+  --blue-pale: #E8E5D5;
   --red: #E8180C;
-  --cream: #FAF6EE;
+  --cream: #F3F1EA;
   --mid: #B8B0A0;
-  --dark: #1C1A16;
+  --dark: #1B1915;
 }
 
 html, body {
@@ -86,7 +86,7 @@ nav {
   align-items: center;
   padding: 0 36px;
   height: 56px;
-  border-bottom: 1px solid rgba(137,196,225,0.15);
+  border-bottom: 1px solid rgba(131,188,221,0.15);
   background: rgba(14,13,11,0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -138,8 +138,8 @@ nav {
 .nav-menu li:last-child a { border-right: 1px solid rgba(255,255,255,0.06); }
 .nav-menu li button { border-right: 1px solid rgba(255,255,255,0.06); }
 
-.nav-menu li a:hover { color: var(--blue); background: rgba(137,196,225,0.05); }
-.nav-menu li button:hover { color: var(--blue); background: rgba(137,196,225,0.05); }
+.nav-menu li a:hover { color: var(--blue); background: rgba(131,188,221,0.05); }
+.nav-menu li button:hover { color: var(--blue); background: rgba(131,188,221,0.05); }
 
 .nav-menu button {
   font-family: 'Courier Prime', monospace;
@@ -185,8 +185,8 @@ main::before {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(137,196,225,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(137,196,225,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(131,188,221,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(131,188,221,0.04) 1px, transparent 1px);
   background-size: 48px 48px;
   z-index: 0;
 }
@@ -215,7 +215,7 @@ main::before {
   font-size: 9px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(137,196,225,0.25);
+  color: rgba(131,188,221,0.25);
   z-index: 2;
   opacity: 0;
   animation: fadeIn 1s 1.2s forwards;
@@ -278,7 +278,7 @@ main::before {
   font-size: inherit;
   line-height: inherit;
   letter-spacing: inherit;
-  -webkit-text-stroke: 1px rgba(137,196,225,0.15);
+  -webkit-text-stroke: 1px rgba(131,188,221,0.15);
   color: transparent;
   transform: translate(5px, 5px);
   pointer-events: none;
@@ -301,7 +301,7 @@ main::before {
   content: '';
   height: 1px;
   width: 48px;
-  background: rgba(137,196,225,0.3);
+  background: rgba(131,188,221,0.3);
   display: block;
 }
 
@@ -311,7 +311,7 @@ main::before {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--blue);
-  border: 1px solid rgba(137,196,225,0.3);
+  border: 1px solid rgba(131,188,221,0.3);
   padding: 5px 14px;
   position: relative;
 }
@@ -351,7 +351,7 @@ main::before {
 
 .notify-input {
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(137,196,225,0.2);
+  border: 1px solid rgba(131,188,221,0.2);
   border-right: none;
   padding: 11px 18px;
   font-family: 'Courier Prime', monospace;
@@ -364,8 +364,8 @@ main::before {
 }
 .notify-input::placeholder { color: rgba(184,176,160,0.4); }
 .notify-input:focus {
-  border-color: rgba(137,196,225,0.5);
-  background: rgba(137,196,225,0.04);
+  border-color: rgba(131,188,221,0.5);
+  background: rgba(131,188,221,0.04);
 }
 
 .notify-btn {
@@ -391,7 +391,7 @@ main::before {
   color: var(--blue);
   margin-top: 0;
   padding: 11px 20px;
-  border: 1px solid rgba(137,196,225,0.2);
+  border: 1px solid rgba(131,188,221,0.2);
 }
 
 .ticker-wrap {
@@ -399,7 +399,7 @@ main::before {
   bottom: 0; left: 0; right: 0;
   z-index: 50;
   background: rgba(14,13,11,0.9);
-  border-top: 1px solid rgba(137,196,225,0.15);
+  border-top: 1px solid rgba(131,188,221,0.15);
   padding: 9px 0;
   overflow: hidden;
   white-space: nowrap;
@@ -416,10 +416,10 @@ main::before {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 12px;
   letter-spacing: 0.2em;
-  color: rgba(137,196,225,0.35);
+  color: rgba(131,188,221,0.35);
   padding: 0 36px;
 }
-.ticker-item .sep { color: rgba(137,196,225,0.15); margin: 0 4px; }
+.ticker-item .sep { color: rgba(131,188,221,0.15); margin: 0 4px; }
 
 @keyframes ticker {
   0% { transform: translateX(0); }
@@ -453,7 +453,7 @@ main::before {
   position: relative;
   z-index: 10;
   background: var(--dark);
-  border: 1px solid rgba(137,196,225,0.15);
+  border: 1px solid rgba(131,188,221,0.15);
   border-top: 3px solid var(--blue);
   max-width: 520px;
   width: calc(100% - 48px);
@@ -517,7 +517,7 @@ main::before {
   letter-spacing: 0.1em;
   color: var(--blue);
   text-decoration: none;
-  border-bottom: 1px solid rgba(137,196,225,0.3);
+  border-bottom: 1px solid rgba(131,188,221,0.3);
   padding-bottom: 1px;
   transition: color 0.2s;
 }
@@ -546,7 +546,7 @@ textarea:focus-visible {
   width: 100%;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.08);
-  border-bottom: 1px solid rgba(137,196,225,0.3);
+  border-bottom: 1px solid rgba(131,188,221,0.3);
   padding: 10px 12px;
   font-family: 'Courier Prime', monospace;
   font-size: 12px;
@@ -557,7 +557,7 @@ textarea:focus-visible {
 .panel-form input::placeholder,
 .panel-form textarea::placeholder { color: rgba(184,176,160,0.3); }
 .panel-form input:focus,
-.panel-form textarea:focus { border-color: rgba(137,196,225,0.5); }
+.panel-form textarea:focus { border-color: rgba(131,188,221,0.5); }
 .panel-form textarea { resize: vertical; min-height: 80px; }
 .panel-form button {
   background: var(--blue);
@@ -586,10 +586,10 @@ textarea:focus-visible {
   padding: 14px 16px;
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.05);
-  border-left: 2px solid rgba(137,196,225,0.15);
+  border-left: 2px solid rgba(131,188,221,0.15);
   transition: background 0.2s;
 }
-.coming-item:hover { background: rgba(137,196,225,0.04); }
+.coming-item:hover { background: rgba(131,188,221,0.04); }
 .coming-item-name {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 18px;
@@ -607,7 +607,7 @@ textarea:focus-visible {
 }
 .coming-item-status.soon {
   color: var(--blue);
-  border-color: rgba(137,196,225,0.25);
+  border-color: rgba(131,188,221,0.25);
 }
 
 @keyframes fadeIn {
@@ -632,7 +632,7 @@ textarea:focus-visible {
   .wordmark { font-size: clamp(44px, 14vw, 90px); }
   .corner { display: none; }
   .notify-form { flex-direction: column; gap: 10px; width: 100%; max-width: 300px; }
-  .notify-input { width: 100%; border-right: 1px solid rgba(137,196,225,0.2); }
+  .notify-input { width: 100%; border-right: 1px solid rgba(131,188,221,0.2); }
   .notify-btn { width: 100%; }
   .panel { padding: 32px 24px 28px; }
 }
