@@ -371,7 +371,7 @@ main {
   box-shadow: 7px 7px 0 var(--black);
 }
 
-/* Phone mockup PNG only — no wrapper frame or shadow */
+/* Showcase mockup media — portrait 9:16 WebM / PNG */
 .mockup-img {
   display: block;
   width: 100%;
@@ -385,21 +385,30 @@ main {
 }
 
 .mockup-img--showcase {
-  width: min(100%, clamp(260px, 22vw, 360px));
+  width: min(100%, clamp(240px, 20vw, 340px));
   max-width: none;
   transform: none;
 }
 
 .mockup-video--showcase {
-  width: min(100%, clamp(320px, 34vw, 520px));
+  width: min(100%, clamp(280px, 28vw, 420px));
   max-width: none;
+  aspect-ratio: 9 / 16;
+  height: auto;
   transform: none;
   display: block;
-  height: auto;
   border: none;
   background: transparent;
   object-fit: contain;
-  vertical-align: middle;
+  object-position: top center;
+}
+
+.showcase-preview-content.is-expanded .mockup-video--showcase {
+  width: min(100%, clamp(380px, 54vw, 640px));
+}
+
+.showcase-preview-content.is-expanded .mockup-img--showcase {
+  width: min(100%, clamp(320px, 48vw, 520px));
 }
 
 .mockup-video--showcase[hidden] {
@@ -408,6 +417,21 @@ main {
 
 .showcase-preview-stage.is-video-active .mockup-img--showcase {
   display: none;
+}
+
+.showcase-preview-stage {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.showcase-preview-content.is-expanded .showcase-preview-stage {
+  justify-content: flex-start;
+  justify-self: start;
+  align-self: start;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .ticker {
@@ -705,32 +729,171 @@ main {
 }
 
 .settings-submenu__btn:hover,
-.settings-submenu__btn.is-active {
+.settings-submenu__btn.is-active,
+.settings-submenu__btn.is-open {
   color: var(--black);
   opacity: 1;
   font-weight: 700;
 }
 
+.settings-submenu__branch {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.settings-submenu--depth {
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0.35rem 0 0.15rem 0.85rem;
+  border-left: 2px solid rgba(27, 25, 21, 0.18);
+}
+
+.settings-submenu--depth li {
+  border-bottom: none;
+  padding: 0.2rem 0;
+}
+
+.settings-submenu__btn--depth {
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-weight: 400;
+  opacity: 0.82;
+}
+
+.settings-submenu__btn--depth.is-active {
+  font-weight: 700;
+  opacity: 1;
+}
+
 .showcase-visual {
   background: var(--blue);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
-  gap: 1.25rem;
-  padding: 2.5rem 2rem 2.5rem 1.25rem;
+  justify-content: flex-end;
+  min-height: clamp(22rem, 52vh, 36rem);
+  padding: 2rem 2.5rem 2rem 1.5rem;
   position: relative;
   overflow: visible;
 }
 
-.showcase-preview-options {
-  align-self: stretch;
+.showcase-visual.is-expanded {
+  justify-content: stretch;
+  padding: 1.75rem 2.5rem 1.75rem 1rem;
+}
+
+.showcase-preview-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
 }
 
-.showcase-preview-stage {
+.showcase-preview-content.is-expanded {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) 26rem;
+  align-items: start;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  justify-content: stretch;
+  padding-left: 0;
+}
+
+.showcase-preview-copy-slot {
+  position: relative;
+  width: 26rem;
+  max-width: 100%;
+  height: 22rem;
+  flex-shrink: 0;
+  align-self: start;
+  justify-self: end;
+}
+
+.showcase-preview-copy-slot[hidden] {
+  display: none !important;
+}
+
+.showcase-preview-copy {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  color: var(--black);
+  text-align: left;
+  background: var(--cream);
+  border: var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-brutal);
+  padding: clamp(1.75rem, 2.5vw, 2.25rem);
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex-direction: column;
+}
+
+.showcase-preview-copy[hidden] {
+  display: none !important;
+}
+
+.showcase-preview-copy:not([hidden]) {
+  display: flex;
+  animation: preview-copy-in 0.25s ease;
+}
+
+@keyframes preview-copy-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.showcase-preview-copy__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.showcase-preview-copy__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.35rem, 3.2vw, 3.25rem);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  margin-bottom: 1.15rem;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  min-height: 2.85em;
+}
+
+.showcase-preview-copy__accent {
+  color: var(--black);
+  background: var(--orange);
+  padding: 0 0.08em;
+  box-shadow: 2px 2px 0 var(--black);
+}
+
+.showcase-preview-copy__lead {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px dashed rgba(27, 25, 21, 0.18);
+  flex-shrink: 0;
+  min-height: 3.25rem;
+}
+
+.showcase-preview-copy__body {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  opacity: 0.72;
+  flex: 1;
+  min-height: 0;
 }
 
 .manifesto {
@@ -1061,14 +1224,54 @@ button:focus-visible {
     padding-top: 0.5rem;
   }
 
-  .showcase-visual {
-    grid-template-columns: 1fr;
+  .showcase-visual,
+  .showcase-visual.is-expanded {
     min-height: auto;
     padding: 2.5rem 1.25rem;
+    justify-content: center;
   }
 
-  .showcase-preview-stage {
+  .showcase-preview-content,
+  .showcase-preview-content.is-expanded {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 0;
+    gap: 1.75rem;
+  }
+
+  .showcase-preview-stage,
+  .showcase-preview-content.is-expanded .showcase-preview-stage {
     justify-content: center;
+    align-self: center;
+    width: 100%;
+  }
+
+  .showcase-preview-copy-slot {
+    height: auto;
+    min-height: 18rem;
+    width: 100%;
+    max-width: 26rem;
+    justify-self: center;
+  }
+
+  .showcase-preview-copy {
+    position: relative;
+    inset: auto;
+    height: auto;
+    min-height: 18rem;
+    max-width: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .showcase-preview-copy__title {
+    min-height: 2.4em;
+  }
+
+  .showcase-preview-copy__lead {
+    min-height: auto;
   }
 
   .mockup-img--showcase {
@@ -1077,6 +1280,10 @@ button:focus-visible {
 
   .mockup-video--showcase {
     width: min(94vw, 400px);
+  }
+
+  .showcase-preview-content.is-expanded .mockup-video--showcase {
+    width: min(98vw, 480px);
   }
 
   .manifesto {

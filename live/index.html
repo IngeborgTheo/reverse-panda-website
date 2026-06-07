@@ -180,10 +180,27 @@
                 <p class="settings-panel__label">App Drawer</p>
                 <ul class="settings-submenu">
                   <li>Groups &amp; folders</li>
-                  <li>
-                    <button type="button" class="settings-submenu__btn" data-preview-video="../assets/videos/mockup-app-drawer-layouts.webm">
+                  <li class="settings-submenu__branch">
+                    <button type="button" class="settings-submenu__btn" data-settings-subsection="sorting-layout" aria-expanded="false" aria-controls="settings-subsection-sorting-layout">
                       Sorting &amp; layout
                     </button>
+                    <ul class="settings-submenu settings-submenu--depth" id="settings-subsection-sorting-layout" data-settings-subsection-panel="sorting-layout" hidden>
+                      <li>
+                        <button type="button" class="settings-submenu__btn settings-submenu__btn--depth" data-preview-layout data-preview-copy-id="single-column">
+                          Single scrollable column
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="settings-submenu__btn settings-submenu__btn--depth" data-preview-layout data-preview-video="../assets/videos/AD_MultiColumn.webm" data-preview-copy-id="multicolumn">
+                          Multi column
+                        </button>
+                      </li>
+                      <li>
+                        <button type="button" class="settings-submenu__btn settings-submenu__btn--depth" data-preview-layout data-preview-copy-id="classic-grid">
+                          Classic Grid
+                        </button>
+                      </li>
+                    </ul>
                   </li>
                   <li>Drawer style</li>
                 </ul>
@@ -207,38 +224,57 @@
             </div>
           </div>
         </div>
-        <div class="showcase-visual" data-reveal="fade-right">
-          <div class="showcase-preview-options" aria-label="Preview options">
-            <!-- e.g. Light screen / Dark screen — coming soon -->
-          </div>
-          <div class="showcase-preview-stage" data-preview-stage>
-            <img
-              class="mockup-img mockup-img--showcase"
-              data-settings-preview
-              data-preview-look="../assets/screenshots/reverse-panda-settings-mockup.png"
-              data-preview-home="../assets/screenshots/reverse-panda-settings-mockup.png"
-              data-preview-drawer="../assets/screenshots/reverse-panda-settings-mockup.png"
-              data-preview-gestures="../assets/screenshots/reverse-panda-settings-mockup.png"
-              data-preview-data="../assets/screenshots/reverse-panda-settings-mockup.png"
-              src="../assets/screenshots/reverse-panda-settings-mockup.png"
-              alt="Reverse Panda settings screen preview"
-              width="600"
-              height="1200"
-              loading="lazy"
-              decoding="async"
-            >
-            <video
-              class="mockup-video mockup-video--showcase"
-              data-settings-preview-video
-              hidden
-              muted
-              playsinline
-              loop
-              preload="metadata"
-              aria-label="App drawer sorting and layout preview"
-            >
-              <source src="../assets/videos/mockup-app-drawer-layouts.webm" type="video/webm">
-            </video>
+        <div class="showcase-visual" data-reveal="fade-right" data-preview-area>
+          <div class="showcase-preview-content" data-preview-content>
+            <div class="showcase-preview-stage" data-preview-stage>
+              <img
+                class="mockup-img mockup-img--showcase"
+                data-settings-preview
+                data-preview-look="../assets/screenshots/reverse-panda-settings-mockup.png"
+                data-preview-home="../assets/screenshots/reverse-panda-settings-mockup.png"
+                data-preview-drawer="../assets/screenshots/reverse-panda-settings-mockup.png"
+                data-preview-gestures="../assets/screenshots/reverse-panda-settings-mockup.png"
+                data-preview-data="../assets/screenshots/reverse-panda-settings-mockup.png"
+                src="../assets/screenshots/reverse-panda-settings-mockup.png"
+                alt="Reverse Panda settings screen preview"
+                width="600"
+                height="1200"
+                loading="lazy"
+                decoding="async"
+              >
+              <video
+                class="mockup-video mockup-video--showcase"
+                data-settings-preview-video
+                hidden
+                muted
+                playsinline
+                loop
+                preload="metadata"
+                aria-label="App drawer sorting and layout preview"
+              >
+                <source src="../assets/videos/AD_MultiColumn.webm" type="video/webm">
+              </video>
+            </div>
+            <div class="showcase-preview-copy-slot" data-preview-copy-slot hidden>
+              <div class="showcase-preview-copy" data-preview-copy-id="single-column" hidden aria-live="polite">
+                <p class="showcase-preview-copy__label">App Drawer · Layout</p>
+                <h3 class="showcase-preview-copy__title">Single Scrollable Column</h3>
+                <p class="showcase-preview-copy__lead">One continuous list, sorted A to Z.</p>
+                <p class="showcase-preview-copy__body">Scroll through every app in a single column — simple, fast, and perfect when you prefer one long stream over grids.</p>
+              </div>
+              <div class="showcase-preview-copy" data-preview-copy-id="multicolumn" hidden aria-live="polite">
+                <p class="showcase-preview-copy__label">App Drawer · Layout</p>
+                <h3 class="showcase-preview-copy__title">Multi <span class="showcase-preview-copy__accent">Column</span></h3>
+                <p class="showcase-preview-copy__lead">Designed for people with more than ten apps.</p>
+                <p class="showcase-preview-copy__body">Choose between 3 and 5 independently scrolling columns, neatly grouped from A to Z. Spend less time searching and more time launching.</p>
+              </div>
+              <div class="showcase-preview-copy" data-preview-copy-id="classic-grid" hidden aria-live="polite">
+                <p class="showcase-preview-copy__label">App Drawer · Layout</p>
+                <h3 class="showcase-preview-copy__title">Classic Grid</h3>
+                <p class="showcase-preview-copy__lead">The familiar app drawer layout.</p>
+                <p class="showcase-preview-copy__body">A traditional grid of icons — dense, recognizable, and ideal if you want the standard Android drawer feel with Reverse Panda styling.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
