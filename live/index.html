@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Reverse Panda – The Android Launcher That Stands Out</title>
-  <meta name="description" content="Reverse Panda is a customizable Android launcher built for people who want a home screen that stands out.">
-  <meta name="theme-color" content="#f3f1ea">
+  <title>ReversePanda – Your Phone. Your Rules.</title>
+  <meta name="description" content="ReversePanda is an Android launcher built for people who don't do defaults. Change layouts, docks, gestures, animations and almost everything in between.">
+  <meta name="theme-color" content="#FDFDFD">
   <link rel="icon" type="image/png" href="../assets/logo/reverse-panda-logo.png">
   <link rel="apple-touch-icon" href="../assets/logo/reverse-panda-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -24,309 +24,359 @@
   </p>
 
   <header class="site-header" id="top">
-    <div class="header-bar" data-reveal="fade-down">
-      <span class="header-bar__label">Reverse Panda Launcher</span>
-      <span class="header-bar__meta">Preview · V1.0</span>
-    </div>
-
-    <div class="site-nav">
-      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
-        <a href="#top" class="nav-logo">
-          <img src="../assets/logo/reverse-panda-logo.png" alt="Reverse Panda logo">
-          REVERSE<span class="brand-panda">PANDA</span>
-        </a>
-        <ul class="nav-links">
-          <li><a href="#features">Features</a></li>
-          <li><a href="#settings">Settings</a></li>
-          <li><a href="#specs">Specs</a></li>
-          <li><a href="#download" class="nav-cta">Download</a></li>
-        </ul>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
-          Menu
-        </button>
-      </nav>
-      <div class="mobile-nav" id="mobile-nav" hidden>
-        <a href="#features">Features</a>
-        <a href="#settings">Settings</a>
-        <a href="#specs">Specs</a>
-        <a href="#download">Download</a>
-      </div>
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+      <a href="#top" class="nav-logo">
+        <img src="../assets/logo/reverse-panda-logo.png" alt="ReversePanda logo">
+        REVERSE<span class="brand-panda">PANDA</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#showcase">Customize</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#download" class="nav-cta">Get it</a></li>
+      </ul>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    </nav>
+    <div class="mobile-nav" id="mobile-nav" hidden>
+      <a href="#showcase">Customize</a>
+      <a href="#features">Features</a>
+      <a href="#story">Story</a>
+      <a href="#download">Get it</a>
     </div>
   </header>
 
   <main id="main-content">
 
+    <!-- 1–2. HERO -->
     <section class="hero" id="hero" aria-labelledby="hero-heading">
-      <div class="hero__content">
-        <h1 class="hero-title" id="hero-heading" data-reveal="fade-up">
-          Your Home Screen Deserves <span class="hero-highlight">Better.</span>
-        </h1>
-        <p class="hero-sub" data-reveal="fade-up" data-reveal-delay="80">
-          ReversePanda turns your phone into something uniquely yours. Build sprawling canvases, create impossible layouts, and stop settling for boring grids.
-        </p>
-        <div class="hero-buttons" data-reveal="fade-up" data-reveal-delay="160">
-          <a href="#download" class="btn-secondary">GET IT</a>
-          <a href="#features" class="btn-secondary">See Features</a>
+      <div class="hero__layout">
+        <div class="hero__copy">
+          <p class="hero-eyebrow" data-reveal="fade-up">ANDROID, WITHOUT THE BORING PART.</p>
+          <h1 class="hero-title" id="hero-heading" data-reveal="fade-up" data-reveal-delay="60">
+            YOUR PHONE.<br>YOUR RULES.
+          </h1>
+          <p class="hero-sub" data-reveal="fade-up" data-reveal-delay="120">
+            ReversePanda is an Android launcher built for people who don't do defaults.
+            Change layouts, docks, gestures, animations and almost everything in between.
+          </p>
+          <div class="hero-actions" data-reveal="fade-up" data-reveal-delay="180">
+            <a href="#download" class="btn-primary">GET REVERSEPANDA <span aria-hidden="true">→</span></a>
+            <a href="#why" class="btn-text">Explore features ↓</a>
+          </div>
+        </div>
+
+        <div class="hero__visual" data-reveal="fade-left" data-reveal-delay="100">
+          <div class="hero-wall" aria-hidden="true">
+            <div class="hero-wall__mask">
+              <div class="hero-col hero-col--down">
+                <div class="hero-col__track" data-hero-track="left"></div>
+              </div>
+              <div class="hero-col hero-col--up">
+                <div class="hero-col__track" data-hero-track="right"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker-inner">
-        <span>LOOK &amp; FEEL</span><span class="sep">✦</span>
-        <span>CUSTOM ICONS</span><span class="sep">✦</span>
-        <span>APP DRAWER</span><span class="sep">✦</span>
-        <span>GESTURES</span><span class="sep">✦</span>
-        <span>WALLPAPERS</span><span class="sep">✦</span>
-        <span>FREE DOWNLOAD</span><span class="sep">✦</span>
-        <span>ANDROID LAUNCHER</span><span class="sep">✦</span>
-        <span>MADE IN SWITZERLAND</span><span class="sep">✦</span>
-        <span>LOOK &amp; FEEL</span><span class="sep">✦</span>
-        <span>CUSTOM ICONS</span><span class="sep">✦</span>
-        <span>APP DRAWER</span><span class="sep">✦</span>
-        <span>GESTURES</span><span class="sep">✦</span>
-        <span>WALLPAPERS</span><span class="sep">✦</span>
-        <span>FREE DOWNLOAD</span><span class="sep">✦</span>
-        <span>ANDROID LAUNCHER</span><span class="sep">✦</span>
-        <span>MADE IN SWITZERLAND</span><span class="sep">✦</span>
+    <!-- WHY REVERSEPANDA -->
+    <section class="why" id="why" aria-labelledby="why-heading">
+      <div class="why__intro" data-reveal="fade-up">
+        <p class="why__label">WHY REVERSEPANDA</p>
+        <h2 class="why__title" id="why-heading">
+          DEFAULTS<br>ARE OPTIONAL.
+        </h2>
+        <p class="why__copy">
+          Start with Android. Make it yours.
+          Change how your home screen looks, moves and works with layouts,
+          docks, gestures, icons, animations and more.
+        </p>
       </div>
-    </div>
 
-    <div class="main-content">
+      <div class="why-cards">
+        <article class="why-card why-card--blue" data-reveal="fade-up">
+          <span class="why-card__num">01</span>
+          <h3 class="why-card__title">FULLY CUSTOMIZABLE</h3>
+          <p class="why-card__body">From layouts and docks to icons, animations and gestures — shape your Android experience the way you want.</p>
+        </article>
+        <article class="why-card why-card--neutral" data-reveal="fade-up" data-reveal-delay="60">
+          <span class="why-card__num">02</span>
+          <h3 class="why-card__title">BEAUTIFUL &amp; SMOOTH</h3>
+          <p class="why-card__body">Explore different layouts, transitions and animations designed to make your home screen feel alive.</p>
+        </article>
+        <article class="why-card why-card--warm" data-reveal="fade-up" data-reveal-delay="100">
+          <span class="why-card__num">03</span>
+          <h3 class="why-card__title">POWERFUL SETTINGS</h3>
+          <p class="why-card__body">Fine-tune ReversePanda through a settings system designed to give you control without getting in your way.</p>
+        </article>
+      </div>
 
-      <section class="content-section" id="features" aria-labelledby="features-heading">
-        <header class="section-intro" data-reveal="fade-up">
-          <p class="section-label">Features</p>
-          <h2 class="section-title" id="features-heading">BUILT TO STAND OUT</h2>
-          <p class="section-body">Customize your launcher without drowning in menus. Every feature is focused, fast, and easy to find.</p>
-        </header>
-        <div class="features">
-          <article class="feature-card" data-reveal="fade-up" data-reveal-delay="0">
-            <div class="feature-num">01</div>
-            <div class="feature-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-            </div>
-            <h3 class="feature-title">YOUR LOOK,<br>YOUR RULES</h3>
-            <p class="feature-desc">Swap themes, icon packs, and fonts. Make your home screen feel like yours — not like everyone else's stock Android.</p>
-          </article>
-          <article class="feature-card" data-reveal="fade-up" data-reveal-delay="100">
-            <div class="feature-num">02</div>
-            <div class="feature-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
-            </div>
-            <h3 class="feature-title">APP DRAWER<br>REIMAGINED</h3>
-            <p class="feature-desc">Groups, folders, layouts — all on your terms. Find any app in a fraction of the usual clicks.</p>
-          </article>
-          <article class="feature-card" data-reveal="fade-up" data-reveal-delay="200">
-            <div class="feature-num">03</div>
-            <div class="feature-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9.5 6.5v3h-3v-3h3M11 5H5v6h6V5zm-1.5 9.5v3h-3v-3h3M11 13H5v6h6v-6zm6.5-6.5v3h-3v-3h3M19 5h-6v6h6V5zm-6 8h1.5v1.5H13V13zm1.5 1.5H16V16h-1.5v-1.5zM16 13h1.5v1.5H16V13zm-3 3h1.5v1.5H13V16zm1.5 1.5H16V19h-1.5v-1.5zM16 16h1.5v1.5H16V16zm1.5-1.5H19V16h-1.5v-1.5zm0 3H19V19h-1.5v-1.5zM22 7h-2V4h-3V2h5v5zm0 15v-5h-2v3h-3v2h5zM2 22h5v-2H4v-3H2v5zM2 2v5h2V4h3V2H2z"/></svg>
-            </div>
-            <h3 class="feature-title">GESTURES &amp;<br>TRANSITIONS</h3>
-            <p class="feature-desc">Swipe actions, custom transitions, and shortcuts that make your phone feel fast and fluid. Built for thumbs, not menus.</p>
-          </article>
+      <div class="why-statements" data-reveal="fade-up">
+        <div class="why-statement">
+          <p class="why-statement__lead">YOUR WAY</p>
+          <p class="why-statement__sub">DEEP CUSTOMIZATION</p>
         </div>
-      </section>
+        <div class="why-statement">
+          <p class="why-statement__lead">NO ADS</p>
+          <p class="why-statement__sub">JUST THE LAUNCHER</p>
+        </div>
+        <div class="why-statement">
+          <p class="why-statement__lead">100%</p>
+          <p class="why-statement__sub">MADE FOR ANDROID</p>
+        </div>
+      </div>
+    </section>
 
-      <section class="content-section showcase" id="settings" aria-labelledby="settings-heading">
-        <div class="showcase-text">
-          <header class="section-intro" data-reveal="fade-up">
-            <p class="section-label">Settings System</p>
-            <h2 class="section-title" id="settings-heading">CONTROL EVERYTHING</h2>
-            <p class="section-body">Five focused settings categories. No bloat, no buried options — every setting is where you'd expect it.</p>
-          </header>
-          <div class="settings-explorer" data-reveal="fade-up" data-reveal-delay="80">
-            <div class="settings-explorer__nav" role="tablist" aria-label="Settings categories">
-              <button type="button" class="settings-item is-active" role="tab" id="settings-tab-look" aria-selected="true" aria-controls="settings-panel-look" data-settings-panel="look">
-                <span class="settings-item-text"><strong>LOOK</strong><small>Themes, fonts, icon packs</small></span>
-                <span class="settings-item__icon" aria-hidden="true">→</span>
-              </button>
-              <button type="button" class="settings-item" role="tab" id="settings-tab-home" aria-selected="false" aria-controls="settings-panel-home" data-settings-panel="home" tabindex="-1">
-                <span class="settings-item-text"><strong>HOME SCREEN</strong><small>Layout, dock, wallpaper</small></span>
-                <span class="settings-item__icon" aria-hidden="true">→</span>
-              </button>
-              <button type="button" class="settings-item" role="tab" id="settings-tab-drawer" aria-selected="false" aria-controls="settings-panel-drawer" data-settings-panel="drawer" tabindex="-1">
-                <span class="settings-item-text"><strong>APP DRAWER</strong><small>Groups, folders, sorting</small></span>
-                <span class="settings-item__icon" aria-hidden="true">→</span>
-              </button>
-              <button type="button" class="settings-item" role="tab" id="settings-tab-gestures" aria-selected="false" aria-controls="settings-panel-gestures" data-settings-panel="gestures" tabindex="-1">
-                <span class="settings-item-text"><strong>GESTURES &amp; TRANSITIONS</strong><small>Swipe actions and transitions</small></span>
-                <span class="settings-item__icon" aria-hidden="true">→</span>
-              </button>
-              <button type="button" class="settings-item" role="tab" id="settings-tab-data" aria-selected="false" aria-controls="settings-panel-data" data-settings-panel="data" tabindex="-1">
-                <span class="settings-item-text"><strong>DATA &amp; GENERAL</strong><small>Backup, onboarding, support</small></span>
-                <span class="settings-item__icon" aria-hidden="true">→</span>
-              </button>
-            </div>
-            <div class="settings-explorer__panels">
-              <div class="settings-panel is-active" id="settings-panel-look" role="tabpanel" aria-labelledby="settings-tab-look" data-settings-panel="look">
-                <p class="settings-panel__label">Look</p>
-                <ul class="settings-submenu">
-                  <li>Theme mode (light / dark)</li>
-                  <li>Fonts &amp; typography</li>
-                  <li>Icon packs &amp; shape</li>
-                  <li>Visual styling</li>
-                </ul>
-              </div>
-              <div class="settings-panel" id="settings-panel-home" role="tabpanel" aria-labelledby="settings-tab-home" data-settings-panel="home" hidden>
-                <p class="settings-panel__label">Home Screen</p>
-                <ul class="settings-submenu">
-                  <li>Layout &amp; grid</li>
-                  <li>Dock &amp; pages</li>
-                  <li>Wallpaper</li>
-                </ul>
-              </div>
-              <div class="settings-panel" id="settings-panel-drawer" role="tabpanel" aria-labelledby="settings-tab-drawer" data-settings-panel="drawer" hidden>
-                <p class="settings-panel__label">App Drawer</p>
-                <ul class="settings-submenu">
-                  <li>Groups &amp; folders</li>
-                  <li class="settings-submenu__branch">
-                    <button type="button" class="settings-submenu__btn" data-settings-subsection="sorting-layout" aria-expanded="false" aria-controls="settings-subsection-sorting-layout">
-                      Sorting &amp; layout
-                    </button>
-                    <ul class="settings-submenu settings-submenu--depth" id="settings-subsection-sorting-layout" data-settings-subsection-panel="sorting-layout" hidden>
-                      <li>
-                        <button type="button" class="settings-submenu__btn settings-submenu__btn--depth" data-preview-layout data-preview-copy-id="single-column">
-                          Single scrollable column
-                        </button>
-                      </li>
-                      <li>
-                        <button type="button" class="settings-submenu__btn settings-submenu__btn--depth" data-preview-layout data-preview-video="../assets/videos/AD_MultiColumn.webm" data-preview-copy-id="multicolumn">
-                          Multi column
-                        </button>
-                      </li>
-                      <li>
-                        <button type="button" class="settings-submenu__btn settings-submenu__btn--depth" data-preview-layout data-preview-copy-id="classic-grid">
-                          Classic Grid
-                        </button>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>Drawer style</li>
-                </ul>
-              </div>
-              <div class="settings-panel" id="settings-panel-gestures" role="tabpanel" aria-labelledby="settings-tab-gestures" data-settings-panel="gestures" hidden>
-                <p class="settings-panel__label">Gestures &amp; Transitions</p>
-                <ul class="settings-submenu">
-                  <li>Swipe actions</li>
-                  <li>Transitions &amp; animations</li>
-                  <li>Shortcuts</li>
-                </ul>
-              </div>
-              <div class="settings-panel" id="settings-panel-data" role="tabpanel" aria-labelledby="settings-tab-data" data-settings-panel="data" hidden>
-                <p class="settings-panel__label">Data &amp; General</p>
-                <ul class="settings-submenu">
-                  <li>Backup &amp; restore</li>
-                  <li>Onboarding</li>
-                  <li>Support &amp; about</li>
-                </ul>
-              </div>
+    <!-- PRODUCT SHOWCASE -->
+    <section class="showcase" id="showcase" aria-labelledby="showcase-heading">
+      <div class="showcase__shell">
+        <header class="showcase__intro" data-reveal="fade-up">
+          <p class="showcase__label">MAKE IT YOURS</p>
+          <h2 class="showcase__title" id="showcase-heading">
+            CUSTOMIZE<br>ALMOST<br><span class="showcase__title-light">EVERYTHING.</span>
+          </h2>
+          <p class="showcase__copy">
+            <span class="showcase__copy-primary">Same launcher. Completely different setups.</span>
+            <span class="showcase__copy-secondary">Build a home screen that feels like yours.</span>
+          </p>
+        </header>
+        <div class="showcase-gallery" data-showcase-gallery aria-label="Launcher setup examples"></div>
+      </div>
+    </section>
+
+    <!-- FEATURE EXPLORER -->
+    <section class="features" id="features" aria-labelledby="features-heading">
+      <header class="features__intro" data-reveal="fade-up">
+        <p class="features__label">GO DEEPER</p>
+        <h2 class="features__title" id="features-heading">ONE DETAIL.<br>YOUR DECISION.</h2>
+        <p class="features__lead">
+          ReversePanda doesn't stop at presets.<br>
+          Choose how individual parts of your launcher look, move and behave.
+        </p>
+      </header>
+
+      <nav class="feature-nav" role="tablist" aria-label="Launcher features" data-reveal="fade-up" data-reveal-delay="60">
+        <button type="button" class="feature-nav__item is-active" role="tab" id="feature-tab-home" aria-selected="true" aria-controls="feature-panel" data-feature="home">HOME SCREEN</button>
+        <button type="button" class="feature-nav__item" role="tab" id="feature-tab-dock" aria-selected="false" aria-controls="feature-panel" data-feature="dock">DOCK</button>
+        <button type="button" class="feature-nav__item" role="tab" id="feature-tab-drawer" aria-selected="false" aria-controls="feature-panel" data-feature="drawer">APP DRAWER</button>
+        <button type="button" class="feature-nav__item" role="tab" id="feature-tab-folders" aria-selected="false" aria-controls="feature-panel" data-feature="folders">FOLDERS</button>
+        <button type="button" class="feature-nav__item" role="tab" id="feature-tab-motion" aria-selected="false" aria-controls="feature-panel" data-feature="motion">MOTION</button>
+      </nav>
+
+      <div class="feature-panel" id="feature-panel" role="tabpanel" aria-labelledby="feature-tab-home" data-feature-panel data-reveal="fade-up" data-reveal-delay="100">
+        <div class="feature-panel__copy" data-feature-copy>
+          <p class="feature-panel__meta">
+            <span data-feature-num>01</span> / <span data-feature-cat>HOME SCREEN</span>
+          </p>
+          <h3 class="feature-panel__headline" data-feature-headline>BREAK FREE<br>FROM THE GRID.</h3>
+          <p class="feature-panel__desc" data-feature-desc>Choose how apps are arranged and how you move through your home screen.</p>
+          <p class="feature-panel__examples" data-feature-examples>CLASSIC PAGINATED  /  CONTINUOUS CANVAS  /  BUBBLE CLOUD</p>
+        </div>
+        <div class="feature-panel__visual" data-feature-visual aria-hidden="true">
+          <div class="fx-stage" data-fx-stage="home">
+            <div class="fx fx--home">
+              <span class="fx-icon" style="--x:12%;--y:18%"></span>
+              <span class="fx-icon accent" style="--x:38%;--y:12%"></span>
+              <span class="fx-icon" style="--x:64%;--y:22%"></span>
+              <span class="fx-icon round" style="--x:22%;--y:42%"></span>
+              <span class="fx-icon" style="--x:48%;--y:48%"></span>
+              <span class="fx-icon accent" style="--x:72%;--y:40%"></span>
+              <span class="fx-icon" style="--x:18%;--y:68%"></span>
+              <span class="fx-icon round" style="--x:44%;--y:72%"></span>
+              <span class="fx-icon" style="--x:68%;--y:66%"></span>
             </div>
           </div>
         </div>
-        <div class="showcase-visual" data-reveal="fade-right" data-preview-area>
-          <div class="showcase-preview-content" data-preview-content>
-            <div class="showcase-preview-stage" data-preview-stage>
+      </div>
+    </section>
+
+    <!-- REVERSEPANDA MANIFESTO -->
+    <section class="manifesto" id="way" aria-labelledby="manifesto-heading">
+      <div class="manifesto__shell">
+        <div class="manifesto__layout">
+          <header class="manifesto__intro" data-reveal="fade-up">
+            <p class="manifesto__label">THE REVERSEPANDA WAY</p>
+            <h2 class="manifesto__title" id="manifesto-heading">
+              NOT MADE<br>
+              TO <span class="manifesto__title-accent">FIT IN.</span>
+            </h2>
+            <p class="manifesto__copy">
+              <span class="manifesto__copy-line">Android gives you a home screen.</span>
+              <span class="manifesto__copy-line">ReversePanda gives you yours.</span>
+            </p>
+          </header>
+
+          <div class="manifesto__aside" aria-hidden="true" data-reveal="fade-left" data-reveal-delay="100">
+            <span class="manifesto__bg-word">DIFFERENT</span>
+            <div class="manifesto__grid">
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot is-empty"></span>
+              <span class="manifesto__dot"></span>
+              <span class="manifesto__dot is-break"></span>
+            </div>
+          </div>
+
+          <a class="manifesto__continue" href="#story" data-reveal="fade-up" data-reveal-delay="140">
+            THERE'S A REASON FOR THAT. <span class="manifesto__continue-arrow" aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="story" id="story" aria-labelledby="story-heading">
+      <div class="story__layout">
+        <header class="story__intro" data-reveal="fade-up">
+          <p class="story__label">THE STORY</p>
+          <h2 class="story__title" id="story-heading">
+            DIFFERENT IS A<br>
+            STRENGTH<span class="story__title-mark">,</span><br>
+            NOT A BUG<span class="story__title-mark">.</span>
+          </h2>
+        </header>
+
+        <div class="story__chapters">
+          <article class="story-chapter" data-reveal="fade-up">
+            <div class="story-chapter__content">
+              <p class="story-chapter__num">01</p>
+              <h3 class="story-chapter__title">REVERSEPANDA</h3>
+              <div class="story-chapter__copy">
+                <p>The name ReversePanda is more personal than it might seem.</p>
+                <p>I have vitiligo, including white patches around my eyes. At some point, I realized it was almost the reverse of a panda's black markings.</p>
+                <p>ReversePanda stuck.</p>
+                <p class="story-chapter__quiet">Something that makes me different became the name of something I created.</p>
+              </div>
+            </div>
+            <figure class="story-image story-image--photo">
               <img
-                class="mockup-img mockup-img--showcase"
-                data-settings-preview
-                data-preview-look="../assets/screenshots/reverse-panda-settings-mockup.png"
-                data-preview-home="../assets/screenshots/reverse-panda-settings-mockup.png"
-                data-preview-drawer="../assets/screenshots/reverse-panda-settings-mockup.png"
-                data-preview-gestures="../assets/screenshots/reverse-panda-settings-mockup.png"
-                data-preview-data="../assets/screenshots/reverse-panda-settings-mockup.png"
-                src="../assets/screenshots/reverse-panda-settings-mockup.png"
-                alt="Reverse Panda settings screen preview"
-                width="600"
-                height="1200"
+                src="../assets/about/vitiligo-hand.jpg"
+                alt="Hand and forearm with vitiligo, showing light patches of skin against a patterned background"
+                width="680"
+                height="850"
                 loading="lazy"
                 decoding="async"
               >
-              <video
-                class="mockup-video mockup-video--showcase"
-                data-settings-preview-video
-                hidden
-                muted
-                playsinline
-                loop
-                preload="metadata"
-                aria-label="App drawer sorting and layout preview"
-              >
-                <source src="../assets/videos/AD_MultiColumn.webm" type="video/webm">
-              </video>
+            </figure>
+          </article>
+
+          <article class="story-chapter" data-reveal="fade-up" data-reveal-delay="60">
+            <div class="story-chapter__content">
+              <p class="story-chapter__num">02</p>
+              <h3 class="story-chapter__title">NEVER REALLY<br>LIKED DEFAULTS.</h3>
+              <div class="story-chapter__copy">
+                <p>I've always liked making technology feel like mine.</p>
+                <p>One of the earliest examples was my jailbroken iPod Touch. I spent hours exploring Cydia, trying tweaks and changing things that were never meant to be changed.</p>
+                <p>Different layouts, animations, interactions — sometimes useful, sometimes completely unnecessary. I just loved seeing what was possible.</p>
+                <p class="story-chapter__quiet">That curiosity never really went away.</p>
+              </div>
             </div>
-            <div class="showcase-preview-copy-slot" data-preview-copy-slot hidden>
-              <div class="showcase-preview-copy" data-preview-copy-id="single-column" hidden aria-live="polite">
-                <p class="showcase-preview-copy__label">App Drawer · Layout</p>
-                <h3 class="showcase-preview-copy__title">Single Scrollable Column</h3>
-                <p class="showcase-preview-copy__lead">One continuous list, sorted A to Z.</p>
-                <p class="showcase-preview-copy__body">Scroll through every app in a single column — simple, fast, and perfect when you prefer one long stream over grids.</p>
+            <figure class="story-image story-image--shot">
+              <img
+                src="../assets/about/iphone4-screenshot.jpg"
+                alt="Old iPhone home screen screenshot from early customization experiments"
+                width="640"
+                height="960"
+                loading="lazy"
+                decoding="async"
+              >
+            </figure>
+          </article>
+
+          <article class="story-chapter" data-reveal="fade-up" data-reveal-delay="80">
+            <div class="story-chapter__content">
+              <p class="story-chapter__num">03</p>
+              <h3 class="story-chapter__title">BUILDING<br>MY OWN.</h3>
+              <div class="story-chapter__copy">
+                <p>Years later, Android gave me the freedom to take that curiosity much further.</p>
+                <p>ReversePanda started as a way to build the kind of launcher I wanted to use myself — one where layouts, docks, gestures, animations and small details aren't simply decided for you.</p>
+                <p>It's still growing, still changing and probably never going to be completely normal.</p>
+                <p class="story-chapter__quiet">Which is kind of the point.</p>
               </div>
-              <div class="showcase-preview-copy" data-preview-copy-id="multicolumn" hidden aria-live="polite">
-                <p class="showcase-preview-copy__label">App Drawer · Layout</p>
-                <h3 class="showcase-preview-copy__title">Multi <span class="showcase-preview-copy__accent">Column</span></h3>
-                <p class="showcase-preview-copy__lead">Designed for people with more than ten apps.</p>
-                <p class="showcase-preview-copy__body">Choose between 3 and 5 independently scrolling columns, neatly grouped from A to Z. Spend less time searching and more time launching.</p>
-              </div>
-              <div class="showcase-preview-copy" data-preview-copy-id="classic-grid" hidden aria-live="polite">
-                <p class="showcase-preview-copy__label">App Drawer · Layout</p>
-                <h3 class="showcase-preview-copy__title">Classic Grid</h3>
-                <p class="showcase-preview-copy__lead">The familiar app drawer layout.</p>
-                <p class="showcase-preview-copy__body">A traditional grid of icons — dense, recognizable, and ideal if you want the standard Android drawer feel with Reverse Panda styling.</p>
-              </div>
+            </div>
+            <figure class="story-image story-image--logo">
+              <img
+                src="../assets/logo/reverse-panda-logo-clear.png"
+                alt="ReversePanda logo"
+                width="512"
+                height="512"
+                loading="lazy"
+                decoding="async"
+              >
+            </figure>
+          </article>
+        </div>
+      </div>
+
+      <p class="story__close" data-reveal="fade-up">YOUR PHONE.<br>YOUR RULES.</p>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta" id="download" aria-labelledby="cta-heading">
+      <div class="final-cta__shell">
+        <div class="final-cta__layout">
+          <div class="final-cta__copy" data-reveal="fade-up">
+            <p class="final-cta__label">YOUR TURN</p>
+            <h2 class="final-cta__title" id="cta-heading">
+              READY TO MAKE<br>IT YOURS?
+            </h2>
+            <p class="final-cta__lead">
+              ReversePanda is still growing.
+            </p>
+            <p class="final-cta__lead final-cta__lead--follow">
+              If you like changing the things you're usually told to leave alone,
+              you're probably in the right place.
+            </p>
+            <a
+              class="final-cta__button"
+              href="mailto:reverse-panda@outlook.com?subject=ReversePanda%20Beta"
+            >
+              JOIN THE BETA <span class="final-cta__button-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <div class="final-cta__visual" aria-hidden="true" data-reveal="fade-left" data-reveal-delay="80">
+            <div class="final-cta__compose">
+              <span class="fcc fcc--grid" style="--x:8%;--y:12%"></span>
+              <span class="fcc fcc--grid" style="--x:28%;--y:12%"></span>
+              <span class="fcc fcc--grid" style="--x:48%;--y:12%"></span>
+              <span class="fcc fcc--grid" style="--x:68%;--y:12%"></span>
+              <span class="fcc fcc--grid" style="--x:8%;--y:34%"></span>
+              <span class="fcc fcc--drift is-idle-a" style="--x:30%;--y:30%"></span>
+              <span class="fcc fcc--grid" style="--x:48%;--y:34%"></span>
+              <span class="fcc fcc--free is-idle-b" style="--x:72%;--y:28%"></span>
+              <span class="fcc fcc--grid" style="--x:8%;--y:56%"></span>
+              <span class="fcc fcc--free" style="--x:26%;--y:62%"></span>
+              <span class="fcc fcc--accent" style="--x:52%;--y:58%"></span>
+              <span class="fcc fcc--free" style="--x:70%;--y:68%"></span>
+              <span class="fcc fcc--free" style="--x:42%;--y:78%"></span>
             </div>
           </div>
         </div>
-      </section>
 
-      <section class="content-section manifesto" aria-labelledby="manifesto-heading">
-        <div class="manifesto-quote-wrap" data-reveal="fade-right">
-          <p class="manifesto-quote" id="manifesto-heading">DIFFERENT<br>IS A<br><span class="accent">STRENGTH,</span><br>NOT A<br><span class="accent2">BUG.</span></p>
-        </div>
-        <div class="manifesto-body" data-reveal="fade-left" data-reveal-delay="120">
-          <p>Reverse Panda started from a simple idea: your phone's home screen is one of the most personal spaces in your life — so why should it look like everyone else's?</p>
-          <p>Maybe that's a question I've been asking for longer than I realized. Growing up with vitiligo taught me that standing out isn't something to hide. The things that make us different are often the things that make us memorable.</p>
-          <p>My obsession with customization started years ago, tweaking themes and icons on a jailbroken iPod Touch through Cydia when I probably should have been doing something more productive. Ever since then, I've been fascinated by turning technology into something personal.</p>
-          <p>Reverse Panda is built for people who don't fit the defaults. No tracking. No dark patterns. Just a launcher that lets you make your phone feel like yours.</p>
-        </div>
-      </section>
-
-      <section class="content-section specs-section" id="specs" aria-labelledby="specs-heading">
-        <header class="section-intro specs-header" data-reveal="fade-up">
-          <p class="section-label">Technical Specs</p>
-          <h2 class="section-title" id="specs-heading">WHAT'S UNDER THE HOOD</h2>
-        </header>
-        <div class="specs-table-wrap" data-reveal="fade-up" data-reveal-delay="100">
-          <table class="specs-table">
-            <thead>
-              <tr>
-                <th scope="col">Spec</th>
-                <th scope="col">Detail</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Platform</td><td>Android <span class="tag">API 26+</span></td></tr>
-              <tr><td>Version</td><td>V1.0 <span class="tag orange">New</span></td></tr>
-              <tr><td>Icon Packs</td><td>Supports standard Android icon pack format</td></tr>
-              <tr><td>Themes</td><td>Light mode, Dark mode, custom palettes</td></tr>
-              <tr><td>Gestures</td><td>Swipe up, swipe down, pinch, long-press</td></tr>
-              <tr><td>Widget Support</td><td>All BIND_APPWIDGET-compatible widgets</td></tr>
-              <tr><td>Backup</td><td>Export / import full launcher config</td></tr>
-              <tr><td>Price</td><td>Free — no subscriptions, no ads</td></tr>
-              <tr><td>Made by</td><td>Reverse Panda · Switzerland</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-    </div>
-
-    <section class="cta-section" id="download" aria-labelledby="cta-heading">
-      <h2 class="cta-title" id="cta-heading" data-reveal="scale-in">READY TO<br>STAND OUT?</h2>
-      <p class="cta-sub" data-reveal="fade-up" data-reveal-delay="100">Download Reverse Panda and flip your home screen. It's free — always.</p>
-      <div class="cta-buttons" data-reveal="fade-up" data-reveal-delay="180">
-        <a href="mailto:reverse-panda@outlook.com" class="btn-primary">Contact Us</a>
-        <a href="#" class="btn-secondary" aria-disabled="true">Google Play (Coming Soon)</a>
+        <ul class="final-cta__facts" data-reveal="fade-up" data-reveal-delay="120">
+          <li>
+            <span class="final-cta__fact-label">ANDROID</span>
+            <span class="final-cta__fact-text">Built for Android</span>
+          </li>
+          <li>
+            <span class="final-cta__fact-label">INDEPENDENT</span>
+            <span class="final-cta__fact-text">An indie project</span>
+          </li>
+          <li>
+            <span class="final-cta__fact-label">CUSTOMIZABLE</span>
+            <span class="final-cta__fact-text">Made to be changed</span>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -336,13 +386,14 @@
     <div class="footer-logo">REVERSE<span class="brand-panda">PANDA</span></div>
     <ul class="footer-links">
       <li><a href="../">Coming Soon</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#specs">Specs</a></li>
+      <li><a href="#showcase">Customize</a></li>
+      <li><a href="#story">Story</a></li>
       <li><a href="mailto:reverse-panda@outlook.com">Contact</a></li>
     </ul>
-    <p class="footer-copy">© 2026 Reverse Panda · Made in Switzerland</p>
+    <p class="footer-copy">© 2026 ReversePanda · Made in Switzerland</p>
   </footer>
 
+  <script src="previews.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

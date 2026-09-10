@@ -1,470 +1,229 @@
 (function () {
-
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const RP = window.RP;
 
+  /* ── Scroll reveal ── */
   const revealElements = document.querySelectorAll("[data-reveal]");
-
-
-
   if (prefersReducedMotion) {
-
     revealElements.forEach((el) => el.classList.add("is-visible"));
-
   } else {
-
     const observer = new IntersectionObserver(
-
       (entries) => {
-
         entries.forEach((entry) => {
-
           if (!entry.isIntersecting) return;
-
           entry.target.classList.add("is-visible");
-
           observer.unobserve(entry.target);
-
         });
-
       },
-
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
-
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
     );
-
-
-
     revealElements.forEach((el) => {
-
       const delay = el.getAttribute("data-reveal-delay");
-
       if (delay) el.style.setProperty("--reveal-delay", `${delay}ms`);
-
       observer.observe(el);
-
     });
-
-
-
     document.querySelectorAll("#hero [data-reveal]").forEach((el) => {
-
       el.classList.add("is-visible");
-
     });
-
   }
 
-
-
+  /* ── Mobile nav ── */
   const navToggle = document.querySelector(".nav-toggle");
-
   const mobileNav = document.getElementById("mobile-nav");
-
-
-
   if (navToggle && mobileNav) {
-
     navToggle.addEventListener("click", () => {
-
       const isOpen = navToggle.getAttribute("aria-expanded") === "true";
-
       navToggle.setAttribute("aria-expanded", String(!isOpen));
-
       mobileNav.hidden = isOpen;
-
     });
-
-
-
     mobileNav.querySelectorAll("a").forEach((link) => {
-
       link.addEventListener("click", () => {
-
         navToggle.setAttribute("aria-expanded", "false");
-
         mobileNav.hidden = true;
-
       });
-
     });
-
   }
 
+  if (!RP) return;
 
+  /* ── Hero tracks ── */
+  const leftTrack = document.querySelector('[data-hero-track="left"]');
+  const rightTrack = document.querySelector('[data-hero-track="right"]');
+  if (leftTrack) {
+    leftTrack.innerHTML = RP.renderTrack(window.RP_HERO_LEFT, { duplicate: true, caption: false });
+  }
+  if (rightTrack) {
+    rightTrack.innerHTML = RP.renderTrack(window.RP_HERO_RIGHT, { duplicate: true, caption: false });
+  }
 
-  const settingsExplorer = document.querySelector(".settings-explorer");
+  /* ── Showcase gallery (static) ── */
+  const galleryMount = document.querySelector("[data-showcase-gallery]");
+  if (galleryMount) {
+    const showcaseThemes = {
+      "bubble-cloud": "light",
+      "classic-pages": "light",
+      "continuous-canvas": "dark",
+      "hidden-dock": "dark",
+      "multi-column": "light"
+    };
+    const showcaseIds = window.RP_SHOWCASE || [];
+    galleryMount.innerHTML = showcaseIds
+      .map((id) => {
+        const preview = RP.getById(id);
+        return preview
+          ? RP.renderCard(preview, {
+              showCaption: true,
+              lazy: true,
+              theme: showcaseThemes[id] || preview.theme
+            })
+          : "";
+      })
+      .join("");
+  }
 
-  if (settingsExplorer) {
-
-    const tabs = settingsExplorer.querySelectorAll('[role="tab"]');
-
-    const panels = settingsExplorer.querySelectorAll('[role="tabpanel"]');
-
-    const previewImg = document.querySelector("[data-settings-preview]");
-
-    const previewVideo = document.querySelector("[data-settings-preview-video]");
-
-    const previewStage = document.querySelector("[data-preview-stage]");
-
-    const previewContent = document.querySelector("[data-preview-content]");
-
-    const previewArea = document.querySelector("[data-preview-area]");
-
-    const previewCopyBlocks = document.querySelectorAll(".showcase-preview-copy");
-    const previewCopySlot = document.querySelector("[data-preview-copy-slot]");
-
-    const subsectionTriggers = settingsExplorer.querySelectorAll("[data-settings-subsection]");
-
-    const layoutTriggers = settingsExplorer.querySelectorAll("[data-preview-layout]");
-
-
-
-    function videoMimeType(src) {
-
-      return src.endsWith(".webm") ? "video/webm" : "video/mp4";
-
+  /* ── Feature explorer ── */
+  const featurePanel = document.querySelector("[data-feature-panel]");
+  const featureTabs = document.querySelectorAll("[data-feature]");
+  const FEATURES = {
+    home: {
+      num: "01",
+      category: "HOME SCREEN",
+      headline: "BREAK FREE<br>FROM THE GRID.",
+      desc: "Choose how apps are arranged and how you move through your home screen.",
+      examples: "CLASSIC PAGINATED  /  CONTINUOUS CANVAS  /  BUBBLE CLOUD",
+      visual: `
+        <div class="fx-stage" data-fx-stage="home">
+          <div class="fx fx--home">
+            <span class="fx-icon" style="--x:12%;--y:18%"></span>
+            <span class="fx-icon accent" style="--x:38%;--y:12%"></span>
+            <span class="fx-icon" style="--x:64%;--y:22%"></span>
+            <span class="fx-icon round" style="--x:22%;--y:42%"></span>
+            <span class="fx-icon" style="--x:48%;--y:48%"></span>
+            <span class="fx-icon accent" style="--x:72%;--y:40%"></span>
+            <span class="fx-icon" style="--x:18%;--y:68%"></span>
+            <span class="fx-icon round" style="--x:44%;--y:72%"></span>
+            <span class="fx-icon" style="--x:68%;--y:66%"></span>
+          </div>
+        </div>`
+    },
+    dock: {
+      num: "02",
+      category: "DOCK",
+      headline: "NOT JUST<br>A ROW OF ICONS.",
+      desc: "Turn the dock into something that actually changes how your launcher feels.",
+      examples: "LINEAR  /  WHEEL  /  CYLINDER  /  COVER FLOW",
+      visual: `
+        <div class="fx-stage" data-fx-stage="dock">
+          <div class="fx fx--dock">
+            <div class="fx-dock-arc">
+              <span class="fx-icon"></span>
+              <span class="fx-icon"></span>
+              <span class="fx-icon"></span>
+              <span class="fx-icon"></span>
+              <span class="fx-icon"></span>
+              <div class="fx-dock-base"></div>
+            </div>
+          </div>
+        </div>`
+    },
+    drawer: {
+      num: "03",
+      category: "APP DRAWER",
+      headline: "FIND APPS<br>YOUR WAY.",
+      desc: "Choose how your apps are organized and how you move through them.",
+      examples: "CLASSIC GRID  /  MULTI COLUMN  /  SCROLLABLE LIST",
+      visual: `
+        <div class="fx-stage" data-fx-stage="drawer">
+          <div class="fx fx--drawer">
+            <div class="fx-col"><span class="fx-icon"></span><span class="fx-icon soft"></span><span class="fx-icon"></span><span class="fx-icon"></span></div>
+            <div class="fx-col"><span class="fx-icon"></span><span class="fx-icon"></span><span class="fx-icon"></span><span class="fx-icon soft"></span></div>
+            <div class="fx-col"><span class="fx-icon soft"></span><span class="fx-icon"></span><span class="fx-icon"></span><span class="fx-icon"></span></div>
+          </div>
+        </div>`
+    },
+    folders: {
+      num: "04",
+      category: "FOLDERS",
+      headline: "MORE THAN<br>A SQUARE.",
+      desc: "Change how folders look, open and arrange the apps inside them.",
+      examples: "GRID  /  LIST  /  STACK",
+      visual: `
+        <div class="fx-stage" data-fx-stage="folders">
+          <div class="fx fx--folders">
+            <div class="fx-folder is-muted"><span></span><span></span><span></span><span></span></div>
+            <div class="fx-folder is-open"><span></span><span></span><span></span><span></span></div>
+            <div class="fx-folder is-muted"><span></span><span></span><span></span><span></span></div>
+          </div>
+        </div>`
+    },
+    motion: {
+      num: "05",
+      category: "MOTION",
+      headline: "MAKE IT<br>MOVE YOUR WAY.",
+      desc: "Choose transitions and animations that change how navigation feels.",
+      examples: "PAGE TRANSITIONS  /  SCROLL EFFECTS  /  GESTURES",
+      visual: `
+        <div class="fx-stage" data-fx-stage="motion">
+          <div class="fx fx--motion">
+            <div class="fx-screens">
+              <div class="fx-screen s1"></div>
+              <div class="fx-screen s2"></div>
+              <div class="fx-screen s3"></div>
+            </div>
+          </div>
+        </div>`
     }
+  };
 
+  function renderFeature(id, animate) {
+    const feature = FEATURES[id];
+    if (!feature || !featurePanel) return;
 
+    const numEl = featurePanel.querySelector("[data-feature-num]");
+    const catEl = featurePanel.querySelector("[data-feature-cat]");
+    const headlineEl = featurePanel.querySelector("[data-feature-headline]");
+    const descEl = featurePanel.querySelector("[data-feature-desc]");
+    const examplesEl = featurePanel.querySelector("[data-feature-examples]");
+    const visualEl = featurePanel.querySelector("[data-feature-visual]");
+    const activeTab = document.getElementById(`feature-tab-${id}`);
 
-    function hidePreviewCopy() {
-      previewCopyBlocks.forEach((block) => {
-        block.hidden = true;
+    const apply = () => {
+      if (numEl) numEl.textContent = feature.num;
+      if (catEl) catEl.textContent = feature.category;
+      if (headlineEl) headlineEl.innerHTML = feature.headline;
+      if (descEl) descEl.textContent = feature.desc;
+      if (examplesEl) examplesEl.textContent = feature.examples;
+      if (visualEl) visualEl.innerHTML = feature.visual;
+      featurePanel.setAttribute("aria-labelledby", `feature-tab-${id}`);
+      featureTabs.forEach((tab) => {
+        const active = tab.dataset.feature === id;
+        tab.classList.toggle("is-active", active);
+        tab.setAttribute("aria-selected", String(active));
       });
-      if (previewCopySlot) previewCopySlot.hidden = true;
-      previewContent?.classList.remove("is-expanded");
-      previewArea?.classList.remove("is-expanded");
+    };
+
+    if (animate && !prefersReducedMotion) {
+      featurePanel.classList.add("is-switching");
+      window.setTimeout(() => {
+        apply();
+        featurePanel.classList.remove("is-switching");
+      }, 160);
+    } else {
+      apply();
     }
 
-    function showPreviewCopy(copyId) {
-      hidePreviewCopy();
-      if (!copyId) return;
-
-      const block = document.querySelector(`.showcase-preview-copy[data-preview-copy-id="${copyId}"]`);
-      if (block) {
-        if (previewCopySlot) previewCopySlot.hidden = false;
-        block.hidden = false;
-        previewContent?.classList.add("is-expanded");
-        previewArea?.classList.add("is-expanded");
-      }
+    if (activeTab && activeTab.scrollIntoView && window.matchMedia("(max-width: 980px)").matches) {
+      activeTab.scrollIntoView({ inline: "center", block: "nearest", behavior: prefersReducedMotion ? "auto" : "smooth" });
     }
+  }
 
-
-
-    function hideSubsections() {
-
-      settingsExplorer.querySelectorAll("[data-settings-subsection-panel]").forEach((panel) => {
-
-        panel.hidden = true;
-
-      });
-
-      subsectionTriggers.forEach((btn) => {
-
-        btn.classList.remove("is-open");
-
-        btn.setAttribute("aria-expanded", "false");
-
-      });
-
-    }
-
-
-
-    function clearLayoutActive() {
-
-      layoutTriggers.forEach((btn) => btn.classList.remove("is-active"));
-
-    }
-
-
-
-    function clearSubmenuActive() {
-
-      settingsExplorer.querySelectorAll(".settings-submenu__btn.is-active").forEach((btn) => {
-
-        btn.classList.remove("is-active");
-
-      });
-
-      hideSubsections();
-
-      clearLayoutActive();
-
-    }
-
-
-
-    function syncPanelTabs(panelId) {
-
-      tabs.forEach((tab) => {
-
-        const isActive = tab.dataset.settingsPanel === panelId;
-
-        tab.classList.toggle("is-active", isActive);
-
-        tab.setAttribute("aria-selected", String(isActive));
-
-        tab.tabIndex = isActive ? 0 : -1;
-
-      });
-
-
-
-      panels.forEach((panel) => {
-
-        const isActive = panel.dataset.settingsPanel === panelId;
-
-        panel.classList.toggle("is-active", isActive);
-
-        panel.hidden = !isActive;
-
-      });
-
-    }
-
-
-
-    function showImagePreview(panelId) {
-
-      if (previewVideo) {
-
-        previewVideo.pause();
-
-        previewVideo.currentTime = 0;
-
-        previewVideo.hidden = true;
-
-      }
-
-
-
-      if (previewImg) {
-
-        previewImg.hidden = false;
-
-        const nextSrc = previewImg.getAttribute(`data-preview-${panelId}`);
-
-        if (nextSrc && previewImg.getAttribute("src") !== nextSrc) {
-
-          previewImg.setAttribute("src", nextSrc);
-
-        }
-
-        previewImg.dataset.activePreview = panelId;
-
-      }
-
-
-
-      previewStage?.classList.remove("is-video-active");
-
-      hidePreviewCopy();
-
-    }
-
-
-
-    function showVideoPreview(videoSrc, triggerBtn) {
-
-      if (!previewVideo || !videoSrc) return;
-
-
-
-      if (previewImg) previewImg.hidden = true;
-
-
-
-      const source = previewVideo.querySelector("source");
-
-      if (source && source.getAttribute("src") !== videoSrc) {
-
-        source.setAttribute("src", videoSrc);
-
-        source.setAttribute("type", videoMimeType(videoSrc));
-
-        previewVideo.load();
-
-      }
-
-
-
-      previewVideo.hidden = false;
-
-      previewStage?.classList.add("is-video-active");
-
-      showPreviewCopy(triggerBtn?.dataset.previewCopyId);
-
-
-
-      if (prefersReducedMotion) return;
-
-
-
-      const playAttempt = previewVideo.play();
-
-      if (playAttempt !== undefined) {
-
-        playAttempt.catch(() => {});
-
-      }
-
-    }
-
-
-
-    function showLayoutPreview(triggerBtn) {
-
-      const panel = triggerBtn.closest("[data-settings-panel]");
-
-      const panelId = panel?.dataset.settingsPanel || "drawer";
-
-
-
-      syncPanelTabs(panelId);
-
-      clearLayoutActive();
-
-      triggerBtn.classList.add("is-active");
-
-
-
-      const subsectionBtn = settingsExplorer.querySelector('[data-settings-subsection="sorting-layout"]');
-
-      const subsectionPanel = settingsExplorer.querySelector('[data-settings-subsection-panel="sorting-layout"]');
-
-      if (subsectionBtn && subsectionPanel) {
-
-        subsectionBtn.classList.add("is-open", "is-active");
-
-        subsectionBtn.setAttribute("aria-expanded", "true");
-
-        subsectionPanel.hidden = false;
-
-      }
-
-
-
-      const videoSrc = triggerBtn.dataset.previewVideo;
-
-      if (videoSrc) {
-
-        showVideoPreview(videoSrc, triggerBtn);
-
-        return;
-
-      }
-
-
-
-      showImagePreview(panelId);
-
-      showPreviewCopy(triggerBtn.dataset.previewCopyId);
-
-    }
-
-
-
-    function activateSettingsPanel(panelId) {
-
-      syncPanelTabs(panelId);
-
-      clearSubmenuActive();
-
-      showImagePreview(panelId);
-
-    }
-
-
-
-    function toggleSubsection(triggerBtn) {
-
-      const subsectionId = triggerBtn.dataset.settingsSubsection;
-
-      const subsectionPanel = settingsExplorer.querySelector(
-
-        `[data-settings-subsection-panel="${subsectionId}"]`
-
-      );
-
-      const isOpen = triggerBtn.classList.contains("is-open");
-
-
-
-      clearLayoutActive();
-
-      settingsExplorer.querySelectorAll(".settings-submenu__btn.is-active").forEach((btn) => {
-
-        btn.classList.remove("is-active");
-
-      });
-
-      hideSubsections();
-
-      hidePreviewCopy();
-
-      showImagePreview("drawer");
-
-
-
-      if (!isOpen && subsectionPanel) {
-
-        triggerBtn.classList.add("is-open", "is-active");
-
-        triggerBtn.setAttribute("aria-expanded", "true");
-
-        subsectionPanel.hidden = false;
-
-      }
-
-    }
-
-
-
-    tabs.forEach((tab) => {
-
+  if (featurePanel && featureTabs.length) {
+    featureTabs.forEach((tab) => {
       tab.addEventListener("click", () => {
-
-        activateSettingsPanel(tab.dataset.settingsPanel);
-
+        if (tab.classList.contains("is-active")) return;
+        renderFeature(tab.dataset.feature, true);
       });
-
     });
-
-
-
-    subsectionTriggers.forEach((btn) => {
-
-      btn.addEventListener("click", () => {
-
-        syncPanelTabs("drawer");
-
-        toggleSubsection(btn);
-
-      });
-
-    });
-
-
-
-    layoutTriggers.forEach((btn) => {
-
-      btn.addEventListener("click", () => {
-
-        showLayoutPreview(btn);
-
-      });
-
-    });
-
-
-
-    const initialPanel = tabs[0]?.dataset.settingsPanel;
-
-    if (initialPanel) activateSettingsPanel(initialPanel);
-
   }
 
 })();
-
-
