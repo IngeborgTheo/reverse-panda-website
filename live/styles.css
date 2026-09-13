@@ -2180,6 +2180,7 @@ button { font: inherit; }
   display: flex;
   flex-direction: column;
   gap: 1.55rem;
+  position: relative;
 }
 
 .contact-field-row {
@@ -2261,6 +2262,63 @@ button { font: inherit; }
   margin-top: -0.4rem;
 }
 
+.contact-field__req {
+  margin-left: 0.2rem;
+  color: var(--black);
+  opacity: 0.7;
+}
+
+.contact-field__help {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: rgba(27, 25, 21, 0.5);
+}
+
+.contact-field__meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 1.1rem;
+}
+
+.contact-counter {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: rgba(27, 25, 21, 0.4);
+}
+
+.contact-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-field select {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(27, 25, 21, 0.25);
+  border-radius: 0;
+  padding: 0.7rem 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--black);
+  transition: border-color 0.2s ease;
+}
+
+.contact-field select:focus {
+  outline: none;
+  border-bottom-color: var(--blue);
+}
+
 .contact-field--file input[type="file"] {
   font-family: var(--font-body);
   font-size: 0.92rem;
@@ -2285,9 +2343,90 @@ button { font: inherit; }
   cursor: pointer;
 }
 
-.contact-field__file-note {
-  font-size: 0.84rem;
-  color: rgba(27, 25, 21, 0.55);
+.contact-shot {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 0;
+}
+
+.contact-shot__thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: rgba(27, 25, 21, 0.06);
+  flex-shrink: 0;
+}
+
+.contact-shot__info {
+  min-width: 0;
+  flex: 1;
+}
+
+.contact-shot__name,
+.contact-shot__size {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  line-height: 1.35;
+  color: rgba(27, 25, 21, 0.72);
+}
+
+.contact-shot__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-shot__size {
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+.contact-shot__remove {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0.4rem 0.2rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.contact-shot__remove:hover {
+  opacity: 1;
+  color: var(--orange);
+}
+
+.contact-form__fallback {
+  margin-top: -0.35rem;
+}
+
+.contact-fallback-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--black);
+  opacity: 0.78;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.contact-fallback-link:hover {
+  opacity: 1;
+  color: var(--blue);
 }
 
 .contact-submit {
@@ -2297,7 +2436,7 @@ button { font: inherit; }
   align-items: center;
   gap: 0.55rem;
   margin-top: 0.5rem;
-  border: 0;
+  border: 1px solid transparent;
   background: var(--black);
   color: var(--bg);
   font-family: var(--font-body);
@@ -2308,7 +2447,7 @@ button { font: inherit; }
   padding: 0.95rem 1.4rem;
   border-radius: 10px;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
 .contact-submit__arrow {
@@ -2316,13 +2455,20 @@ button { font: inherit; }
   transition: transform 0.2s ease;
 }
 
-.contact-submit:hover {
+.contact-submit:hover:not(:disabled) {
   background: var(--blue);
   color: var(--black);
 }
 
-.contact-submit:hover .contact-submit__arrow {
+.contact-submit:hover:not(:disabled) .contact-submit__arrow {
   transform: translateX(5px);
+}
+
+.contact-submit:disabled {
+  background: transparent;
+  color: rgba(27, 25, 21, 0.38);
+  border-color: rgba(27, 25, 21, 0.18);
+  cursor: not-allowed;
 }
 
 .contact-submit:focus-visible {
