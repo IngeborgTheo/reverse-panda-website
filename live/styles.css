@@ -2464,11 +2464,9 @@ button { font: inherit; }
   transform: translateX(5px);
 }
 
-.contact-submit:disabled {
-  background: transparent;
-  color: rgba(27, 25, 21, 0.38);
-  border-color: rgba(27, 25, 21, 0.18);
-  cursor: not-allowed;
+.contact-submit.is-loading {
+  opacity: 0.72;
+  pointer-events: none;
 }
 
 .contact-submit:focus-visible {

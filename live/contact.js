@@ -1,51 +1,63 @@
-(function () {
-  const SUPPORT_EMAIL =
-    (window.RP_FEEDBACK && window.RP_FEEDBACK.supportEmail) || "support@reverse-panda.ch";
-  const ENDPOINT = (window.RP_FEEDBACK && window.RP_FEEDBACK.endpoint) || "";
-  const SOURCE = (window.RP_FEEDBACK && window.RP_FEEDBACK.source) || "website";
-  const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024;
+import {
+  submitFeedback,
+  storage,
+  ref,
+  uploadBytes,
+  deleteObject,
+  websiteMeta,
+  supportEmail
+} from "./firebase.js";
 
-  const LIMITS = {
-    email: 254,
-    message: 2000,
-    happened: 2000,
-    expected: 1500,
-    featureTitle: 100,
-    featureAbout: 2000,
-    why: 1000
-  };
+const SUPPORT_EMAIL = supportEmail || "support@reverse-panda.ch";
+const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024;
+const NOT_PROVIDED = "Not provided";
 
-  const SUBMIT_LABELS = {
-    bug: "REPORT BUG",
-    feature: "SEND REQUEST",
-    hello: "SEND MESSAGE"
-  };
+const LIMITS = {
+  email: 254,
+  message: 2000,
+  happened: 2000,
+  expected: 1500,
+  featureTitle: 100,
+  featureAbout: 2000,
+  why: 1000
+};
 
-  const SUCCESS = {
-    bug: {
-      title: "BUG REPORT SENT.",
-      copy: "Thanks for helping improve ReversePanda."
-    },
-    feature: {
-      title: "REQUEST SENT.",
-      copy: "Thanks for the idea."
-    },
-    hello: {
-      title: "MESSAGE SENT.",
-      copy: "Thanks for reaching out."
-    }
-  };
+const SUBMIT_LABELS = {
+  bug: "REPORT BUG",
+  feature: "SEND REQUEST",
+  hello: "SEND MESSAGE"
+};
 
-  const PRIVACY = {
-    bug:
-      "Only the information shown in this form and any screenshot you explicitly attach will be submitted.",
-    feature: "Your message will only be used to respond to your request.",
-    hello: "Your message will only be used to respond to your request."
-  };
+const SUCCESS = {
+  bug: {
+    title: "BUG REPORT SENT.",
+    copy: "Thanks for helping improve ReversePanda."
+  },
+  feature: {
+    title: "REQUEST SENT.",
+    copy: "Thanks for the idea."
+  },
+  hello: {
+    title: "MESSAGE SENT.",
+    copy: "Thanks for reaching out."
+  }
+};
 
-  const form = document.getElementById("contact-form");
-  if (!form) return;
+const PRIVACY = {
+  bug:
+    "Only the information shown in this form and any screenshot you explicitly attach will be submitted.",
+  feature: "Your message will only be used to respond to your request.",
+  hello: "Your message will only be used to respond to your request."
+};
 
+const form = document.getElementById("contact-form");
+if (!form) {
+  // Contact page only
+} else {
+  initContactForm();
+}
+
+function initContactForm() {
   const typeValue = document.getElementById("contact-type-value");
   const tabs = Array.from(document.querySelectorAll("[data-contact-type]"));
   const modeGroups = Array.from(document.querySelectorAll("[data-mode-fields]"));
@@ -108,6 +120,21 @@
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
+  function extensionForFile(file) {
+    const fromName = (file.name || "").split(".").pop();
+    if (fromName && /^[a-z0-9]+$/i.test(fromName) && fromName.length <= 5) {
+      return fromName.toLowerCase();
+    }
+    const map = {
+      "image/png": "png",
+      "image/jpeg": "jpg",
+      "image/jpg": "jpg",
+      "image/webp": "webp",
+      "image/gif": "gif"
+    };
+    return map[file.type] || "jpg";
   }
 
   function clearFieldError(el) {
@@ -211,17 +238,14 @@
       group.hidden = !modes.includes(type);
     });
 
-    const emailRequired = type === "hello";
-    if (emailReq) emailReq.hidden = !emailRequired;
-    if (emailOptional) emailOptional.hidden = emailRequired;
-    if (emailHelp) emailHelp.hidden = emailRequired;
-    if (emailField) emailField.required = emailRequired;
+    // Email is optional in all modes (matches Android / backend validation).
+    if (emailReq) emailReq.hidden = true;
+    if (emailOptional) emailOptional.hidden = false;
+    if (emailHelp) emailHelp.hidden = false;
+    if (emailField) emailField.required = false;
 
     if (submitLabel) submitLabel.textContent = SUBMIT_LABELS[type] || SUBMIT_LABELS.hello;
-
-    if (privacyText) {
-      privacyText.textContent = PRIVACY[type] || PRIVACY.hello;
-    }
+    if (privacyText) privacyText.textContent = PRIVACY[type] || PRIVACY.hello;
 
     clearErrors();
     updateSubmitState();
@@ -230,7 +254,6 @@
   function collectValues() {
     return {
       type: currentType,
-      source: SOURCE,
       name: trim(nameField && nameField.value),
       email: trim(emailField && emailField.value),
       message: trim(messageField && messageField.value),
@@ -262,20 +285,14 @@
       if (values.email.length > LIMITS.email || !isValidEmail(values.email)) {
         fail(errorEmail, "Please enter a valid email.", emailField);
       }
-    } else if (values.type === "hello") {
-      fail(errorEmail, "Please enter your email.", emailField);
     }
 
-    if (values.type === "hello") {
-      if (!values.message) {
-        fail(errorMessage, "Please add a message.", messageField);
-      }
+    if (values.type === "hello" && !values.message) {
+      fail(errorMessage, "Please add a message.", messageField);
     }
 
-    if (values.type === "bug") {
-      if (!values.happened) {
-        fail(errorHappened, "Please describe what happened.", happenedField);
-      }
+    if (values.type === "bug" && !values.happened) {
+      fail(errorHappened, "Please describe what happened.", happenedField);
     }
 
     if (values.type === "feature") {
@@ -294,14 +311,9 @@
   function formLooksReady() {
     const values = collectValues();
     if (values.company) return false;
-
     if (values.email && !isValidEmail(values.email)) return false;
-    if (values.type === "hello") {
-      return Boolean(values.email && values.message);
-    }
-    if (values.type === "bug") {
-      return Boolean(values.happened);
-    }
+    if (values.type === "hello") return Boolean(values.message);
+    if (values.type === "bug") return Boolean(values.happened);
     if (values.type === "feature") {
       return Boolean(values.featureTitle && values.featureAbout);
     }
@@ -310,8 +322,8 @@
 
   function updateSubmitState() {
     if (!submitBtn) return;
-    const enabled = !submitting && formLooksReady();
-    submitBtn.disabled = !enabled;
+    submitBtn.disabled = submitting || !formLooksReady();
+    submitBtn.classList.toggle("is-loading", submitting);
   }
 
   function buildMailto(values) {
@@ -323,8 +335,8 @@
     const lines = [`Source: website`, `Type: ${values.type}`, ""];
 
     if (values.type === "hello") {
-      lines.push(`Name: ${values.name || "—"}`);
-      lines.push(`Email: ${values.email}`);
+      if (values.name) lines.push(`Name: ${values.name}`);
+      lines.push(`Email: ${values.email || "—"}`);
       lines.push("", "Message:", values.message);
     } else if (values.type === "bug") {
       lines.push(`Email: ${values.email || "—"}`);
@@ -371,59 +383,82 @@
     }
   }
 
-  async function fileToBase64(file) {
-    const buffer = await file.arrayBuffer();
-    let binary = "";
-    const bytes = new Uint8Array(buffer);
-    const chunk = 0x8000;
-    for (let i = 0; i < bytes.length; i += chunk) {
-      binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
-    }
-    return btoa(binary);
-  }
+  function buildPayload(values, screenshotPath) {
+    const base = {
+      appVersion: websiteMeta.appVersion,
+      buildNumber: websiteMeta.buildNumber
+    };
 
-  async function submitToBackend(values) {
-    if (!ENDPOINT) {
-      throw new Error("Feedback endpoint is not configured.");
+    if (values.type === "hello") {
+      const payload = {
+        type: "feedback",
+        message: values.message,
+        ...base
+      };
+      if (values.email) payload.replyEmail = values.email;
+      return payload;
+    }
+
+    if (values.type === "bug") {
+      // Allowed keys must match submitFeedback BUG_KEYS exactly.
+      // Optional fields are omitted when empty (never "", null).
+      const payload = {
+        type: "bug",
+        whatHappened: values.happened,
+        appVersion: base.appVersion,
+        buildNumber: base.buildNumber,
+        androidVersion: values.androidVersion || NOT_PROVIDED,
+        deviceModel: values.device || NOT_PROVIDED
+      };
+      if (values.expected) payload.expectedBehaviour = values.expected;
+      if (screenshotPath) payload.screenshotPath = screenshotPath;
+      if (values.email) payload.replyEmail = values.email;
+      return payload;
     }
 
     const payload = {
-      type: values.type,
-      source: values.source,
-      name: values.name || null,
-      email: values.email || null,
-      message: values.message || null,
-      happened: values.happened || null,
-      expected: values.expected || null,
-      androidVersion: values.androidVersion || null,
-      device: values.device || null,
-      featureTitle: values.featureTitle || null,
-      category: values.category || null,
-      featureAbout: values.featureAbout || null,
-      why: values.why || null,
-      screenshot: null
+      type: "feature",
+      title: values.featureTitle,
+      description: values.featureAbout,
+      ...base
     };
+    if (values.category) payload.category = values.category;
+    if (values.why) payload.usefulness = values.why;
+    if (values.email) payload.replyEmail = values.email;
+    return payload;
+  }
 
-    if (values.screenshot) {
-      payload.screenshot = {
-        name: values.screenshot.name,
-        type: values.screenshot.type,
-        size: values.screenshot.size,
-        dataBase64: await fileToBase64(values.screenshot)
-      };
-    }
-
-    const response = await fetch(ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(payload)
+  async function uploadScreenshot(file) {
+    const folderId = crypto.randomUUID();
+    const fileId = crypto.randomUUID();
+    const ext = extensionForFile(file);
+    const path = `feedback-temp/${folderId}/${fileId}.${ext}`;
+    const objectRef = ref(storage, path);
+    await uploadBytes(objectRef, file, {
+      contentType: file.type || "application/octet-stream"
     });
+    return { path, objectRef };
+  }
 
-    if (!response.ok) {
-      throw new Error(`Feedback request failed (${response.status})`);
+  async function submitToBackend(values) {
+    let uploaded = null;
+
+    try {
+      if (values.type === "bug" && values.screenshot) {
+        uploaded = await uploadScreenshot(values.screenshot);
+      }
+
+      const payload = buildPayload(values, uploaded ? uploaded.path : undefined);
+      await submitFeedback(payload);
+    } catch (err) {
+      if (uploaded && uploaded.objectRef) {
+        try {
+          await deleteObject(uploaded.objectRef);
+        } catch {
+          // Backend cleanupFeedbackTemp remains the safety net.
+        }
+      }
+      throw err;
     }
   }
 
@@ -506,4 +541,4 @@
   });
 
   setType("bug");
-})();
+}

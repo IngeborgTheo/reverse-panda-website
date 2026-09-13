@@ -31,11 +31,44 @@ This repository hosts the public website for ReversePanda on GitHub Pages.
 ├── index.html              # Public coming-soon page
 ├── CNAME                   # Custom domain for GitHub Pages
 ├── assets/logo/            # Shared brand assets
+├── privacy/                # Public Privacy Policy (/privacy)
 └── live/                   # Full website (preview until launch)
     ├── index.html
+    ├── contact.html
+    ├── firebase-config.js  # Public Firebase / reCAPTCHA site config
+    ├── firebase.js         # App Check, Functions, Storage init
+    ├── contact.js
     ├── styles.css
     └── script.js
 ```
+
+## Contact form + Firebase
+
+The Contact page uses the **existing** Android feedback backend:
+
+- Callable: `submitFeedback` (`europe-west1`)
+- App Check: reCAPTCHA Enterprise (web) — separate from Play Integrity
+- Optional bug screenshots → `feedback-temp/<uuid>/<uuid>.<ext>`
+- Mail delivery via Resend to `support@reverse-panda.ch`
+
+Public client config lives in `live/firebase-config.js`.  
+Do not put `RESEND_API_KEY` or Admin/Functions secrets in the website.
+
+### Local App Check debug workflow
+
+Production reCAPTCHA Enterprise is registered for `reverse-panda.ch` / `www.reverse-panda.ch` only. Localhost uses App Check debug tokens:
+
+1. Serve the site locally (ES modules need HTTP, not `file://`), e.g. from repo root:
+   `npx --yes serve live`
+2. Open the Contact page in the browser.
+3. Open developer tools → Console. Firebase prints an App Check **debug token**.
+4. Copy that token.
+5. Firebase Console → App Check → ReversePanda Website → Manage debug tokens → register it.
+6. Refresh the website.
+7. Submit Say Hello / Bug / Feature forms to exercise `submitFeedback`.
+
+Do not disable App Check enforcement.  
+Do not commit registered debug tokens.
 
 ## Commits
 
