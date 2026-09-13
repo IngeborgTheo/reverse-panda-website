@@ -33,15 +33,18 @@ const SUBMIT_LABELS = {
 const SUCCESS = {
   bug: {
     title: "BUG REPORT SENT.",
-    copy: "Thanks for helping improve ReversePanda."
+    copy: "Thanks for helping improve ReversePanda.",
+    again: "SUBMIT ANOTHER BUG"
   },
   feature: {
     title: "REQUEST SENT.",
-    copy: "Thanks for the idea."
+    copy: "Thanks for the idea.",
+    again: "SUBMIT ANOTHER FEATURE"
   },
   hello: {
     title: "MESSAGE SENT.",
-    copy: "Thanks for reaching out."
+    copy: "Thanks for reaching out.",
+    again: "SEND ANOTHER MESSAGE"
   }
 };
 
@@ -63,11 +66,11 @@ function initContactForm() {
   const typeValue = document.getElementById("contact-type-value");
   const tabs = Array.from(document.querySelectorAll("[data-contact-type]"));
   const modeGroups = Array.from(document.querySelectorAll("[data-mode-fields]"));
-  const typeNav = document.querySelector(".contact-type");
   const formWrap = document.querySelector("[data-contact-form-wrap]");
   const success = document.querySelector("[data-contact-success]");
   const successTitle = document.querySelector("[data-success-title]");
   const successCopy = document.querySelector("[data-success-copy]");
+  const successAgain = document.querySelector("[data-success-again]");
   const submitBtn = document.querySelector("[data-submit-btn]");
   const submitLabel = document.querySelector("[data-submit-label]");
   const privacyText = document.querySelector("[data-privacy-text]");
@@ -109,6 +112,7 @@ function initContactForm() {
   let screenshotFile = null;
   let screenshotObjectUrl = "";
   let submitting = false;
+  let showingSuccess = false;
 
   function trim(value) {
     return String(value || "").trim();
@@ -222,7 +226,49 @@ function initContactForm() {
     if (shotPreview) shotPreview.hidden = false;
   }
 
+  function resetFormFields() {
+    submitting = false;
+    form.reset();
+    if (typeValue) typeValue.value = currentType;
+    clearScreenshot();
+    clearErrors();
+    form.querySelectorAll("input, textarea, select").forEach(updateCounter);
+    if (submitLabel) {
+      submitLabel.textContent = SUBMIT_LABELS[currentType] || SUBMIT_LABELS.hello;
+    }
+    updateSubmitState();
+  }
+
+  function showFormState() {
+    showingSuccess = false;
+    if (success) success.hidden = true;
+    if (formWrap) formWrap.hidden = false;
+  }
+
+  function showSuccessState() {
+    const copy = SUCCESS[currentType] || SUCCESS.hello;
+    resetFormFields();
+    showingSuccess = true;
+    if (formWrap) formWrap.hidden = true;
+    if (successTitle) successTitle.textContent = copy.title;
+    if (successCopy) successCopy.textContent = copy.copy;
+    if (successAgain) {
+      successAgain.innerHTML = `${copy.again} <span aria-hidden="true">→</span>`;
+    }
+    if (success) {
+      success.hidden = false;
+      if (successTitle) {
+        successTitle.setAttribute("tabindex", "-1");
+        successTitle.focus();
+      }
+    }
+  }
+
   function setType(type) {
+    if (showingSuccess) {
+      showFormState();
+    }
+
     currentType = type;
     if (typeValue) typeValue.value = type;
 
@@ -370,21 +416,6 @@ function initContactForm() {
     if (fallbackMail) fallbackMail.href = buildMailto(values);
   }
 
-  function showSuccessState() {
-    const copy = SUCCESS[currentType] || SUCCESS.hello;
-    if (typeNav) typeNav.hidden = true;
-    if (formWrap) formWrap.hidden = true;
-    if (successTitle) successTitle.textContent = copy.title;
-    if (successCopy) successCopy.textContent = copy.copy;
-    if (success) {
-      success.hidden = false;
-      if (successTitle) {
-        successTitle.setAttribute("tabindex", "-1");
-        successTitle.focus();
-      }
-    }
-  }
-
   function buildPayload(values, screenshotPath) {
     const base = {
       appVersion: websiteMeta.appVersion,
@@ -520,6 +551,17 @@ function initContactForm() {
     shotRemove.addEventListener("click", () => {
       clearScreenshot();
       updateSubmitState();
+    });
+  }
+
+  if (successAgain) {
+    successAgain.addEventListener("click", () => {
+      showFormState();
+      resetFormFields();
+      const activeTab = tabs.find(
+        (tab) => tab.getAttribute("data-contact-type") === currentType
+      );
+      if (activeTab) activeTab.focus();
     });
   }
 
