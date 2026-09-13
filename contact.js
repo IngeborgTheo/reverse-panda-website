@@ -5,7 +5,9 @@ import {
   uploadBytes,
   deleteObject,
   websiteMeta,
-  supportEmail
+  supportEmail,
+  reportAppCheckDiagnostics,
+  probeAppCheckToken
 } from "./firebase.js";
 
 const SUPPORT_EMAIL = supportEmail || "support@reverse-panda.ch";
@@ -434,9 +436,20 @@ function initContactForm() {
     const ext = extensionForFile(file);
     const path = `feedback-temp/${folderId}/${fileId}.${ext}`;
     const objectRef = ref(storage, path);
-    await uploadBytes(objectRef, file, {
-      contentType: file.type || "application/octet-stream"
-    });
+    await probeAppCheckToken("before-storage-upload");
+    try {
+      await uploadBytes(objectRef, file, {
+        contentType: file.type || "application/octet-stream"
+      });
+    } catch (error) {
+      reportAppCheckDiagnostics({
+        phase: "storage-upload-error",
+        errorCode: error && error.code,
+        errorMessage: error && error.message
+      });
+      await probeAppCheckToken("after-storage-upload-error");
+      throw error;
+    }
     return { path, objectRef };
   }
 

@@ -23,7 +23,7 @@ export const firebaseConfig = {
   appId: "1:200312248311:web:de8a220b940ea8b4e0c0f2"
 };
 
-export const recaptchaEnterpriseSiteKey = "6Lfl7LgtAAAAABMbcSIRGuuj7OimoW1CPmZg9Y2K";
+export const recaptchaEnterpriseSiteKey = "6Lfl7LgtAAAAAF-c3YuQDSkfzCWxl4eA2NHlJrPR";
 
 /** Controlled website identity for submitFeedback payloads */
 export const websiteMeta = {
