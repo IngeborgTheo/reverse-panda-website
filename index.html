@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 
@@ -45,22 +46,22 @@
     <section class="hero" id="hero" aria-labelledby="hero-heading">
       <div class="hero__layout">
         <div class="hero__copy">
-          <p class="hero-eyebrow" data-reveal="fade-up">ANDROID, WITHOUT THE BORING PART.</p>
-          <h1 class="hero-title" id="hero-heading" data-reveal="fade-up" data-reveal-delay="60">
+          <p class="hero-eyebrow reveal-soft" data-reveal="soft">ANDROID, WITHOUT THE BORING PART.</p>
+          <h1 class="hero-title" id="hero-heading">
             YOUR PHONE.<br>YOUR RULES.
           </h1>
-          <p class="hero-sub" data-reveal="fade-up" data-reveal-delay="120">
+          <p class="hero-sub reveal-soft" data-reveal="soft" data-reveal-delay="80">
             ReversePanda is an Android launcher built for people who don't do defaults.
             Change layouts, docks, gestures, animations and almost everything in between.
           </p>
-          <div class="hero-actions" data-reveal="fade-up" data-reveal-delay="180">
+          <div class="hero-actions reveal-soft" data-reveal="soft" data-reveal-delay="140">
             <a href="#download" class="btn-primary">GET REVERSEPANDA <span aria-hidden="true">→</span></a>
             <a href="#why" class="btn-text">Explore features ↓</a>
           </div>
         </div>
 
-        <div class="hero__visual" data-reveal="fade-left" data-reveal-delay="100">
-          <div class="hero-wall" aria-hidden="true">
+        <div class="hero__visual reveal" data-reveal data-reveal-delay="100">
+          <div class="hero-wall" aria-hidden="true" data-reveal-drift data-drift-amount="14">
             <div class="hero-wall__mask">
               <div class="hero-col hero-col--down">
                 <div class="hero-col__track" data-hero-track="left"></div>
@@ -76,37 +77,37 @@
 
     <!-- WHY REVERSEPANDA -->
     <section class="why" id="why" aria-labelledby="why-heading">
-      <div class="why__intro" data-reveal="fade-up">
-        <p class="why__label">WHY REVERSEPANDA</p>
-        <h2 class="why__title" id="why-heading">
+      <div class="why__intro reveal-stagger">
+        <p class="why__label reveal-item reveal-soft" data-reveal="soft">WHY REVERSEPANDA</p>
+        <h2 class="why__title reveal-item reveal-heading" id="why-heading" data-reveal="heading">
           DEFAULTS<br>ARE OPTIONAL.
         </h2>
-        <p class="why__copy">
+        <p class="why__copy reveal-item reveal-soft" data-reveal="soft">
           Start with Android. Make it yours.
           Change how your home screen looks, moves and works with layouts,
           docks, gestures, icons, animations and more.
         </p>
       </div>
 
-      <div class="why-cards">
-        <article class="why-card why-card--blue" data-reveal="fade-up">
+      <div class="why-cards reveal-stagger">
+        <article class="why-card why-card--blue reveal-item" data-reveal>
           <span class="why-card__num">01</span>
           <h3 class="why-card__title">FULLY CUSTOMIZABLE</h3>
           <p class="why-card__body">From layouts and docks to icons, animations and gestures — shape your Android experience the way you want.</p>
         </article>
-        <article class="why-card why-card--neutral" data-reveal="fade-up" data-reveal-delay="60">
+        <article class="why-card why-card--neutral reveal-item" data-reveal>
           <span class="why-card__num">02</span>
           <h3 class="why-card__title">BEAUTIFUL &amp; SMOOTH</h3>
           <p class="why-card__body">Explore different layouts, transitions and animations designed to make your home screen feel alive.</p>
         </article>
-        <article class="why-card why-card--warm" data-reveal="fade-up" data-reveal-delay="100">
+        <article class="why-card why-card--warm reveal-item" data-reveal>
           <span class="why-card__num">03</span>
           <h3 class="why-card__title">POWERFUL SETTINGS</h3>
           <p class="why-card__body">Fine-tune ReversePanda through a settings system designed to give you control without getting in your way.</p>
         </article>
       </div>
 
-      <div class="why-statements" data-reveal="fade-up">
+      <div class="why-statements reveal" data-reveal>
         <div class="why-statement">
           <p class="why-statement__lead">YOUR WAY</p>
           <p class="why-statement__sub">DEEP CUSTOMIZATION</p>
@@ -125,85 +126,165 @@
     <!-- PRODUCT SHOWCASE -->
     <section class="showcase" id="showcase" aria-labelledby="showcase-heading">
       <div class="showcase__shell">
-        <header class="showcase__intro" data-reveal="fade-up">
-          <p class="showcase__label">MAKE IT YOURS</p>
-          <h2 class="showcase__title" id="showcase-heading">
+        <header class="showcase__intro reveal-stagger">
+          <p class="showcase__label reveal-item reveal-soft" data-reveal="soft">MAKE IT YOURS</p>
+          <h2 class="showcase__title reveal-item reveal-heading" id="showcase-heading" data-reveal="heading">
             CUSTOMIZE<br>ALMOST<br><span class="showcase__title-light">EVERYTHING.</span>
           </h2>
-          <p class="showcase__copy">
+          <p class="showcase__copy reveal-item reveal-soft" data-reveal="soft">
             <span class="showcase__copy-primary">Same launcher. Completely different setups.</span>
             <span class="showcase__copy-secondary">Build a home screen that feels like yours.</span>
           </p>
         </header>
-        <div class="showcase-gallery" data-showcase-gallery aria-label="Launcher setup examples"></div>
+        <div class="showcase-gallery" data-showcase-gallery data-reveal-drift data-drift-amount="16" aria-label="Launcher setup examples"></div>
       </div>
     </section>
 
-    <!-- FEATURE EXPLORER -->
+    <!-- FEATURE DETAIL LAB -->
     <section class="features" id="features" aria-labelledby="features-heading">
-      <header class="features__intro" data-reveal="fade-up">
-        <p class="features__label">GO DEEPER</p>
-        <h2 class="features__title" id="features-heading">ONE DETAIL.<br>YOUR DECISION.</h2>
-        <p class="features__lead">
-          ReversePanda doesn't stop at presets.<br>
-          Choose how individual parts of your launcher look, move and behave.
+      <header class="features__intro reveal-stagger">
+        <p class="features__label reveal-item reveal-soft" data-reveal="soft">GO DEEPER</p>
+        <h2 class="features__title reveal-item reveal-heading" id="features-heading" data-reveal="heading">ONE DETAIL.<br>YOUR DECISION.</h2>
+        <p class="features__lead reveal-item reveal-soft" data-reveal="soft">
+          Change one detail.<br>
+          Or change the whole thing.
         </p>
       </header>
 
-      <nav class="feature-nav" role="tablist" aria-label="Launcher features" data-reveal="fade-up" data-reveal-delay="60">
-        <button type="button" class="feature-nav__item is-active" role="tab" id="feature-tab-home" aria-selected="true" aria-controls="feature-panel" data-feature="home">HOME SCREEN</button>
-        <button type="button" class="feature-nav__item" role="tab" id="feature-tab-dock" aria-selected="false" aria-controls="feature-panel" data-feature="dock">DOCK</button>
-        <button type="button" class="feature-nav__item" role="tab" id="feature-tab-drawer" aria-selected="false" aria-controls="feature-panel" data-feature="drawer">APP DRAWER</button>
-        <button type="button" class="feature-nav__item" role="tab" id="feature-tab-folders" aria-selected="false" aria-controls="feature-panel" data-feature="folders">FOLDERS</button>
-        <button type="button" class="feature-nav__item" role="tab" id="feature-tab-motion" aria-selected="false" aria-controls="feature-panel" data-feature="motion">MOTION</button>
-      </nav>
+      <div class="detail-lab">
+        <div class="detail-lab__controls reveal" data-reveal data-reveal-delay="60">
+          <div class="detail-cats" role="tablist" aria-label="Customization details">
+            <button type="button" class="detail-cats__item is-active" role="tab" aria-selected="true" data-detail-cat="icons" id="detail-cat-icons">ICON SIZE</button>
+            <button type="button" class="detail-cats__item" role="tab" aria-selected="false" data-detail-cat="labels" id="detail-cat-labels">LABELS</button>
+            <button type="button" class="detail-cats__item" role="tab" aria-selected="false" data-detail-cat="folders" id="detail-cat-folders">FOLDER STYLE</button>
+            <button type="button" class="detail-cats__item" role="tab" aria-selected="false" data-detail-cat="dock" id="detail-cat-dock">DOCK</button>
+          </div>
 
-      <div class="feature-panel" id="feature-panel" role="tabpanel" aria-labelledby="feature-tab-home" data-feature-panel data-reveal="fade-up" data-reveal-delay="100">
-        <div class="feature-panel__copy" data-feature-copy>
-          <p class="feature-panel__meta">
-            <span data-feature-num>01</span> / <span data-feature-cat>HOME SCREEN</span>
+          <div class="detail-opts" data-detail-opts role="group" aria-labelledby="detail-cat-icons">
+            <!-- filled by script -->
+          </div>
+
+          <p class="detail-lab__note" data-detail-note>
+            Adjust icon size on the home screen.
           </p>
-          <h3 class="feature-panel__headline" data-feature-headline>BREAK FREE<br>FROM THE GRID.</h3>
-          <p class="feature-panel__desc" data-feature-desc>Choose how apps are arranged and how you move through your home screen.</p>
-          <p class="feature-panel__examples" data-feature-examples>CLASSIC PAGINATED  /  CONTINUOUS CANVAS  /  BUBBLE CLOUD</p>
         </div>
-        <div class="feature-panel__visual" data-feature-visual aria-hidden="true">
-          <div class="fx-stage" data-fx-stage="home">
-            <div class="fx fx--home">
-              <span class="fx-icon" style="--x:12%;--y:18%"></span>
-              <span class="fx-icon accent" style="--x:38%;--y:12%"></span>
-              <span class="fx-icon" style="--x:64%;--y:22%"></span>
-              <span class="fx-icon round" style="--x:22%;--y:42%"></span>
-              <span class="fx-icon" style="--x:48%;--y:48%"></span>
-              <span class="fx-icon accent" style="--x:72%;--y:40%"></span>
-              <span class="fx-icon" style="--x:18%;--y:68%"></span>
-              <span class="fx-icon round" style="--x:44%;--y:72%"></span>
-              <span class="fx-icon" style="--x:68%;--y:66%"></span>
+
+        <div class="detail-lab__preview reveal" data-reveal data-reveal-delay="120" aria-hidden="true">
+          <div
+            class="detail-phone"
+            data-detail-preview
+            data-icons="default"
+            data-labels="show"
+            data-folders="standard"
+            data-dock="linear"
+          >
+            <div class="detail-phone__bezel">
+              <div class="detail-phone__screen">
+                <div class="detail-phone__status"></div>
+                <div class="detail-phone__grid">
+                  <span class="detail-app"><i></i><em>Mail</em></span>
+                  <span class="detail-app"><i class="is-accent"></i><em>Maps</em></span>
+                  <span class="detail-app"><i></i><em>Music</em></span>
+                  <span class="detail-app"><i></i><em>Photos</em></span>
+                  <span class="detail-app detail-app--folder" data-detail-folder>
+                    <span class="detail-folder">
+                      <i></i><i></i><i></i><i></i>
+                    </span>
+                    <em>Apps</em>
+                  </span>
+                  <span class="detail-app"><i></i><em>Notes</em></span>
+                  <span class="detail-app"><i></i><em>Clock</em></span>
+                  <span class="detail-app"><i class="is-soft"></i><em>Files</em></span>
+                </div>
+                <div class="detail-phone__dock" data-detail-dock>
+                  <span class="detail-dock-icon"></span>
+                  <span class="detail-dock-icon"></span>
+                  <span class="detail-dock-icon is-accent"></span>
+                  <span class="detail-dock-icon"></span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- DEFAULT VS REVERSEPANDA -->
+    <section class="compare" id="compare" aria-labelledby="compare-heading">
+      <header class="compare__intro reveal-stagger">
+        <p class="compare__label reveal-item reveal-soft" data-reveal="soft">A SMALL SHIFT</p>
+        <h2 class="compare__title reveal-item reveal-heading" id="compare-heading" data-reveal="heading">
+          SAME PHONE.<br>DIFFERENT RULES.
+        </h2>
+      </header>
+
+      <div class="compare__pair">
+        <figure class="compare-card reveal" data-reveal data-reveal-delay="40">
+          <figcaption class="compare-card__label">DEFAULT</figcaption>
+          <div class="compare-phone compare-phone--default" aria-hidden="true">
+            <div class="compare-phone__screen">
+              <div class="compare-phone__status"></div>
+              <div class="compare-phone__grid compare-phone__grid--default">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+              </div>
+              <div class="compare-phone__labels">
+                <i></i><i></i><i></i><i></i>
+              </div>
+              <div class="compare-phone__dock compare-phone__dock--default">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        <figure class="compare-card compare-card--rp reveal" data-reveal data-reveal-delay="110">
+          <figcaption class="compare-card__label">
+            REVERSEPANDA
+            <span class="compare-card__mark" aria-hidden="true"></span>
+          </figcaption>
+          <div class="compare-phone compare-phone--rp" aria-hidden="true">
+            <div class="compare-phone__screen">
+              <div class="compare-phone__status"></div>
+              <div class="compare-phone__grid compare-phone__grid--rp">
+                <span></span><span class="is-accent"></span><span></span>
+                <span class="is-round"></span><span></span><span></span>
+                <span></span><span class="is-folder"></span><span></span>
+              </div>
+              <div class="compare-phone__dock compare-phone__dock--rp">
+                <span></span><span></span><span class="is-accent"></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- COMMUNITY FEATURE -->
+    <section class="community" id="community" aria-labelledby="community-heading" data-community-section>
+      <!-- Filled by script from RP_COMMUNITY data -->
+    </section>
+
     <!-- REVERSEPANDA MANIFESTO -->
     <section class="manifesto" id="way" aria-labelledby="manifesto-heading">
       <div class="manifesto__shell">
         <div class="manifesto__layout">
-          <header class="manifesto__intro" data-reveal="fade-up">
-            <p class="manifesto__label">THE REVERSEPANDA WAY</p>
-            <h2 class="manifesto__title" id="manifesto-heading">
+          <header class="manifesto__intro reveal-stagger">
+            <p class="manifesto__label reveal-item reveal-soft" data-reveal="soft">THE REVERSEPANDA WAY</p>
+            <h2 class="manifesto__title reveal-item reveal-heading" id="manifesto-heading" data-reveal="heading">
               NOT MADE<br>
               TO <span class="manifesto__title-accent">FIT IN.</span>
             </h2>
-            <p class="manifesto__copy">
+            <p class="manifesto__copy reveal-item reveal-soft" data-reveal="soft">
               <span class="manifesto__copy-line">Android gives you a home screen.</span>
               <span class="manifesto__copy-line">ReversePanda gives you yours.</span>
             </p>
           </header>
 
-          <div class="manifesto__aside" aria-hidden="true" data-reveal="fade-left" data-reveal-delay="100">
+          <div class="manifesto__aside reveal" aria-hidden="true" data-reveal="fade-left" data-reveal-delay="80">
             <span class="manifesto__bg-word">DIFFERENT</span>
-            <div class="manifesto__grid">
+            <div class="manifesto__grid" data-reveal-drift data-drift-amount="12">
               <span class="manifesto__dot"></span>
               <span class="manifesto__dot"></span>
               <span class="manifesto__dot"></span>
@@ -220,19 +301,32 @@
             </div>
           </div>
 
-          <a class="manifesto__continue" href="#story" data-reveal="fade-up" data-reveal-delay="140">
+          <a class="manifesto__continue reveal-soft" href="#story" data-reveal="soft" data-reveal-delay="160">
             THERE'S A REASON FOR THAT. <span class="manifesto__continue-arrow" aria-hidden="true">↓</span>
           </a>
         </div>
       </div>
     </section>
 
+    <!-- STORY BRIDGE -->
+    <section class="story-bridge" aria-labelledby="story-bridge-heading">
+      <div class="story-bridge__inner reveal-stagger">
+        <span class="story-bridge__accent reveal-item" data-reveal aria-hidden="true"></span>
+        <h2 class="story-bridge__title reveal-item reveal-heading" id="story-bridge-heading" data-reveal="heading">
+          THIS DIDN'T START<br>AS A PRODUCT.
+        </h2>
+        <p class="story-bridge__copy reveal-item reveal-soft" data-reveal="soft">
+          It started with a habit of changing things that were never meant to be changed.
+        </p>
+      </div>
+    </section>
+
     <!-- STORY -->
     <section class="story" id="story" aria-labelledby="story-heading">
       <div class="story__layout">
-        <header class="story__intro" data-reveal="fade-up">
-          <p class="story__label">THE STORY</p>
-          <h2 class="story__title" id="story-heading">
+        <header class="story__intro reveal-stagger">
+          <p class="story__label reveal-item reveal-soft" data-reveal="soft">THE STORY</p>
+          <h2 class="story__title reveal-item reveal-heading" id="story-heading" data-reveal="heading">
             DIFFERENT IS A<br>
             STRENGTH<span class="story__title-mark">,</span><br>
             NOT A BUG<span class="story__title-mark">.</span>
@@ -240,7 +334,7 @@
         </header>
 
         <div class="story__chapters">
-          <article class="story-chapter" data-reveal="fade-up">
+          <article class="story-chapter reveal" data-reveal>
             <div class="story-chapter__content">
               <p class="story-chapter__num">01</p>
               <h3 class="story-chapter__title">REVERSEPANDA</h3>
@@ -259,11 +353,13 @@
                 height="850"
                 loading="lazy"
                 decoding="async"
+                data-reveal-drift
+                data-drift-amount="20"
               >
             </figure>
           </article>
 
-          <article class="story-chapter" data-reveal="fade-up" data-reveal-delay="60">
+          <article class="story-chapter reveal" data-reveal>
             <div class="story-chapter__content">
               <p class="story-chapter__num">02</p>
               <h3 class="story-chapter__title">NEVER REALLY<br>LIKED DEFAULTS.</h3>
@@ -282,11 +378,13 @@
                 height="960"
                 loading="lazy"
                 decoding="async"
+                data-reveal-drift
+                data-drift-amount="18"
               >
             </figure>
           </article>
 
-          <article class="story-chapter" data-reveal="fade-up" data-reveal-delay="80">
+          <article class="story-chapter reveal" data-reveal>
             <div class="story-chapter__content">
               <p class="story-chapter__num">03</p>
               <h3 class="story-chapter__title">BUILDING<br>MY OWN.</h3>
@@ -305,41 +403,44 @@
                 height="512"
                 loading="lazy"
                 decoding="async"
+                data-reveal-drift
+                data-drift-amount="12"
               >
             </figure>
           </article>
         </div>
       </div>
 
-      <p class="story__close" data-reveal="fade-up">YOUR PHONE.<br>YOUR RULES.</p>
+      <p class="story__close reveal-heading" data-reveal="heading">YOUR PHONE.<br>YOUR RULES.</p>
     </section>
 
     <!-- FINAL CTA -->
     <section class="final-cta" id="download" aria-labelledby="cta-heading">
       <div class="final-cta__shell">
         <div class="final-cta__layout">
-          <div class="final-cta__copy" data-reveal="fade-up">
-            <p class="final-cta__label">YOUR TURN</p>
-            <h2 class="final-cta__title" id="cta-heading">
+          <div class="final-cta__copy reveal-stagger">
+            <p class="final-cta__label reveal-item reveal-soft" data-reveal="soft">YOUR TURN</p>
+            <h2 class="final-cta__title reveal-item reveal-heading" id="cta-heading" data-reveal="heading">
               READY TO MAKE<br>IT YOURS?
             </h2>
-            <p class="final-cta__lead">
+            <p class="final-cta__lead reveal-item reveal-soft" data-reveal="soft">
               ReversePanda is still growing.
             </p>
-            <p class="final-cta__lead final-cta__lead--follow">
+            <p class="final-cta__lead final-cta__lead--follow reveal-item reveal-soft" data-reveal="soft">
               If you like changing the things you're usually told to leave alone,
               you're probably in the right place.
             </p>
             <a
-              class="final-cta__button"
+              class="final-cta__button reveal-item"
+              data-reveal
               href="mailto:support@reverse-panda.ch?subject=ReversePanda%20Beta"
             >
               JOIN THE BETA <span class="final-cta__button-arrow" aria-hidden="true">→</span>
             </a>
           </div>
 
-          <div class="final-cta__visual" aria-hidden="true" data-reveal="fade-left" data-reveal-delay="80">
-            <div class="final-cta__compose">
+          <div class="final-cta__visual reveal" aria-hidden="true" data-reveal="fade-left" data-reveal-delay="80">
+            <div class="final-cta__compose" data-reveal-drift data-drift-amount="14">
               <span class="fcc fcc--grid" style="--x:8%;--y:12%"></span>
               <span class="fcc fcc--grid" style="--x:28%;--y:12%"></span>
               <span class="fcc fcc--grid" style="--x:48%;--y:12%"></span>
@@ -357,7 +458,7 @@
           </div>
         </div>
 
-        <ul class="final-cta__facts" data-reveal="fade-up" data-reveal-delay="120">
+        <ul class="final-cta__facts reveal-soft" data-reveal="soft" data-reveal-delay="120">
           <li>
             <span class="final-cta__fact-label">ANDROID</span>
             <span class="final-cta__fact-text">Built for Android</span>
@@ -423,6 +524,7 @@
   </footer>
 
   <script src="previews.js"></script>
+  <script src="community.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

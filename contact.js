@@ -113,6 +113,14 @@ function initContactForm() {
   let screenshotObjectUrl = "";
   let submitting = false;
   let showingSuccess = false;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function playSwap(el, className) {
+    if (!el || prefersReducedMotion) return;
+    el.classList.remove(className);
+    void el.offsetWidth;
+    el.classList.add(className);
+  }
 
   function trim(value) {
     return String(value || "").trim();
@@ -241,7 +249,10 @@ function initContactForm() {
 
   function showFormState() {
     showingSuccess = false;
-    if (success) success.hidden = true;
+    if (success) {
+      success.hidden = true;
+      success.classList.remove("is-revealing");
+    }
     if (formWrap) formWrap.hidden = false;
   }
 
@@ -257,6 +268,7 @@ function initContactForm() {
     }
     if (success) {
       success.hidden = false;
+      playSwap(success, "is-revealing");
       if (successTitle) {
         successTitle.setAttribute("tabindex", "-1");
         successTitle.focus();
@@ -265,6 +277,9 @@ function initContactForm() {
   }
 
   function setType(type) {
+    const typeChanged = type !== currentType;
+    const leavingSuccess = showingSuccess;
+
     if (showingSuccess) {
       showFormState();
     }
@@ -297,6 +312,10 @@ function initContactForm() {
 
     clearErrors();
     updateSubmitState();
+
+    if ((typeChanged || leavingSuccess) && formWrap && !formWrap.hidden) {
+      playSwap(formWrap, "is-swapping");
+    }
   }
 
   function collectValues() {
@@ -558,6 +577,7 @@ function initContactForm() {
     successAgain.addEventListener("click", () => {
       showFormState();
       resetFormFields();
+      if (formWrap) playSwap(formWrap, "is-swapping");
       const activeTab = tabs.find(
         (tab) => tab.getAttribute("data-contact-type") === currentType
       );
@@ -595,5 +615,29 @@ function initContactForm() {
     }
   });
 
-  setType("bug");
+  const params = new URLSearchParams(window.location.search);
+  const requestedType = params.get("type");
+  const typeMap = {
+    bug: "bug",
+    feature: "feature",
+    hello: "hello",
+    layout: "hello"
+  };
+  const initialType = typeMap[requestedType] || "bug";
+  setType(initialType);
+
+  if (requestedType === "layout") {
+    const layoutNote = document.createElement("p");
+    layoutNote.className = "contact-field__help";
+    layoutNote.style.marginBottom = "1rem";
+    layoutNote.textContent =
+      "Sharing a layout? Describe it below. Include a link to a screenshot if you have one.";
+    const firstField = form.querySelector(".contact-field");
+    if (firstField && firstField.parentNode) {
+      firstField.parentNode.insertBefore(layoutNote, firstField);
+    }
+    if (messageField && !messageField.value) {
+      messageField.placeholder = "Tell me about your ReversePanda setup…";
+    }
+  }
 }
