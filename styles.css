@@ -2163,23 +2163,35 @@ button { font: inherit; }
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1.55rem;
+  gap: 2rem;
   position: relative;
+}
+
+.contact-fields-bug,
+.contact-fields-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* display:flex on fields overrides the UA [hidden] rule — keep mode switching reliable */
+.contact-form [hidden] {
+  display: none !important;
 }
 
 .contact-field-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.55rem;
+  gap: 2rem;
 }
 
 .contact-field {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0;
 }
 
-.contact-field label {
+.contact-field > label {
   font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 700;
@@ -2187,6 +2199,11 @@ button { font: inherit; }
   text-transform: uppercase;
   color: var(--black);
   opacity: 0.7;
+  margin-bottom: 0.55rem;
+}
+
+.contact-field > label:has(+ .contact-field__help) {
+  margin-bottom: 0.3rem;
 }
 
 .contact-field__hint {
@@ -2199,23 +2216,35 @@ button { font: inherit; }
 
 .contact-field input[type="text"],
 .contact-field input[type="email"],
-.contact-field textarea {
+.contact-field textarea,
+.contact-field select {
   width: 100%;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid rgba(27, 25, 21, 0.25);
-  border-radius: 0;
-  padding: 0.7rem 0;
+  box-sizing: border-box;
+  background-color: rgba(27, 25, 21, 0.035);
+  border: 1px solid rgba(27, 25, 21, 0.14);
+  border-radius: 2px;
+  padding: 0.72rem 0.85rem;
   font-family: var(--font-body);
   font-size: 1.05rem;
   line-height: 1.45;
   color: var(--black);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .contact-field textarea {
   resize: vertical;
-  min-height: 8rem;
+  min-height: 8.25rem;
+}
+
+#contact-happened,
+#contact-feature-about {
+  min-height: 11rem;
+}
+
+#contact-message,
+#contact-expected,
+#contact-why {
+  min-height: 8.25rem;
 }
 
 .contact-field input::placeholder,
@@ -2224,14 +2253,17 @@ button { font: inherit; }
 }
 
 .contact-field input:focus,
-.contact-field textarea:focus {
+.contact-field textarea:focus,
+.contact-field select:focus {
   outline: none;
-  border-bottom-color: var(--blue);
+  border-color: var(--blue);
+  background-color: rgba(131, 188, 221, 0.08);
 }
 
 .contact-field input.is-invalid,
-.contact-field textarea.is-invalid {
-  border-bottom-color: var(--orange);
+.contact-field textarea.is-invalid,
+.contact-field select.is-invalid {
+  border-color: var(--orange);
 }
 
 .contact-field__error,
@@ -2257,6 +2289,7 @@ button { font: inherit; }
   font-size: 0.84rem;
   line-height: 1.45;
   color: rgba(27, 25, 21, 0.5);
+  margin: 0 0 0.55rem;
 }
 
 .contact-field__meta {
@@ -2264,7 +2297,8 @@ button { font: inherit; }
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-  min-height: 1.1rem;
+  margin-top: 0.4rem;
+  min-height: 0;
 }
 
 .contact-counter {
@@ -2285,30 +2319,30 @@ button { font: inherit; }
 }
 
 .contact-field select {
-  width: 100%;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid rgba(27, 25, 21, 0.25);
-  border-radius: 0;
-  padding: 0.7rem 0;
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  line-height: 1.45;
-  color: var(--black);
-  transition: border-color 0.2s ease;
-}
-
-.contact-field select:focus {
-  outline: none;
-  border-bottom-color: var(--blue);
+  appearance: none;
+  background-color: rgba(27, 25, 21, 0.035);
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(27, 25, 21, 0.55) 50%),
+    linear-gradient(135deg, rgba(27, 25, 21, 0.55) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.05rem) calc(50% - 0.15rem),
+    calc(100% - 0.7rem) calc(50% - 0.15rem);
+  background-size: 0.35rem 0.35rem, 0.35rem 0.35rem;
+  background-repeat: no-repeat;
+  padding-right: 2.2rem;
+  cursor: pointer;
 }
 
 .contact-field--file input[type="file"] {
+  width: 100%;
+  box-sizing: border-box;
   font-family: var(--font-body);
   font-size: 0.92rem;
   color: var(--black);
-  padding: 0.55rem 0;
-  border-bottom: 1px solid rgba(27, 25, 21, 0.25);
+  padding: 0.72rem 0.85rem;
+  background: rgba(27, 25, 21, 0.035);
+  border: 1px solid rgba(27, 25, 21, 0.14);
+  border-radius: 2px;
 }
 
 .contact-field--file input[type="file"]::file-selector-button {
@@ -2325,6 +2359,11 @@ button { font: inherit; }
   margin-right: 0.85rem;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.contact-field--file .contact-field__help {
+  margin-top: 0.55rem;
+  margin-bottom: 0;
 }
 
 .contact-shot {
@@ -2504,7 +2543,7 @@ button { font: inherit; }
   line-height: 1.5;
   color: var(--black);
   opacity: 0.78;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0;
 }
 
 .contact-success__copy--quiet {
@@ -2513,24 +2552,42 @@ button { font: inherit; }
 }
 
 .contact-success__again {
-  display: inline-block;
-  margin-top: 1.25rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  line-height: 1.5;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.6rem;
+  padding: 0.8rem 1.35rem;
+  border: 1px solid rgba(27, 25, 21, 0.85);
+  border-radius: 10px;
+  background: transparent;
   color: var(--black);
-  text-decoration: none;
-  opacity: 0.78;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .contact-success__again:hover {
-  opacity: 1;
   color: var(--black);
+  border-color: var(--blue);
+  background: rgba(131, 188, 221, 0.16);
+}
+
+.contact-success__again:hover span[aria-hidden="true"] {
+  transform: translateX(4px);
+}
+
+.contact-success__again span[aria-hidden="true"] {
+  display: inline-block;
+  transition: transform 0.2s ease;
 }
 
 .contact-success__again:focus-visible {
@@ -2592,14 +2649,26 @@ button { font: inherit; }
     white-space: nowrap;
   }
 
+  .contact-form,
+  .contact-fields-bug,
+  .contact-fields-feature {
+    gap: 1.65rem;
+  }
+
   .contact-field-row {
     grid-template-columns: 1fr;
+    gap: 1.65rem;
   }
 
   .contact-submit {
     width: 100%;
     justify-content: center;
     min-height: 3rem;
+  }
+
+  .contact-success__again {
+    width: 100%;
+    justify-content: center;
   }
 }
 
