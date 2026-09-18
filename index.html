@@ -169,7 +169,7 @@
           </p>
         </div>
 
-        <div class="detail-lab__preview reveal" data-reveal data-reveal-delay="120" aria-hidden="true">
+        <div class="detail-lab__preview reveal" data-detail-stage data-reveal data-reveal-delay="120">
           <div
             class="detail-phone"
             data-detail-preview
@@ -177,6 +177,7 @@
             data-labels="show"
             data-folders="standard"
             data-dock="linear"
+            aria-hidden="true"
           >
             <div class="detail-phone__bezel">
               <div class="detail-phone__screen">
@@ -204,6 +205,37 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="detail-video-stage" data-detail-video-stage hidden aria-hidden="true">
+            <div class="detail-video-stage__frame" data-detail-video-frame>
+              <!-- Dock demo videos mounted by script -->
+            </div>
+            <button
+              type="button"
+              class="detail-video-replay"
+              data-detail-video-replay
+              aria-label="Replay dock demo"
+              hidden
+            >
+              <span class="detail-video-replay__icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M38.5 24a14.5 14.5 0 1 1-4.25-10.25"
+                    stroke="currentColor"
+                    stroke-width="2.25"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M38.5 12.5v9h-9"
+                    stroke="currentColor"
+                    stroke-width="2.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </button>
           </div>
         </div>
       </div>

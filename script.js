@@ -451,19 +451,36 @@
       ]
     },
     dock: {
-      note: "Choose a dock layout — or hide it entirely.",
+      note: "Choose a dock layout.",
       options: [
-        { id: "linear", label: "Linear" },
-        { id: "wheel", label: "Wheel" },
-        { id: "hidden", label: "Hidden Dock" }
+        {
+          id: "linear",
+          label: "Linear",
+          video: "assets/videos/showcase/dock/showcase-dock-linear-gs.mp4",
+          description: "A familiar dock, kept simple.",
+          chromaKey: "green"
+        },
+        {
+          id: "rotary",
+          label: "Rotary",
+          video: "assets/videos/showcase/dock/showcase-dock-rotary.mp4",
+          description: "Apps arranged around a rotating dock.",
+          chromaKey: "green"
+        }
+        // Add future docks here, e.g. wheel / cylinder / cover-flow.
       ]
     }
   };
 
+  const detailStage = document.querySelector("[data-detail-stage]");
   const detailPreview = document.querySelector("[data-detail-preview]");
   const detailOpts = document.querySelector("[data-detail-opts]");
   const detailNote = document.querySelector("[data-detail-note]");
   const detailCats = Array.from(document.querySelectorAll("[data-detail-cat]"));
+  const detailVideoStage = document.querySelector("[data-detail-video-stage]");
+  const detailVideoFrame = document.querySelector("[data-detail-video-frame]");
+  const detailVideoReplay = document.querySelector("[data-detail-video-replay]");
+  const detailSection = document.getElementById("features");
 
   if (detailPreview && detailOpts && detailCats.length) {
     const state = {
@@ -473,6 +490,257 @@
       dock: detailPreview.getAttribute("data-dock") || "linear"
     };
     let activeCat = "icons";
+    let sectionVisible = true;
+    let lastActiveDockId = null;
+    const dockVideos = new Map();
+
+    function setReplayVisible(visible, label) {
+      if (!detailVideoReplay) return;
+      detailVideoReplay.hidden = !visible;
+      detailVideoReplay.setAttribute(
+        "aria-label",
+        label === "Play" ? "Play dock demo" : "Replay dock demo"
+      );
+    }
+
+    function stopChromaLoop(entry) {
+      if (!entry || !entry.rafId) return;
+      window.cancelAnimationFrame(entry.rafId);
+      entry.rafId = 0;
+    }
+
+    function drawChromaFrame(entry) {
+      const { video, canvas, ctx } = entry;
+      if (!canvas || !ctx || video.readyState < 2) return;
+
+      const width = video.videoWidth || canvas.width;
+      const height = video.videoHeight || canvas.height;
+      if (!width || !height) return;
+
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+      }
+
+      ctx.drawImage(video, 0, 0, width, height);
+      const frame = ctx.getImageData(0, 0, width, height);
+      const data = frame.data;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const maxRb = Math.max(r, b);
+
+        // Key typical green-screen pixels; soften near edges.
+        if (g > 90 && g > maxRb * 1.4 && g - maxRb > 28) {
+          data[i + 3] = 0;
+        } else if (g > 70 && g > maxRb * 1.2 && g - maxRb > 14) {
+          const strength = Math.min(1, (g - maxRb) / 70);
+          data[i + 3] = Math.round(data[i + 3] * (1 - strength));
+        }
+      }
+
+      ctx.putImageData(frame, 0, 0);
+    }
+
+    function startChromaLoop(entry) {
+      if (!entry || !entry.canvas || entry.rafId) return;
+
+      const tick = () => {
+        drawChromaFrame(entry);
+        if (!entry.video.paused && !entry.video.ended) {
+          entry.rafId = window.requestAnimationFrame(tick);
+        } else {
+          entry.rafId = 0;
+        }
+      };
+
+      entry.rafId = window.requestAnimationFrame(tick);
+    }
+
+    function playDockEntry(entry) {
+      if (!entry) return;
+      setReplayVisible(false);
+      const playPromise = entry.video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+      }
+      if (entry.chromaKey) startChromaLoop(entry);
+    }
+
+    function restartDockEntry(entry) {
+      if (!entry) return;
+      stopChromaLoop(entry);
+      try {
+        entry.video.currentTime = 0;
+      } catch {
+        // Ignore seek errors before metadata.
+      }
+      playDockEntry(entry);
+    }
+
+    function mountDockVideos() {
+      if (!detailVideoFrame || dockVideos.size) return;
+
+      DETAIL.dock.options.forEach((option) => {
+        if (!option.video) return;
+
+        const video = document.createElement("video");
+        video.muted = true;
+        video.defaultMuted = true;
+        video.loop = false;
+        video.playsInline = true;
+        video.setAttribute("playsinline", "");
+        video.setAttribute("muted", "");
+        video.preload = "metadata";
+        video.setAttribute("aria-hidden", "true");
+        video.tabIndex = -1;
+        video.src = option.video;
+        video.dataset.dockId = option.id;
+
+        const entry = {
+          video,
+          canvas: null,
+          ctx: null,
+          chromaKey: option.chromaKey || null,
+          rafId: 0,
+          layer: null
+        };
+
+        if (option.chromaKey === "green") {
+          video.className = "detail-video-stage__source";
+          const canvas = document.createElement("canvas");
+          canvas.className = "detail-video-stage__video is-chroma";
+          canvas.setAttribute("aria-hidden", "true");
+          entry.canvas = canvas;
+          entry.ctx = canvas.getContext("2d", { willReadFrequently: true });
+          entry.layer = canvas;
+          detailVideoFrame.appendChild(video);
+          detailVideoFrame.appendChild(canvas);
+
+          const paintOnce = () => drawChromaFrame(entry);
+          video.addEventListener("loadeddata", paintOnce);
+          video.addEventListener("seeked", paintOnce);
+        } else {
+          video.className = "detail-video-stage__video";
+          entry.layer = video;
+          detailVideoFrame.appendChild(video);
+        }
+
+        video.addEventListener("ended", () => {
+          stopChromaLoop(entry);
+          if (entry.chromaKey) drawChromaFrame(entry);
+          if (activeCat === "dock" && state.dock === option.id) {
+            setReplayVisible(true, "Replay");
+          }
+        });
+
+        dockVideos.set(option.id, entry);
+      });
+    }
+
+    function pauseAllDockVideos() {
+      dockVideos.forEach((entry) => {
+        stopChromaLoop(entry);
+        entry.video.pause();
+      });
+      setReplayVisible(false);
+    }
+
+    function shouldPlayDockVideo() {
+      return (
+        activeCat === "dock" &&
+        sectionVisible &&
+        !prefersReducedMotion &&
+        !document.hidden
+      );
+    }
+
+    function syncDockVideos() {
+      const play = shouldPlayDockVideo();
+
+      dockVideos.forEach((entry, id) => {
+        const active = id === state.dock;
+        const { video, layer } = entry;
+
+        if (layer) layer.classList.toggle("is-active", active);
+
+        if (!active) {
+          stopChromaLoop(entry);
+          video.pause();
+          return;
+        }
+
+        const switchedDock =
+          lastActiveDockId !== null && lastActiveDockId !== id;
+        lastActiveDockId = id;
+
+        if (switchedDock) {
+          try {
+            video.currentTime = 0;
+          } catch {
+            // Ignore seek errors before metadata.
+          }
+        }
+
+        if (play) {
+          if (video.ended && !switchedDock) {
+            setReplayVisible(true, "Replay");
+            if (entry.chromaKey) drawChromaFrame(entry);
+            return;
+          }
+          playDockEntry(entry);
+        } else {
+          stopChromaLoop(entry);
+          video.pause();
+          if (prefersReducedMotion) {
+            try {
+              video.currentTime = 0;
+            } catch {
+              // Ignore seek errors before metadata.
+            }
+            if (entry.chromaKey) drawChromaFrame(entry);
+            setReplayVisible(true, "Play");
+          } else {
+            setReplayVisible(false);
+          }
+        }
+      });
+    }
+
+    if (detailVideoReplay) {
+      detailVideoReplay.addEventListener("click", () => {
+        const entry = dockVideos.get(state.dock);
+        if (!entry || activeCat !== "dock") return;
+        restartDockEntry(entry);
+      });
+    }
+
+    function setPreviewMode(mode) {
+      if (!detailStage) return;
+      const isVideo = mode === "video";
+      detailStage.classList.toggle("is-video-mode", isVideo);
+      if (detailVideoStage) {
+        detailVideoStage.hidden = !isVideo;
+        detailVideoStage.setAttribute("aria-hidden", String(!isVideo));
+      }
+    }
+
+    function updateNote() {
+      if (!detailNote) return;
+      const config = DETAIL[activeCat];
+      if (!config) return;
+
+      if (activeCat === "dock") {
+        const option = config.options.find((item) => item.id === state.dock);
+        detailNote.textContent =
+          (option && option.description) || config.note || "";
+        return;
+      }
+
+      detailNote.textContent = config.note || "";
+    }
 
     function applyPreview(animate) {
       const run = () => {
@@ -480,7 +748,22 @@
         detailPreview.setAttribute("data-labels", state.labels);
         detailPreview.setAttribute("data-folders", state.folders);
         detailPreview.setAttribute("data-dock", state.dock);
+
+        if (activeCat === "dock") {
+          setPreviewMode("video");
+          mountDockVideos();
+          syncDockVideos();
+        } else {
+          pauseAllDockVideos();
+          setPreviewMode("static");
+        }
       };
+
+      if (activeCat === "dock") {
+        // Video crossfade uses CSS opacity; skip the static phone flash.
+        run();
+        return;
+      }
 
       if (!animate || prefersReducedMotion) {
         run();
@@ -505,13 +788,15 @@
               type="button"
               class="detail-opts__item${state[activeCat] === option.id ? " is-active" : ""}"
               data-detail-opt="${option.id}"
+              aria-pressed="${state[activeCat] === option.id ? "true" : "false"}"
+              aria-label="${activeCat === "dock" ? `${option.label} dock layout` : option.label}"
             >
               ${option.label}
             </button>`
         )
         .join("");
 
-      if (detailNote) detailNote.textContent = config.note;
+      updateNote();
       detailOpts.setAttribute("aria-labelledby", `detail-cat-${activeCat}`);
 
       if (animate && !prefersReducedMotion) {
@@ -533,13 +818,18 @@
 
     function setCategory(cat, animate) {
       if (!DETAIL[cat]) return;
+      const leavingDock = activeCat === "dock" && cat !== "dock";
       activeCat = cat;
+
       detailCats.forEach((tab) => {
         const active = tab.getAttribute("data-detail-cat") === cat;
         tab.classList.toggle("is-active", active);
         tab.setAttribute("aria-selected", String(active));
       });
+
+      if (leavingDock) pauseAllDockVideos();
       renderOptions(animate);
+      applyPreview(false);
     }
 
     detailCats.forEach((tab) => {
@@ -550,7 +840,25 @@
       });
     });
 
+    if (detailSection) {
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            sectionVisible = entry.isIntersecting;
+            if (!sectionVisible) pauseAllDockVideos();
+            else syncDockVideos();
+          });
+        },
+        { threshold: 0.2 }
+      );
+      sectionObserver.observe(detailSection);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) pauseAllDockVideos();
+      else syncDockVideos();
+    });
+
     setCategory("icons", false);
-    applyPreview(false);
   }
 })();
