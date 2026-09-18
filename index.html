@@ -209,55 +209,70 @@
       </div>
     </section>
 
-    <!-- DEFAULT VS REVERSEPANDA -->
+    <!-- LIGHT / DARK COMPARE -->
     <section class="compare" id="compare" aria-labelledby="compare-heading">
       <header class="compare__intro reveal-stagger">
         <p class="compare__label reveal-item reveal-soft" data-reveal="soft">A SMALL SHIFT</p>
         <h2 class="compare__title reveal-item reveal-heading" id="compare-heading" data-reveal="heading">
           SAME PHONE.<br>DIFFERENT RULES.
         </h2>
+        <p class="compare__lead reveal-item reveal-soft" data-reveal="soft">
+          Light or dark.<br>
+          Same launcher, different mood.
+        </p>
       </header>
 
-      <div class="compare__pair">
-        <figure class="compare-card reveal" data-reveal data-reveal-delay="40">
-          <figcaption class="compare-card__label">DEFAULT</figcaption>
-          <div class="compare-phone compare-phone--default" aria-hidden="true">
-            <div class="compare-phone__screen">
-              <div class="compare-phone__status"></div>
-              <div class="compare-phone__grid compare-phone__grid--default">
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-              </div>
-              <div class="compare-phone__labels">
-                <i></i><i></i><i></i><i></i>
-              </div>
-              <div class="compare-phone__dock compare-phone__dock--default">
-                <span></span><span></span><span></span><span></span>
-              </div>
-            </div>
-          </div>
-        </figure>
+      <div class="theme-compare reveal" data-theme-compare data-reveal data-reveal-delay="80">
+        <p class="theme-compare__hint" aria-hidden="true">DRAG TO COMPARE</p>
 
-        <figure class="compare-card compare-card--rp reveal" data-reveal data-reveal-delay="110">
-          <figcaption class="compare-card__label">
-            REVERSEPANDA
-            <span class="compare-card__mark" aria-hidden="true"></span>
-          </figcaption>
-          <div class="compare-phone compare-phone--rp" aria-hidden="true">
-            <div class="compare-phone__screen">
-              <div class="compare-phone__status"></div>
-              <div class="compare-phone__grid compare-phone__grid--rp">
-                <span></span><span class="is-accent"></span><span></span>
-                <span class="is-round"></span><span></span><span></span>
-                <span></span><span class="is-folder"></span><span></span>
-              </div>
-              <div class="compare-phone__dock compare-phone__dock--rp">
-                <span></span><span></span><span class="is-accent"></span><span></span><span></span>
-              </div>
-            </div>
+        <div class="theme-compare__stage">
+          <img
+            class="theme-compare__img theme-compare__img--light"
+            src="assets/mockups/theme/showcase-ligh-mode.webp"
+            alt="ReversePanda home screen in Light Mode"
+            width="1080"
+            height="1920"
+            decoding="async"
+            fetchpriority="low"
+          >
+          <img
+            class="theme-compare__img theme-compare__img--dark"
+            src="assets/mockups/theme/showcase_dark_mode.webp"
+            alt=""
+            width="1080"
+            height="1920"
+            decoding="async"
+            fetchpriority="low"
+            aria-hidden="true"
+            data-theme-compare-dark
+          >
+
+          <span class="theme-compare__side theme-compare__side--light" aria-hidden="true">LIGHT</span>
+          <span class="theme-compare__side theme-compare__side--dark" aria-hidden="true">DARK</span>
+
+          <div class="theme-compare__divider" data-theme-compare-divider aria-hidden="true">
+            <span class="theme-compare__handle" data-theme-compare-handle>
+              <span class="theme-compare__arrows" aria-hidden="true">‹ ›</span>
+            </span>
           </div>
-        </figure>
+
+          <label class="theme-compare__range-label">
+            <span class="visually-hidden">Compare Light and Dark Mode</span>
+            <input
+              class="theme-compare__range"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              step="1"
+              data-theme-compare-range
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="50"
+              aria-valuetext="50 percent toward Dark Mode"
+            >
+          </label>
+        </div>
       </div>
     </section>
 

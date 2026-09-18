@@ -258,6 +258,110 @@
 
   renderCommunitySection();
   initDrift();
+  initThemeCompare();
+
+  function initThemeCompare() {
+    const root = document.querySelector("[data-theme-compare]");
+    if (!root) return;
+
+    const stage = root.querySelector(".theme-compare__stage");
+    const range = root.querySelector("[data-theme-compare-range]");
+    if (!stage || !range) return;
+
+    const INITIAL = 58;
+    let introPlayed = false;
+    let dragging = false;
+    let activePointer = null;
+    let raf = 0;
+    let pendingValue = null;
+
+    function commitPosition(value, { animate = false } = {}) {
+      const clamped = Math.max(0, Math.min(100, Number(value)));
+      if (animate) root.classList.add("is-animating");
+      else root.classList.remove("is-animating");
+
+      root.style.setProperty("--compare-pos", `${clamped}%`);
+      range.value = String(Math.round(clamped));
+      range.setAttribute("aria-valuenow", String(Math.round(clamped)));
+      range.setAttribute(
+        "aria-valuetext",
+        `${Math.round(clamped)} percent toward Dark Mode`
+      );
+    }
+
+    function queuePosition(value) {
+      pendingValue = value;
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        if (pendingValue == null) return;
+        commitPosition(pendingValue);
+        pendingValue = null;
+      });
+    }
+
+    function positionFromClientX(clientX) {
+      const rect = stage.getBoundingClientRect();
+      if (!rect.width) return INITIAL;
+      return ((clientX - rect.left) / rect.width) * 100;
+    }
+
+    stage.addEventListener("pointerdown", (event) => {
+      if (event.button != null && event.button !== 0) return;
+      activePointer = event.pointerId;
+      dragging = true;
+      root.classList.add("is-dragging");
+      root.classList.remove("is-animating");
+      stage.setPointerCapture(activePointer);
+      queuePosition(positionFromClientX(event.clientX));
+      event.preventDefault();
+    });
+
+    stage.addEventListener("pointermove", (event) => {
+      if (!dragging || event.pointerId !== activePointer) return;
+      queuePosition(positionFromClientX(event.clientX));
+    });
+
+    function endDrag(event) {
+      if (event && activePointer != null && event.pointerId !== activePointer) return;
+      dragging = false;
+      activePointer = null;
+      root.classList.remove("is-dragging");
+    }
+
+    stage.addEventListener("pointerup", endDrag);
+    stage.addEventListener("pointercancel", endDrag);
+
+    range.addEventListener("input", () => {
+      root.classList.remove("is-animating");
+      commitPosition(range.value);
+    });
+    range.addEventListener("change", () => commitPosition(range.value));
+
+    if (prefersReducedMotion) {
+      commitPosition(INITIAL);
+      return;
+    }
+
+    commitPosition(50);
+
+    const introObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || introPlayed) return;
+          introPlayed = true;
+          introObserver.disconnect();
+          window.requestAnimationFrame(() => {
+            commitPosition(INITIAL, { animate: true });
+            window.setTimeout(() => root.classList.remove("is-animating"), 520);
+          });
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    introObserver.observe(root);
+  }
 
   /* ── Mobile nav ── */
   const navToggle = document.querySelector(".nav-toggle");
