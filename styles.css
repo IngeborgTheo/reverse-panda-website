@@ -306,10 +306,10 @@ button { font: inherit; }
   width: max-content;
   max-width: 100%;
   height: 100%;
-  padding-inline: 16px;
+  padding-inline: 24px;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 94%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 3.5%, #000 96.5%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 3.5%, #000 96.5%, transparent 100%);
 }
 
 .hero-col {
@@ -363,11 +363,58 @@ button { font: inherit; }
   background: var(--bg);
 }
 
+/* Hero cards: a thin translucent frame lifts each screen off the blue. */
+.hero-wall .lp {
+  --hero-frame: 5px;
+  padding: var(--hero-frame);
+  border-radius: calc(20px + var(--hero-frame));
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 2px 6px rgba(20, 30, 40, 0.1),
+    0 16px 34px -6px rgba(20, 30, 40, 0.14);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
 .hero-wall .lp__shell {
   /* Matches the 1080×2410 hero screenshots so nothing gets cropped. */
   aspect-ratio: 1080 / 2410;
-  border: 1px solid rgba(27, 25, 21, 0.12);
-  box-shadow: 0 10px 24px rgba(27, 25, 21, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(20, 30, 40, 0.14);
+  box-shadow: none;
+}
+
+/* Placeholder cards stay secondary: lighter shadow, muted content, clear edge. */
+.hero-wall .lp:has(.lp-ph) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 3px rgba(20, 30, 40, 0.06),
+    0 8px 20px -6px rgba(20, 30, 40, 0.08);
+}
+
+.hero-wall .lp:has(.lp-ph) .lp__shell {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.hero-wall .lp:has(.lp-ph) .lp__shell.theme-blue {
+  background: #8dc2e1;
+}
+
+.hero-wall .lp:has(.lp-ph) .lp-ph {
+  opacity: 0.72;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-wall .lp:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      0 3px 8px rgba(20, 30, 40, 0.11),
+      0 20px 40px -6px rgba(20, 30, 40, 0.16);
+  }
 }
 .lp__shell.theme-light { background: #fdfdfd; color: #1b1915; }
 .lp__shell.theme-blue { background: #83bcdd; color: #1b1915; }
@@ -3991,6 +4038,9 @@ html.js [data-reveal="fade-right"]:not(.is-visible) {
     --hero-card-w: 165px;
     --hero-wall-gap: 24px;
   }
+  .hero-wall .lp { --hero-frame: 4px; }
+  .hero-wall .lp__shell { border-radius: 16px; }
+  .hero-wall .lp { border-radius: calc(16px + var(--hero-frame)); }
 
   .showcase {
     margin: 12px;
