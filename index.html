@@ -16,12 +16,12 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="site-header" id="top">
     <nav class="primary-nav" id="primary-nav" aria-label="Primary">
       <a href="#top" class="nav-logo">
-        <img src="assets/logo/reverse-panda-logo.png" alt="ReversePanda logo">
+        <img src="assets/logo/reverse-panda-logo.png" alt="">
         REVERSE<span class="brand-panda">PANDA</span>
       </a>
       <ul class="nav-links">
@@ -56,7 +56,7 @@
           </p>
           <div class="hero-actions reveal-soft" data-reveal="soft" data-reveal-delay="140">
             <a href="#download" class="btn-primary">GET REVERSEPANDA <span aria-hidden="true">→</span></a>
-            <a href="#compare" class="btn-text">Explore features ↓</a>
+            <a href="#compare" class="btn-text">Explore features <span aria-hidden="true">↓</span></a>
           </div>
         </div>
 
@@ -71,6 +71,9 @@
               </div>
             </div>
           </div>
+          <button class="hero-motion-toggle" type="button" data-hero-motion-toggle hidden>
+            Pause animation
+          </button>
         </div>
       </div>
     </section>
@@ -96,7 +99,7 @@
           <img
             class="theme-compare__img theme-compare__img--light"
             src="assets/mockups/homescreen/showcase_hs_basic.webp"
-            alt="Basic Android home screen"
+            alt="Standard Android home screen in Pixel Launcher"
             width="3456"
             height="6144"
             decoding="async"
@@ -105,12 +108,11 @@
           <img
             class="theme-compare__img theme-compare__img--dark"
             src="assets/mockups/homescreen/showcase_hs_rp.webp"
-            alt=""
+            alt="Home screen customized with ReversePanda"
             width="3456"
             height="6144"
             decoding="async"
             loading="lazy"
-            aria-hidden="true"
           >
 
           <span class="theme-compare__side theme-compare__side--light" aria-hidden="true">BASIC</span>
@@ -164,12 +166,11 @@
           <img
             class="theme-compare__img theme-compare__img--dark"
             src="assets/mockups/theme/showcase_dark_mode.webp"
-            alt=""
+            alt="ReversePanda home screen in Dark Mode"
             width="1080"
             height="1920"
             decoding="async"
             fetchpriority="low"
-            aria-hidden="true"
             data-theme-compare-dark
           >
 
@@ -215,7 +216,7 @@
           <img
             class="theme-compare__img theme-compare__img--light"
             src="assets/mockups/icon%20pack/showcase-hs-icon-pack-default.webp"
-            alt="ReversePanda home screen with default icons"
+            alt="ReversePanda home screen with default app icons"
             width="3456"
             height="6144"
             decoding="async"
@@ -224,12 +225,11 @@
           <img
             class="theme-compare__img theme-compare__img--dark"
             src="assets/mockups/icon%20pack/showcase-hs-icon-pack.webp"
-            alt=""
+            alt="ReversePanda home screen with the Flat Square icon pack"
             width="3456"
             height="6144"
             decoding="async"
             loading="lazy"
-            aria-hidden="true"
           >
 
           <span class="theme-compare__side theme-compare__side--light" aria-hidden="true">DEFAULT</span>
@@ -268,7 +268,7 @@
 
         <p class="theme-compare__credit">
           Icons:
-          <a href="https://play.google.com/store/apps/details?id=com.fabio.flat.squircle.iconpack" target="_blank" rel="noopener noreferrer">Flat Square</a>
+          <a href="https://play.google.com/store/apps/details?id=com.fabio.flat.squircle.iconpack" target="_blank" rel="noopener noreferrer">Flat Square<span class="visually-hidden"> (opens in a new tab)</span></a>
           by Fábio Lopes
         </p>
       </div>
@@ -288,7 +288,7 @@
             <span class="showcase__copy-secondary">Build a home screen that feels like yours.</span>
           </p>
         </header>
-        <div class="showcase-gallery" data-showcase-gallery data-reveal-drift data-drift-amount="16" aria-label="Launcher setup examples"></div>
+        <div class="showcase-gallery" data-showcase-gallery data-reveal-drift data-drift-amount="16" role="region" aria-label="Launcher setup examples"></div>
       </div>
     </section>
 

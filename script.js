@@ -232,6 +232,24 @@
         mobileNav.hidden = true;
       });
     });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || mobileNav.hidden) return;
+      navToggle.setAttribute("aria-expanded", "false");
+      mobileNav.hidden = true;
+      navToggle.focus();
+    });
+  }
+
+  /* ── Hero wall pause (WCAG 2.2.2: auto-moving content needs a pause control) ── */
+  const heroWall = document.querySelector(".hero-wall");
+  const heroMotionToggle = document.querySelector("[data-hero-motion-toggle]");
+  if (heroWall && heroMotionToggle && !prefersReducedMotion) {
+    heroMotionToggle.hidden = false;
+    heroMotionToggle.addEventListener("click", () => {
+      const paused = !heroWall.classList.contains("is-paused");
+      heroMotionToggle.textContent = paused ? "Play animation" : "Pause animation";
+      heroWall.classList.toggle("is-paused", paused);
+    });
   }
 
   if (!RP) return;
@@ -479,6 +497,7 @@
         return preview
           ? RP.renderCard(preview, {
               showCaption: true,
+              showDescription: true,
               lazy: true,
               video: true,
               theme: showcaseThemes[id] || preview.theme
@@ -488,6 +507,17 @@
       .join("");
 
     galleryMount.querySelectorAll("[data-lp-video]").forEach(mountCardVideo);
+
+    // On narrow screens the gallery scrolls horizontally; make it keyboard-scrollable then.
+    const syncGalleryFocusable = () => {
+      if (galleryMount.scrollWidth > galleryMount.clientWidth + 1) {
+        galleryMount.tabIndex = 0;
+      } else {
+        galleryMount.removeAttribute("tabindex");
+      }
+    };
+    syncGalleryFocusable();
+    window.addEventListener("resize", syncGalleryFocusable, { passive: true });
 
     const galleryCards = Array.from(galleryMount.querySelectorAll(".lp"));
     galleryCards.forEach((card, index) => {

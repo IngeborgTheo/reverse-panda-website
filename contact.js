@@ -170,7 +170,10 @@ function initContactForm() {
       errorForm
     ].forEach(clearFieldError);
     if (errorFallback) errorFallback.hidden = true;
-    form.querySelectorAll(".is-invalid").forEach((el) => el.classList.remove("is-invalid"));
+    form.querySelectorAll(".is-invalid").forEach((el) => {
+      el.classList.remove("is-invalid");
+      el.removeAttribute("aria-invalid");
+    });
   }
 
   function showError(el, message, field) {
@@ -178,7 +181,10 @@ function initContactForm() {
       el.textContent = message;
       el.hidden = false;
     }
-    if (field) field.classList.add("is-invalid");
+    if (field) {
+      field.classList.add("is-invalid");
+      field.setAttribute("aria-invalid", "true");
+    }
   }
 
   function updateCounter(input) {
@@ -294,6 +300,7 @@ function initContactForm() {
       tab.classList.toggle("is-active", active);
       tab.setAttribute("aria-selected", String(active));
       tab.tabIndex = active ? 0 : -1;
+      if (active && formWrap) formWrap.setAttribute("aria-labelledby", tab.id);
     });
 
     modeGroups.forEach((group) => {
@@ -377,21 +384,10 @@ function initContactForm() {
     return valid;
   }
 
-  function formLooksReady() {
-    const values = collectValues();
-    if (values.company) return false;
-    if (values.email && !isValidEmail(values.email)) return false;
-    if (values.type === "hello") return Boolean(values.message);
-    if (values.type === "bug") return Boolean(values.happened);
-    if (values.type === "feature") {
-      return Boolean(values.featureTitle && values.featureAbout);
-    }
-    return false;
-  }
-
   function updateSubmitState() {
     if (!submitBtn) return;
-    submitBtn.disabled = submitting || !formLooksReady();
+    // Stay enabled when incomplete so submitting reveals the field errors.
+    submitBtn.disabled = submitting;
     submitBtn.classList.toggle("is-loading", submitting);
   }
 
