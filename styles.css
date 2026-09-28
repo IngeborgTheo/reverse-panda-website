@@ -1429,7 +1429,7 @@ button { font: inherit; }
   font-size: clamp(0.98rem, 1.3vw, 1.08rem);
   line-height: 1.55;
   color: rgba(27, 25, 21, 0.68);
-  max-width: 28ch;
+  max-width: 44ch;
 }
 
 .visually-hidden {
@@ -1446,9 +1446,74 @@ button { font: inherit; }
 
 .compare__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 380px));
+  grid-template-columns: repeat(3, minmax(0, 340px));
   justify-content: center;
-  gap: clamp(2rem, 5vw, 4.5rem);
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+}
+
+.compare-info {
+  margin-top: 1.5rem;
+  padding-inline: 0.25rem;
+}
+
+.compare-info__label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(27, 25, 21, 0.55);
+  margin-bottom: 0.45rem;
+}
+
+.compare-info__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  margin-bottom: 0.6rem;
+}
+
+.compare-info__desc {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(27, 25, 21, 0.72);
+  max-width: 34ch;
+  margin-bottom: 0.85rem;
+}
+
+.compare-info__meta {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: rgba(27, 25, 21, 0.5);
+}
+
+.theme-compare__credit {
+  margin-top: 0.6rem;
+  padding-inline: 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: rgba(27, 25, 21, 0.5);
+}
+
+.theme-compare__credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: rgba(27, 25, 21, 0.3);
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+.theme-compare__credit a:hover,
+.theme-compare__credit a:focus-visible {
+  color: var(--black);
+  text-decoration-color: currentColor;
 }
 
 .theme-compare {
@@ -1500,6 +1565,17 @@ button { font: inherit; }
   /* Reveal Dark on the right of the divider (Light stays on the left). */
   clip-path: inset(0 0 0 var(--compare-pos));
   will-change: clip-path;
+}
+
+/* Screenshots with extra margin: zoom the phone to match the other compares. */
+.theme-compare--zoomed .theme-compare__img {
+  transform: scale(var(--compare-zoom, 1));
+  transform-origin: 50% 50%;
+}
+
+.theme-compare--zoomed .theme-compare__img--dark {
+  /* clip-path is applied before the zoom, so map the divider back into image space. */
+  clip-path: inset(0 0 0 calc(50% + (var(--compare-pos) - 50%) / var(--compare-zoom, 1)));
 }
 
 .theme-compare.is-animating .theme-compare__img--dark,
@@ -3153,6 +3229,68 @@ button { font: inherit; }
   color: var(--blue);
 }
 
+/* Imprint reuses the privacy layout without the table of contents. */
+.privacy-shell.privacy-shell--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.imprint-address {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+  line-height: 1.6;
+  color: var(--black);
+}
+
+.imprint-contact {
+  display: grid;
+  gap: 0.85rem;
+  font-family: var(--font-body);
+}
+
+.imprint-contact__row {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.imprint-contact dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--black);
+  opacity: 0.5;
+}
+
+.imprint-contact dd {
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+  overflow-wrap: anywhere;
+}
+
+.imprint-contact a,
+.imprint-link {
+  color: var(--black);
+  text-decoration: underline;
+  text-decoration-color: rgba(27, 25, 21, 0.3);
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.imprint-contact a:hover,
+.imprint-link:hover {
+  color: var(--blue);
+  text-decoration-color: currentColor;
+}
+
+.imprint-updated {
+  padding-top: clamp(2.25rem, 4vw, 3rem);
+  border-top: 1px solid rgba(27, 25, 21, 0.1);
+}
+
+.imprint-contact a:focus-visible,
+.imprint-link:focus-visible,
 .privacy-contact__email a:focus-visible,
 .privacy-contact__site a:focus-visible,
 .privacy-toc__nav a:focus-visible {

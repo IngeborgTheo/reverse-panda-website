@@ -8,11 +8,12 @@ window.RP_PREVIEWS = [
   { id: "classic-pages", title: "Classic Pages", shortTitle: "Classic", image: null, video: "assets/videos/showcase/home%20screen/showcase-hs-classic-paginated.mp4", variant: "classic", theme: "blue" },
   { id: "hidden-dock", title: "Hidden Dock", shortTitle: "Hidden Dock", image: "assets/mockups/hero/showcase-dock-hidden-dock.webp", variant: "hiddenDock", theme: "dark" },
   { id: "zen", title: "Zen", shortTitle: "Zen", image: "assets/mockups/hero/showcase-hs-zen.webp", video: "assets/videos/showcase/home%20screen/showcase-hs-zen.mp4", variant: "hiddenDock", theme: "dark" },
-  { id: "wheel-dock", title: "Wheel Dock", image: null, variant: "wheelDock", theme: "light" },
+  { id: "wheel-dock", title: "Wheel Dock", image: "assets/mockups/hero/showcase_dock_wheel.webp", variant: "wheelDock", theme: "light" },
   { id: "app-drawer", title: "App Drawer", image: "assets/mockups/hero/showcase-ad-multi-column.webp", variant: "appDrawer", theme: "blue" },
   { id: "folders", title: "Folders", image: "assets/mockups/hero/showcase-folder-standard.webp", variant: "folders", theme: "dark" },
   { id: "gestures", title: "Gestures", image: "assets/mockups/hero/showcase-gestures.webp", variant: "gestures", theme: "light" },
   { id: "icons", title: "Icons", image: null, variant: "icons", theme: "blue" },
+  { id: "single-column", title: "Single Column Drawer", image: "assets/mockups/hero/showcase-ad-single-column.webp", variant: "appDrawer", theme: "dark" },
   { id: "continuous-canvas", title: "Continuous Canvas", shortTitle: "Continuous Canvas", image: "assets/mockups/hero/showcase-hs-zen.webp", video: "assets/videos/showcase/home%20screen/showcase-hs-continues-canvas.mp4", variant: "canvas", theme: "dark" },
   { id: "settings", title: "Settings", image: "assets/mockups/hero/showcase-settings-main.webp", variant: "settings", theme: "light" },
   { id: "cylinder-dock", title: "Cylinder Dock", image: null, variant: "cylinder", theme: "blue" },
@@ -21,8 +22,8 @@ window.RP_PREVIEWS = [
   { id: "chaos", title: "Chaos", image: null, variant: "chaos", theme: "blue" }
 ];
 
-window.RP_HERO_LEFT = ["bubble-cloud", "hidden-dock", "app-drawer", "continuous-canvas", "icons"];
-window.RP_HERO_RIGHT = ["classic-pages", "gestures", "folders", "settings"];
+window.RP_HERO_LEFT = ["bubble-cloud", "hidden-dock", "app-drawer", "continuous-canvas", "single-column"];
+window.RP_HERO_RIGHT = ["wheel-dock", "gestures", "folders", "settings"];
 window.RP_SHOWCASE = [
   "bubble-cloud",
   "classic-pages",
