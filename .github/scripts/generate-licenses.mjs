@@ -195,6 +195,11 @@ const mediaEntries = [
     desc: "Photo by Vika Glitter on Pexels, shown in the Story section on the homepage."
   },
   {
+    id: "fusios",
+    name: "FusiOS",
+    desc: "iOS icon theme by tykology, visible in the old iPhone screenshot in the Story section on the homepage."
+  },
+  {
     id: "flat-square",
     name: "Flat Square",
     desc: "Icon pack by Fábio Lopes, shown in the icon comparison on the homepage.",
