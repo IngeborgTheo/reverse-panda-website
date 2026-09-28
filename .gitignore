@@ -3,3 +3,7 @@
 .env.*.local
 *.pem
 serviceAccount*.json
+
+# Internal, kept local only
+.github/ASSET-SOURCES.md
+.cursor/
