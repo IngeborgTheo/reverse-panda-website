@@ -220,11 +220,11 @@ window.RP = {
     }
   },
 
-  renderTrack(ids, { duplicate = true, caption = false } = {}) {
+  renderTrack(ids, { duplicate = true, caption = false, lazy = true } = {}) {
     const cards = ids
       .map((id) => this.getById(id))
       .filter(Boolean)
-      .map((p) => this.renderCard(p, { showCaption: caption, lazy: true }))
+      .map((p) => this.renderCard(p, { showCaption: caption, lazy }))
       .join("");
     return duplicate ? cards + cards : cards;
   }

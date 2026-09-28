@@ -12,6 +12,7 @@ import {
 
 const SUPPORT_EMAIL = supportEmail || "support@reverse-panda.ch";
 const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024;
+const SCREENSHOT_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
 const NOT_PROVIDED = "Not provided";
 
 const LIMITS = {
@@ -220,9 +221,9 @@ function initContactForm() {
       clearScreenshot();
       return;
     }
-    if (!file.type || !file.type.startsWith("image/")) {
+    if (!SCREENSHOT_TYPES.includes(file.type)) {
       clearScreenshot();
-      showError(errorScreenshot, "Please choose an image file.");
+      showError(errorScreenshot, "Please choose a PNG, JPEG, WebP or GIF image.");
       return;
     }
     if (file.size > MAX_SCREENSHOT_BYTES) {

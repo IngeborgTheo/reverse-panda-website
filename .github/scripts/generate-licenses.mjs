@@ -93,10 +93,10 @@ const appEntries = [
       ["Licence", "SIL Open Font License 1.1"]
     ],
     links: [
-      ext("https://github.com/googlefonts/roboto-classic", "Roboto on GitHub"),
-      ext("https://github.com/googlefonts/RobotoSerif", "Roboto Serif on GitHub"),
+      ext("https://github.com/googlefonts/roboto-3-classic", "Roboto on GitHub"),
+      ext("https://github.com/googlefonts/roboto-serif", "Roboto Serif on GitHub"),
       ext("https://github.com/googlefonts/robotomono", "Roboto Mono on GitHub"),
-      ext("https://github.com/googlefonts/roboto-classic/blob/main/OFL.txt", "Roboto licence")
+      ext("https://github.com/googlefonts/roboto-3-classic/blob/main/OFL.txt", "Roboto licence")
     ]
   },
   {
@@ -151,7 +151,7 @@ const sdkEntries = [
     name: "Play Core common library",
     desc: "com.google.android.play:core-common:2.0.4, pulled in by the Play Integrity API.",
     meta: [["Provider", "Google LLC"], ["Terms", "Play Core Software Development Kit Terms of Service"]],
-    links: [ext("https://developer.android.com/guide/playcore/license", "Play Core SDK terms")]
+    links: [ext("https://developer.android.com/guide/playcore#license", "Play Core SDK terms")]
   }
 ];
 
@@ -172,7 +172,7 @@ const webEntries = [
     desc: "Body typeface, self-hosted on this website.",
     meta: [["Copyright", "2011 The Roboto Project Authors"], ["Licence", "SIL Open Font License 1.1"]],
     links: [
-      ext("https://github.com/googlefonts/roboto-classic", "Roboto on GitHub"),
+      ext("https://github.com/googlefonts/roboto-3-classic", "Roboto on GitHub"),
       int("/assets/fonts/OFL-Roboto.txt", "Roboto licence (included)")
     ]
   },
@@ -366,6 +366,14 @@ replaceOnce(
   '<meta name="description" content="Open-source components, font licences, media credits, creation tools and inspiration behind the ReversePanda Android launcher and website.">'
 );
 replaceOnce(/<link rel="canonical" href="[^"]*">/, '<link rel="canonical" href="https://reverse-panda.ch/licenses.html">');
+const socialTitle = "Sources &amp; Licences – ReversePanda";
+const socialDescription =
+  "Open-source components, font licences, media credits, creation tools and inspiration behind the ReversePanda Android launcher and website.";
+replaceOnce(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${socialTitle}">`);
+replaceOnce(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${socialDescription}">`);
+replaceOnce(/<meta property="og:url" content="[^"]*">/, '<meta property="og:url" content="https://reverse-panda.ch/licenses.html">');
+replaceOnce(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${socialTitle}">`);
+replaceOnce(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${socialDescription}">`);
 replaceOnce(/<body class="[^"]*">/, '<body class="page-privacy page-legal page-licenses">');
 replaceOnce(/ aria-current="page"/g, "");
 replaceOnce(

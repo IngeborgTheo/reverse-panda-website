@@ -258,10 +258,10 @@
   const leftTrack = document.querySelector('[data-hero-track="left"]');
   const rightTrack = document.querySelector('[data-hero-track="right"]');
   if (leftTrack) {
-    leftTrack.innerHTML = RP.renderTrack(window.RP_HERO_LEFT, { duplicate: true, caption: false });
+    leftTrack.innerHTML = RP.renderTrack(window.RP_HERO_LEFT, { duplicate: true, caption: false, lazy: false });
   }
   if (rightTrack) {
-    rightTrack.innerHTML = RP.renderTrack(window.RP_HERO_RIGHT, { duplicate: true, caption: false });
+    rightTrack.innerHTML = RP.renderTrack(window.RP_HERO_RIGHT, { duplicate: true, caption: false, lazy: false });
   }
 
   function keyGreenPixels(data) {
@@ -479,6 +479,21 @@
     );
     observer.observe(mount);
     document.addEventListener("visibilitychange", sync);
+
+    video.addEventListener("error", () => {
+      stopFrames();
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+      const card = mount.closest(".lp");
+      const preview = card && RP.getById(card.getAttribute("data-preview-id"));
+      if (!preview) return;
+      const fallback = document.createElement("template");
+      fallback.innerHTML = preview.image
+        ? `<img class="lp__media" src="${preview.image}" alt="" decoding="async" width="360" height="720">`
+        : RP.renderPlaceholder(preview);
+      mount.parentElement?.classList.remove("is-video");
+      mount.replaceWith(fallback.content);
+    });
   }
 
   /* ── Showcase gallery (static) ── */

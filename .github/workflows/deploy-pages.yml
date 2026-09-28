@@ -27,6 +27,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Remove non-public files from the site
+        run: >
+          rm -rf .cursor README.md .env.example .gitignore
+          assets/screenshots
+          assets/about/founder-vitiligo.png
+          assets/videos/AD_MultiColumn.webm
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
