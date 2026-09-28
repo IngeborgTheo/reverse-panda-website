@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy – ReversePanda</title>
-  <meta name="description" content="How ReversePanda handles local data, optional analytics, crash reports, feedback and screenshots — clearly and without mystery.">
+  <meta name="description" content="How the ReversePanda Android app and the reverse-panda.ch website handle data — local data, optional app analytics, the contact form, screenshots and security services.">
   <meta name="theme-color" content="#FDFDFD">
   <link rel="canonical" href="https://reverse-panda.ch/privacy.html">
   <link rel="icon" type="image/png" href="assets/logo/reverse-panda-logo.png">
   <link rel="apple-touch-icon" href="assets/logo/reverse-panda-logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/bebasneue-JTUSjIg69CK48gW7PXoo9Wlhyw.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/roboto-KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="page-privacy">
@@ -45,13 +45,27 @@
       <p class="privacy-toc__label">On this page</p>
       <nav class="privacy-toc__nav">
         <a href="#short-version">The short version</a>
+        <a href="#controller">Who is responsible</a>
+        <span class="privacy-toc__group">Android app</span>
         <a href="#local-data">Local data</a>
         <a href="#analytics">Analytics</a>
         <a href="#crash-reports">Crash reports</a>
-        <a href="#feedback">Feedback</a>
-        <a href="#screenshots">Screenshots</a>
-        <a href="#third-party">Third-party services</a>
+        <a href="#feedback">App feedback</a>
+        <a href="#app-security">App security</a>
         <a href="#choices">Your choices</a>
+        <span class="privacy-toc__group">Website</span>
+        <a href="#website-tracking">No analytics</a>
+        <a href="#hosting">Hosting</a>
+        <a href="#fonts">Fonts</a>
+        <a href="#contact-form">Contact form</a>
+        <a href="#website-security">App Check &amp; reCAPTCHA</a>
+        <a href="#browser-storage">Browser storage</a>
+        <span class="privacy-toc__group">App &amp; website</span>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#email-delivery">Email delivery</a>
+        <a href="#third-party">Services</a>
+        <a href="#international">International services</a>
+        <a href="#rights">Your rights</a>
         <a href="#contact">Contact</a>
       </nav>
     </aside>
@@ -66,7 +80,9 @@
         </h1>
         <p class="privacy-hero__lead">
           ReversePanda is built to keep as much as possible on your device.
-          When data does leave your phone, you should know what it is and why.
+          When data does leave your phone or your browser, you should know what it is and why.
+          This policy covers the ReversePanda Android app and the website reverse-panda.ch
+          separately.
         </p>
         <p class="privacy-hero__updated">Last updated: September 2026</p>
       </header>
@@ -75,29 +91,50 @@
         <h2 class="privacy-section__title" id="short-heading">THE SHORT VERSION</h2>
         <div class="privacy-short__grid">
           <div class="privacy-short__col">
-            <h3 class="privacy-short__label">Stays on your device</h3>
+            <h3 class="privacy-short__label">Android app</h3>
             <ul class="privacy-list">
-              <li>Installed apps</li>
-              <li>App searches</li>
-              <li>Wallpapers</li>
-              <li>Folder names and labels</li>
-              <li>Local backups</li>
-              <li>Launcher settings</li>
-              <li>Local app-usage information used by launcher features</li>
+              <li>Apps, searches, wallpapers, folders and settings stay on your device</li>
+              <li>Optional Analytics, off by default</li>
+              <li>Optional Crash Reports, off by default</li>
+              <li>Feedback and screenshots only when you send them</li>
             </ul>
           </div>
           <div class="privacy-short__col">
-            <h3 class="privacy-short__label">Only shared when needed or enabled</h3>
+            <h3 class="privacy-short__label">Website</h3>
             <ul class="privacy-list">
-              <li>Optional Analytics</li>
-              <li>Optional Crash Reports</li>
-              <li>Feedback you submit</li>
-              <li>Optional bug-report screenshots</li>
-              <li>Technical app/device information needed for those services</li>
+              <li>No analytics, advertising or tracking</li>
+              <li>Fonts are served from reverse-panda.ch itself</li>
+              <li>Contact form data only when you submit it</li>
+              <li>Security checks on the Contact page to prevent abuse</li>
             </ul>
           </div>
         </div>
       </section>
+
+      <section class="privacy-section" id="controller" aria-labelledby="controller-heading">
+        <h2 class="privacy-section__title" id="controller-heading">WHO IS RESPONSIBLE.</h2>
+        <p class="privacy-prose">
+          The person responsible for processing personal data in connection with the
+          ReversePanda app and this website (controller) is:
+        </p>
+        <address class="imprint-address">
+          Janick Rüegg<br>
+          Tellstrasse 11<br>
+          4528 Zuchwil<br>
+          Switzerland
+        </address>
+        <p class="privacy-prose">
+          Contact: <a href="mailto:support@reverse-panda.ch">support@reverse-panda.ch</a>
+        </p>
+      </section>
+
+      <div class="privacy-part" id="app">
+        <p class="privacy-part__label">Part A</p>
+        <h2 class="privacy-part__title">THE ANDROID APP</h2>
+        <p class="privacy-prose">
+          This part applies to the ReversePanda launcher installed on your Android device.
+        </p>
+      </div>
 
       <section class="privacy-section" id="local-data" aria-labelledby="local-heading">
         <h2 class="privacy-section__title" id="local-heading">WHAT STAYS WITH YOU.</h2>
@@ -131,12 +168,12 @@
       </section>
 
       <section class="privacy-section privacy-section--split" id="analytics-crash" aria-labelledby="telemetry-heading">
-        <h2 class="privacy-section__title privacy-section__title--sr" id="telemetry-heading">Analytics &amp; crash reports</h2>
+        <h2 class="privacy-section__title privacy-section__title--sr" id="telemetry-heading">App analytics &amp; crash reports</h2>
         <div class="privacy-split">
           <article class="privacy-panel" id="analytics" aria-labelledby="analytics-heading">
             <h3 class="privacy-panel__title" id="analytics-heading">Anonymous Analytics</h3>
             <p class="privacy-prose">
-              Optional product analytics run through Firebase Analytics.
+              Optional product analytics in the app run through Firebase Analytics.
               They are disabled by default and only turn on after an explicit opt-in.
             </p>
             <ul class="privacy-list">
@@ -152,7 +189,7 @@
           <article class="privacy-panel" id="crash-reports" aria-labelledby="crash-heading">
             <h3 class="privacy-panel__title" id="crash-heading">Crash Reports</h3>
             <p class="privacy-prose">
-              Optional crash reporting runs through Firebase Crashlytics.
+              Optional crash reporting in the app runs through Firebase Crashlytics.
               It is disabled by default and uses a separate opt-in from analytics.
             </p>
             <ul class="privacy-list">
@@ -166,7 +203,7 @@
       </section>
 
       <section class="privacy-section" id="feedback" aria-labelledby="feedback-heading">
-        <h2 class="privacy-section__title" id="feedback-heading">WHEN YOU CONTACT ME.</h2>
+        <h2 class="privacy-section__title" id="feedback-heading">FEEDBACK FROM THE APP.</h2>
         <p class="privacy-prose">
           Feedback is always user initiated. You choose when to send something —
           ReversePanda does not submit messages in the background.
@@ -183,57 +220,11 @@
         </p>
       </section>
 
-      <section class="privacy-section" id="screenshots" aria-labelledby="screenshots-heading">
-        <h2 class="privacy-section__title" id="screenshots-heading">SCREENSHOTS ARE OPTIONAL.</h2>
+      <section class="privacy-section" id="app-security" aria-labelledby="app-security-heading">
+        <h2 class="privacy-section__title" id="app-security-heading">APP SECURITY WITHOUT ACCOUNTS.</h2>
         <p class="privacy-prose">
-          Screenshots are never captured automatically. If you attach one to a bug report,
-          only the image you select is uploaded.
-        </p>
-        <ul class="privacy-list">
-          <li>Maximum one image</li>
-          <li>Maximum 5&nbsp;MB</li>
-          <li>Temporarily stored in Firebase Cloud Storage</li>
-          <li>Privately processed</li>
-          <li>Attached to the bug-report email</li>
-          <li>Deleted after processing</li>
-          <li>Temporary leftovers are automatically cleaned after roughly 24 hours</li>
-          <li>No public download URL is created</li>
-        </ul>
-        <p class="privacy-note">
-          A screenshot may contain personal information visible in the image, so review it
-          before attaching it.
-        </p>
-      </section>
-
-      <section class="privacy-section" id="third-party" aria-labelledby="services-heading">
-        <h2 class="privacy-section__title" id="services-heading">SERVICES REVERSEPANDA USES</h2>
-        <div class="privacy-services">
-          <article class="privacy-service">
-            <h3 class="privacy-service__name">Google Firebase</h3>
-            <p class="privacy-service__used">Used for</p>
-            <ul class="privacy-list">
-              <li>Analytics</li>
-              <li>Crashlytics</li>
-              <li>App Check</li>
-              <li>Cloud Functions</li>
-              <li>Cloud Storage</li>
-            </ul>
-          </article>
-          <article class="privacy-service">
-            <h3 class="privacy-service__name">Resend</h3>
-            <p class="privacy-service__used">Used for</p>
-            <ul class="privacy-list">
-              <li>Delivering feedback, bug-report and feature-request emails</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="privacy-section" id="security" aria-labelledby="security-heading">
-        <h2 class="privacy-section__title" id="security-heading">SECURITY WITHOUT ACCOUNTS.</h2>
-        <p class="privacy-prose">
-          ReversePanda does not currently require an account. Backend requests are protected
-          with Firebase App Check. Production builds use Play Integrity, with backend
+          The app does not require an account. Backend requests from the app are protected
+          with Firebase App Check. Production builds of the app use Play Integrity, with backend
           validation and restricted Storage rules. Secrets are not stored in the Android app.
         </p>
       </section>
@@ -263,12 +254,236 @@
         </p>
       </section>
 
-      <section class="privacy-section" id="storage" aria-labelledby="storage-heading">
-        <h2 class="privacy-section__title" id="storage-heading">DATA STORAGE</h2>
+      <div class="privacy-part" id="website">
+        <p class="privacy-part__label">Part B</p>
+        <h2 class="privacy-part__title">THE WEBSITE</h2>
         <p class="privacy-prose">
-          ReversePanda does not keep a dedicated feedback database. Feedback is validated
-          and forwarded by email. Temporary screenshots are deleted after processing.
-          Local backups remain on your device, or wherever you explicitly export them.
+          This part applies to reverse-panda.ch. The optional Analytics and Crash Reports
+          described in Part A exist only inside the Android app and are not used on the website.
+        </p>
+      </div>
+
+      <section class="privacy-section" id="website-tracking" aria-labelledby="website-tracking-heading">
+        <h2 class="privacy-section__title" id="website-tracking-heading">NO ANALYTICS ON THE WEBSITE.</h2>
+        <p class="privacy-prose">
+          The ReversePanda website currently does not use:
+        </p>
+        <ul class="privacy-list">
+          <li>Firebase Analytics or any other website analytics</li>
+          <li>Advertising analytics</li>
+          <li>Marketing pixels</li>
+          <li>Behavioural profiling</li>
+          <li>Social media tracking</li>
+        </ul>
+        <p class="privacy-prose">
+          The website does not set its own cookies.
+        </p>
+      </section>
+
+      <section class="privacy-section" id="hosting" aria-labelledby="hosting-heading">
+        <h2 class="privacy-section__title" id="hosting-heading">HOSTING.</h2>
+        <p class="privacy-prose">
+          The website is hosted with GitHub Pages, a service provided by GitHub.
+          As with any web hosting, delivering a page requires technical request data, such as:
+        </p>
+        <ul class="privacy-list">
+          <li>IP address</li>
+          <li>Time of the request</li>
+          <li>Requested page or file</li>
+          <li>Basic technical request information, such as browser type</li>
+        </ul>
+        <p class="privacy-prose">
+          This data is processed by the hosting provider to deliver the website and keep it secure.
+          ReversePanda does not use it for analytics.
+        </p>
+      </section>
+
+      <section class="privacy-section" id="fonts" aria-labelledby="fonts-heading">
+        <h2 class="privacy-section__title" id="fonts-heading">FONTS.</h2>
+        <p class="privacy-prose">
+          The fonts used on this website (Bebas Neue and Roboto) are served directly from
+          reverse-panda.ch. Your browser does not request them from Google or any other
+          font service.
+        </p>
+      </section>
+
+      <section class="privacy-section" id="contact-form" aria-labelledby="contact-form-heading">
+        <h2 class="privacy-section__title" id="contact-form-heading">THE CONTACT FORM.</h2>
+        <p class="privacy-prose">
+          The <a href="contact.html">Contact page</a> lets you report a bug, request a feature
+          or say hello. No account is required. Everything you send is voluntary and only
+          sent when you press the submit button.
+        </p>
+        <p class="privacy-prose">Depending on the type of request, you may submit:</p>
+        <ul class="privacy-list">
+          <li>Your message or feedback</li>
+          <li>A bug description, and optionally what you expected, your Android version and device model</li>
+          <li>A feature request</li>
+          <li>An optional reply email address</li>
+          <li>An optional name (Say Hello only)</li>
+          <li>An optional screenshot (bug reports only)</li>
+        </ul>
+        <p class="privacy-prose">
+          This information is used to process your request, to troubleshoot reported issues and,
+          if you provided an email address, to reply to you. Your email address is not used for
+          marketing or newsletters.
+        </p>
+      </section>
+
+      <section class="privacy-section" id="website-security" aria-labelledby="website-security-heading">
+        <h2 class="privacy-section__title" id="website-security-heading">APP CHECK &amp; reCAPTCHA.</h2>
+        <p class="privacy-prose">
+          The website uses Firebase App Check to protect the feedback system against abuse,
+          specifically:
+        </p>
+        <ul class="privacy-list">
+          <li>Feedback, bug-report and feature-request submission</li>
+          <li>Temporary screenshot uploads</li>
+        </ul>
+        <p class="privacy-prose">
+          On the website, App Check uses Google reCAPTCHA Enterprise as its provider.
+          Play Integrity is only used by the Android app.
+        </p>
+        <p class="privacy-prose">
+          reCAPTCHA Enterprise is a security and abuse-prevention service. When you open the
+          Contact page, it runs in the background and evaluates technical signals from your
+          browser to help distinguish genuine requests from automated abuse. For this security
+          assessment, Google may receive technical data such as your IP address and browser and
+          device information. ReversePanda uses reCAPTCHA only for security, not for analytics
+          or advertising.
+        </p>
+        <p class="privacy-prose">
+          Other pages of the website do not load Firebase or reCAPTCHA. More information:
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>
+          and
+          <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Google Terms of Service</a>.
+        </p>
+      </section>
+
+      <section class="privacy-section" id="browser-storage" aria-labelledby="browser-storage-heading">
+        <h2 class="privacy-section__title" id="browser-storage-heading">BROWSER STORAGE.</h2>
+        <p class="privacy-prose">
+          On the Contact page, technically necessary browser storage is used so the security
+          checks and the Firebase connection work:
+        </p>
+        <ul class="privacy-list">
+          <li>reCAPTCHA-related local storage for the security assessment</li>
+          <li>A short-lived Firebase App Check token, stored in your browser’s IndexedDB</li>
+          <li>Firebase SDK heartbeat metadata, such as the date the SDK was last used</li>
+        </ul>
+        <p class="privacy-prose">
+          Google’s reCAPTCHA service may also use its own storage on Google domains for the
+          same security purpose. This storage is used for technical and security purposes only,
+          not for website analytics or marketing. You can clear it at any time in your browser
+          settings.
+        </p>
+      </section>
+
+      <div class="privacy-part" id="shared">
+        <p class="privacy-part__label">App &amp; website</p>
+        <h2 class="privacy-part__title">SHARED SERVICES</h2>
+      </div>
+
+      <section class="privacy-section" id="screenshots" aria-labelledby="screenshots-heading">
+        <h2 class="privacy-section__title" id="screenshots-heading">SCREENSHOTS ARE OPTIONAL.</h2>
+        <p class="privacy-prose">
+          This applies to bug reports sent from the app and from the website’s Contact page.
+          Screenshots are never captured automatically. If you attach one to a bug report,
+          only the image you select is uploaded.
+        </p>
+        <ul class="privacy-list">
+          <li>Selected manually by you</li>
+          <li>Maximum one image</li>
+          <li>Maximum 5&nbsp;MB</li>
+          <li>Temporarily stored in Firebase Cloud Storage</li>
+          <li>Not publicly accessible, no public download URL is created</li>
+          <li>Forwarded with the bug-report email as part of processing</li>
+          <li>The backend attempts to delete it after processing</li>
+          <li>Abandoned temporary uploads are removed by a scheduled cleanup, usually within about 24 hours</li>
+        </ul>
+        <p class="privacy-note">
+          A screenshot may contain personal information visible in the image, so review it
+          before attaching it.
+        </p>
+      </section>
+
+      <section class="privacy-section" id="email-delivery" aria-labelledby="email-delivery-heading">
+        <h2 class="privacy-section__title" id="email-delivery-heading">EMAIL DELIVERY.</h2>
+        <p class="privacy-prose">
+          Feedback, bug reports and feature requests from the app and the website are validated
+          by the ReversePanda backend and delivered by email to
+          <a href="mailto:support@reverse-panda.ch">support@reverse-panda.ch</a> through the
+          email delivery service Resend.
+        </p>
+        <p class="privacy-prose">
+          ReversePanda does not keep a dedicated feedback database. Messages are kept in the
+          support mailbox for as long as needed to handle your request. Local app backups remain
+          on your device, or wherever you explicitly export them.
+        </p>
+      </section>
+
+      <section class="privacy-section" id="third-party" aria-labelledby="services-heading">
+        <h2 class="privacy-section__title" id="services-heading">SERVICES REVERSEPANDA USES</h2>
+        <div class="privacy-services">
+          <article class="privacy-service">
+            <h3 class="privacy-service__name">Google Firebase</h3>
+            <p class="privacy-service__used">Android app</p>
+            <ul class="privacy-list">
+              <li>Analytics (optional)</li>
+              <li>Crashlytics (optional)</li>
+              <li>App Check with Play Integrity</li>
+              <li>Cloud Functions</li>
+              <li>Cloud Storage</li>
+            </ul>
+          </article>
+          <article class="privacy-service">
+            <h3 class="privacy-service__name">Google Firebase</h3>
+            <p class="privacy-service__used">Website</p>
+            <ul class="privacy-list">
+              <li>App Check with reCAPTCHA Enterprise</li>
+              <li>Cloud Functions</li>
+              <li>Cloud Storage</li>
+              <li>No Analytics, no Crashlytics</li>
+            </ul>
+          </article>
+          <article class="privacy-service">
+            <h3 class="privacy-service__name">GitHub Pages</h3>
+            <p class="privacy-service__used">Website</p>
+            <ul class="privacy-list">
+              <li>Hosting of reverse-panda.ch</li>
+            </ul>
+          </article>
+          <article class="privacy-service">
+            <h3 class="privacy-service__name">Resend</h3>
+            <p class="privacy-service__used">App &amp; website</p>
+            <ul class="privacy-list">
+              <li>Delivering feedback, bug-report and feature-request emails</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="privacy-section" id="international" aria-labelledby="international-heading">
+        <h2 class="privacy-section__title" id="international-heading">INTERNATIONAL SERVICES.</h2>
+        <p class="privacy-prose">
+          Some service providers used by the app or the website may process data outside
+          Switzerland, including in the European Union and the United States. This currently
+          includes:
+        </p>
+        <ul class="privacy-list">
+          <li>Google (Firebase, reCAPTCHA Enterprise)</li>
+          <li>GitHub (website hosting)</li>
+          <li>Resend (email delivery)</li>
+        </ul>
+      </section>
+
+      <section class="privacy-section" id="rights" aria-labelledby="rights-heading">
+        <h2 class="privacy-section__title" id="rights-heading">YOUR RIGHTS.</h2>
+        <p class="privacy-prose">
+          Depending on applicable law, you may have rights regarding personal data relating to
+          you, including access, correction or deletion. If you have submitted personal
+          information, for example through feedback or the Contact form, and want to ask about it,
+          write to <a href="mailto:support@reverse-panda.ch">support@reverse-panda.ch</a>.
         </p>
       </section>
 

@@ -50,9 +50,11 @@ const SUCCESS = {
 
 const PRIVACY = {
   bug:
-    "Only the information shown in this form and any screenshot you explicitly attach will be submitted.",
-  feature: "Your message will only be used to respond to your request.",
-  hello: "Your message will only be used to respond to your request."
+    "Your report and optional email address will only be used to process and respond to your request. If you attach a screenshot, only the file you select will be uploaded and used to process your report.",
+  feature:
+    "Your message and optional email address will only be used to process and respond to your request.",
+  hello:
+    "Your message and optional email address will only be used to process and respond to your request."
 };
 
 const form = document.getElementById("contact-form");

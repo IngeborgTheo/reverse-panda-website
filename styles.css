@@ -2792,6 +2792,32 @@ button { font: inherit; }
   outline-offset: 3px;
 }
 
+.contact-recaptcha {
+  margin-top: 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: rgba(27, 25, 21, 0.45);
+  max-width: 28rem;
+}
+
+.contact-recaptcha a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(27, 25, 21, 0.25);
+  text-underline-offset: 0.18em;
+  transition: color 0.2s ease;
+}
+
+.contact-recaptcha a:hover {
+  color: var(--black);
+}
+
+.contact-recaptcha a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
 .contact-success {
   padding: 0.5rem 0 1rem;
 }
@@ -3226,6 +3252,65 @@ button { font: inherit; }
 
 .privacy-contact__email a:hover,
 .privacy-contact__site a:hover {
+  color: var(--blue);
+}
+
+.privacy-part {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding: clamp(1.5rem, 3vw, 2rem) 0 0.25rem;
+  border-top: 2px solid var(--black);
+}
+
+.privacy-part__label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 0.6rem;
+}
+
+.privacy-part__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  margin-bottom: 0.85rem;
+}
+
+.privacy-part + .privacy-section {
+  border-top: 0;
+}
+
+.privacy-list + .privacy-prose,
+.imprint-address + .privacy-prose {
+  margin-top: 1.15rem;
+}
+
+.privacy-prose a,
+.privacy-list a {
+  color: var(--black);
+  text-decoration: underline;
+  text-decoration-color: rgba(27, 25, 21, 0.3);
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.privacy-prose a:hover,
+.privacy-list a:hover {
+  color: var(--blue);
+  text-decoration-color: currentColor;
+}
+
+.privacy-toc__group {
+  margin-top: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--blue);
 }
 
