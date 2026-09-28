@@ -258,13 +258,11 @@
 
   renderCommunitySection();
   initDrift();
-  initThemeCompare();
+  document.querySelectorAll("[data-theme-compare]").forEach(initThemeCompare);
 
-  function initThemeCompare() {
-    const root = document.querySelector("[data-theme-compare]");
-    if (!root) return;
-
+  function initThemeCompare(root) {
     const stage = root.querySelector(".theme-compare__stage");
+    const valueTarget = root.getAttribute("data-compare-target") || "the right side";
     const range = root.querySelector("[data-theme-compare-range]");
     if (!stage || !range) return;
 
@@ -285,7 +283,7 @@
       range.setAttribute("aria-valuenow", String(Math.round(clamped)));
       range.setAttribute(
         "aria-valuetext",
-        `${Math.round(clamped)} percent toward Dark Mode`
+        `${Math.round(clamped)} percent toward ${valueTarget}`
       );
     }
 
@@ -392,6 +390,164 @@
     rightTrack.innerHTML = RP.renderTrack(window.RP_HERO_RIGHT, { duplicate: true, caption: false });
   }
 
+  function keyGreenPixels(data) {
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const maxRb = Math.max(r, b);
+
+      // Key typical green-screen pixels; soften near edges.
+      if (g > 90 && g > maxRb * 1.4 && g - maxRb > 28) {
+        data[i + 3] = 0;
+      } else if (g > 70 && g > maxRb * 1.2 && g - maxRb > 14) {
+        const strength = Math.min(1, (g - maxRb) / 70);
+        data[i + 3] = Math.round(data[i + 3] * (1 - strength));
+      }
+    }
+  }
+
+  function findKeyedBounds(video) {
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+    const probe = document.createElement("canvas");
+    probe.width = width;
+    probe.height = height;
+    const probeCtx = probe.getContext("2d", { willReadFrequently: true });
+    probeCtx.drawImage(video, 0, 0, width, height);
+    const data = probeCtx.getImageData(0, 0, width, height).data;
+
+    let minX = width;
+    let minY = height;
+    let maxX = 0;
+    let maxY = 0;
+    for (let y = 0; y < height; y += 2) {
+      for (let x = 0; x < width; x += 2) {
+        const i = (y * width + x) * 4;
+        const g = data[i + 1];
+        const maxRb = Math.max(data[i], data[i + 2]);
+        if (g > 90 && g > maxRb * 1.4 && g - maxRb > 28) continue;
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+
+    if (maxX <= minX || maxY <= minY) return { x: 0, y: 0, w: width, h: height };
+    const pad = 4;
+    const x = Math.max(0, minX - pad);
+    const y = Math.max(0, minY - pad);
+    return {
+      x,
+      y,
+      w: Math.min(width, maxX + pad) - x,
+      h: Math.min(height, maxY + pad) - y
+    };
+  }
+
+  function mountCardVideo(mount) {
+    const canvas = mount.querySelector("canvas");
+    const src = mount.getAttribute("data-lp-video");
+    if (!canvas || !src) return;
+
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const video = document.createElement("video");
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    video.setAttribute("muted", "");
+    video.preload = "none";
+
+    let crop = null;
+    let loaded = false;
+    let visible = false;
+    let frameHandle = 0;
+    const useVideoFrameCallback = "requestVideoFrameCallback" in video;
+
+    function draw() {
+      if (video.readyState < 2 || !video.videoWidth) return;
+      if (!crop) {
+        crop = findKeyedBounds(video);
+        canvas.width = crop.w;
+        canvas.height = crop.h;
+      }
+      ctx.drawImage(video, crop.x, crop.y, crop.w, crop.h, 0, 0, crop.w, crop.h);
+      const frame = ctx.getImageData(0, 0, crop.w, crop.h);
+      keyGreenPixels(frame.data);
+      ctx.putImageData(frame, 0, 0);
+    }
+
+    function scheduleFrame() {
+      if (video.paused || video.ended) {
+        frameHandle = 0;
+        return;
+      }
+      frameHandle = useVideoFrameCallback
+        ? video.requestVideoFrameCallback(() => {
+            draw();
+            scheduleFrame();
+          })
+        : window.requestAnimationFrame(() => {
+            draw();
+            scheduleFrame();
+          });
+    }
+
+    function stopFrames() {
+      if (!frameHandle) return;
+      if (useVideoFrameCallback) video.cancelVideoFrameCallback(frameHandle);
+      else window.cancelAnimationFrame(frameHandle);
+      frameHandle = 0;
+    }
+
+    function ensureLoaded() {
+      if (loaded) return;
+      loaded = true;
+      video.preload = prefersReducedMotion ? "metadata" : "auto";
+      video.src = src;
+    }
+
+    function sync() {
+      if (!visible) {
+        stopFrames();
+        video.pause();
+        return;
+      }
+      ensureLoaded();
+      if (prefersReducedMotion || document.hidden) {
+        stopFrames();
+        video.pause();
+        return;
+      }
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+      }
+    }
+
+    video.addEventListener("loadeddata", draw);
+    video.addEventListener("seeked", draw);
+    video.addEventListener("play", () => {
+      if (!frameHandle) scheduleFrame();
+    });
+    video.addEventListener("pause", stopFrames);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visible = entry.isIntersecting;
+          sync();
+        });
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(mount);
+    document.addEventListener("visibilitychange", sync);
+  }
+
   /* ── Showcase gallery (static) ── */
   const galleryMount = document.querySelector("[data-showcase-gallery]");
   if (galleryMount) {
@@ -410,11 +566,14 @@
           ? RP.renderCard(preview, {
               showCaption: true,
               lazy: true,
+              video: true,
               theme: showcaseThemes[id] || preview.theme
             })
           : "";
       })
       .join("");
+
+    galleryMount.querySelectorAll("[data-lp-video]").forEach(mountCardVideo);
 
     const galleryCards = Array.from(galleryMount.querySelectorAll(".lp"));
     galleryCards.forEach((card, index) => {
@@ -524,23 +683,7 @@
 
       ctx.drawImage(video, 0, 0, width, height);
       const frame = ctx.getImageData(0, 0, width, height);
-      const data = frame.data;
-
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
-        const maxRb = Math.max(r, b);
-
-        // Key typical green-screen pixels; soften near edges.
-        if (g > 90 && g > maxRb * 1.4 && g - maxRb > 28) {
-          data[i + 3] = 0;
-        } else if (g > 70 && g > maxRb * 1.2 && g - maxRb > 14) {
-          const strength = Math.min(1, (g - maxRb) / 70);
-          data[i + 3] = Math.round(data[i + 3] * (1 - strength));
-        }
-      }
-
+      keyGreenPixels(frame.data);
       ctx.putImageData(frame, 0, 0);
     }
 

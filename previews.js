@@ -4,24 +4,24 @@
  * Layout, sizing, animation, and radius stay untouched.
  */
 window.RP_PREVIEWS = [
-  { id: "bubble-cloud", title: "Bubble Cloud", shortTitle: "Bubble Cloud", image: null, variant: "bubble", theme: "light" },
+  { id: "bubble-cloud", title: "Bubble Cloud", shortTitle: "Bubble Cloud", image: "assets/mockups/hero/showcase-hs-bubble-cloud.webp", variant: "bubble", theme: "light" },
   { id: "classic-pages", title: "Classic Pages", shortTitle: "Classic", image: null, variant: "classic", theme: "blue" },
-  { id: "hidden-dock", title: "Hidden Dock", shortTitle: "Hidden Dock", image: null, variant: "hiddenDock", theme: "dark" },
+  { id: "hidden-dock", title: "Hidden Dock", shortTitle: "Hidden Dock", image: "assets/mockups/hero/showcase-dock-hidden-dock.webp", variant: "hiddenDock", theme: "dark" },
   { id: "wheel-dock", title: "Wheel Dock", image: null, variant: "wheelDock", theme: "light" },
-  { id: "app-drawer", title: "App Drawer", image: null, variant: "appDrawer", theme: "blue" },
-  { id: "folders", title: "Folders", image: null, variant: "folders", theme: "dark" },
-  { id: "gestures", title: "Gestures", image: null, variant: "gestures", theme: "light" },
+  { id: "app-drawer", title: "App Drawer", image: "assets/mockups/hero/showcase-ad-multi-column.webp", variant: "appDrawer", theme: "blue" },
+  { id: "folders", title: "Folders", image: "assets/mockups/hero/showcase-folder-standard.webp", variant: "folders", theme: "dark" },
+  { id: "gestures", title: "Gestures", image: "assets/mockups/hero/showcase-gestures.webp", variant: "gestures", theme: "light" },
   { id: "icons", title: "Icons", image: null, variant: "icons", theme: "blue" },
-  { id: "continuous-canvas", title: "Continuous Canvas", shortTitle: "Continuous Canvas", image: null, variant: "canvas", theme: "dark" },
-  { id: "settings", title: "Settings", image: null, variant: "settings", theme: "light" },
+  { id: "continuous-canvas", title: "Continuous Canvas", shortTitle: "Continuous Canvas", image: "assets/mockups/hero/showcase-hs-zen.webp", video: "assets/videos/showcase/home%20screen/showcase-hs-continues-canvas.mp4", variant: "canvas", theme: "dark" },
+  { id: "settings", title: "Settings", image: "assets/mockups/hero/showcase-settings-main.webp", variant: "settings", theme: "light" },
   { id: "cylinder-dock", title: "Cylinder Dock", image: null, variant: "cylinder", theme: "blue" },
-  { id: "multi-column", title: "Multi Column Drawer", shortTitle: "Multi Column", image: null, variant: "multiColumn", theme: "dark" },
+  { id: "multi-column", title: "Multi Column Drawer", shortTitle: "Multi Column", image: "assets/mockups/hero/showcase-ad-multi-column.webp", variant: "multiColumn", theme: "dark" },
   { id: "minimal", title: "Minimal", image: null, variant: "minimal", theme: "light" },
   { id: "chaos", title: "Chaos", image: null, variant: "chaos", theme: "blue" }
 ];
 
 window.RP_HERO_LEFT = ["bubble-cloud", "hidden-dock", "app-drawer", "continuous-canvas", "icons"];
-window.RP_HERO_RIGHT = ["classic-pages", "wheel-dock", "folders", "settings", "gestures"];
+window.RP_HERO_RIGHT = ["classic-pages", "gestures", "folders", "settings"];
 window.RP_SHOWCASE = [
   "bubble-cloud",
   "classic-pages",
@@ -47,7 +47,11 @@ window.RP = {
     const caption = options.caption || preview.shortTitle || preview.title;
 
     let inner;
-    if (preview.image) {
+    let shellClass = "";
+    if (preview.video && options.video) {
+      inner = `<div class="lp__video" data-lp-video="${preview.video}"><canvas class="lp__media lp__media--video" aria-hidden="true"></canvas></div>`;
+      shellClass = " is-video";
+    } else if (preview.image) {
       inner = `<img class="lp__media" src="${preview.image}" alt="${label}" ${lazy} decoding="async" width="360" height="720">`;
     } else {
       inner = this.renderPlaceholder(preview);
@@ -55,7 +59,7 @@ window.RP = {
 
     return `
       <article class="lp" data-preview-id="${preview.id}" aria-label="${label}">
-        <div class="lp__shell theme-${theme}">
+        <div class="lp__shell theme-${theme}${shellClass}">
           ${inner}
         </div>
         ${options.showCaption !== false ? `<p class="lp__caption">${caption}</p>` : ""}
