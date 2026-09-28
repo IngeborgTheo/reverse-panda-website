@@ -3285,6 +3285,7 @@ button { font: inherit; }
 }
 
 .privacy-list + .privacy-prose,
+.privacy-note + .privacy-prose,
 .imprint-address + .privacy-prose {
   margin-top: 1.15rem;
 }
