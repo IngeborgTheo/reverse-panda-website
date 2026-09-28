@@ -455,27 +455,55 @@
     const video = document.createElement("video");
     video.muted = true;
     video.defaultMuted = true;
-    video.loop = true;
+    video.loop = false;
     video.playsInline = true;
     video.setAttribute("playsinline", "");
     video.setAttribute("muted", "");
     video.preload = "none";
 
+    const caption = mount.closest(".lp")?.getAttribute("aria-label") || "demo";
+    const replay = document.createElement("button");
+    replay.type = "button";
+    replay.className = "detail-video-replay lp__replay";
+    replay.hidden = true;
+    replay.innerHTML = `
+      <span class="detail-video-replay__icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M38.5 24a14.5 14.5 0 1 1-4.25-10.25" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" />
+          <path d="M38.5 12.5v9h-9" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>`;
+    mount.appendChild(replay);
+
+    function setReplayVisible(show, label = "Replay") {
+      replay.hidden = !show;
+      replay.setAttribute("aria-label", `${label} ${caption}`);
+    }
+
     let crop = null;
     let loaded = false;
     let visible = false;
+    let userStarted = false;
     let frameHandle = 0;
     const useVideoFrameCallback = "requestVideoFrameCallback" in video;
 
     function draw() {
       if (video.readyState < 2 || !video.videoWidth) return;
       if (!crop) {
-        crop = findKeyedBounds(video);
-        canvas.width = crop.w;
-        canvas.height = crop.h;
+        const bounds = findKeyedBounds(video);
+        // Frames without green (e.g. a black intro) must not fix the crop.
+        const keyed = bounds.w < video.videoWidth || bounds.h < video.videoHeight;
+        if (keyed) crop = bounds;
+        // Key at display resolution; several cards play at once.
+        const displayWidth = Math.ceil(canvas.clientWidth * (window.devicePixelRatio || 1));
+        const scale = displayWidth > 0 ? Math.min(1, displayWidth / bounds.w) : 1;
+        canvas.width = Math.round(bounds.w * scale);
+        canvas.height = Math.round(bounds.h * scale);
+        if (!keyed) return;
       }
-      ctx.drawImage(video, crop.x, crop.y, crop.w, crop.h, 0, 0, crop.w, crop.h);
-      const frame = ctx.getImageData(0, 0, crop.w, crop.h);
+      const { width, height } = canvas;
+      ctx.drawImage(video, crop.x, crop.y, crop.w, crop.h, 0, 0, width, height);
+      const frame = ctx.getImageData(0, 0, width, height);
       keyGreenPixels(frame.data);
       ctx.putImageData(frame, 0, 0);
     }
@@ -517,11 +545,25 @@
         return;
       }
       ensureLoaded();
-      if (prefersReducedMotion || document.hidden) {
+      if (document.hidden) {
         stopFrames();
         video.pause();
         return;
       }
+      if (prefersReducedMotion && !userStarted) {
+        stopFrames();
+        video.pause();
+        setReplayVisible(true, "Play");
+        return;
+      }
+      if (video.ended) {
+        setReplayVisible(true);
+        return;
+      }
+      play();
+    }
+
+    function play() {
       const playPromise = video.play();
       if (playPromise && typeof playPromise.catch === "function") {
         playPromise.catch(() => {});
@@ -531,9 +573,26 @@
     video.addEventListener("loadeddata", draw);
     video.addEventListener("seeked", draw);
     video.addEventListener("play", () => {
+      setReplayVisible(false);
       if (!frameHandle) scheduleFrame();
     });
     video.addEventListener("pause", stopFrames);
+    video.addEventListener("ended", () => {
+      stopFrames();
+      draw();
+      setReplayVisible(true);
+    });
+
+    replay.addEventListener("click", () => {
+      userStarted = true;
+      ensureLoaded();
+      try {
+        video.currentTime = 0;
+      } catch {
+        // Ignore seek errors before metadata.
+      }
+      play();
+    });
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -555,8 +614,7 @@
       "bubble-cloud": "light",
       "classic-pages": "light",
       "continuous-canvas": "dark",
-      "hidden-dock": "dark",
-      "multi-column": "light"
+      zen: "dark"
     };
     const showcaseIds = window.RP_SHOWCASE || [];
     galleryMount.innerHTML = showcaseIds

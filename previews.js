@@ -4,9 +4,10 @@
  * Layout, sizing, animation, and radius stay untouched.
  */
 window.RP_PREVIEWS = [
-  { id: "bubble-cloud", title: "Bubble Cloud", shortTitle: "Bubble Cloud", image: "assets/mockups/hero/showcase-hs-bubble-cloud.webp", variant: "bubble", theme: "light" },
-  { id: "classic-pages", title: "Classic Pages", shortTitle: "Classic", image: null, variant: "classic", theme: "blue" },
+  { id: "bubble-cloud", title: "Bubble Cloud", shortTitle: "Bubble Cloud", image: "assets/mockups/hero/showcase-hs-bubble-cloud.webp", video: "assets/videos/showcase/home%20screen/showcase-hs-bubble-cloud.mp4", variant: "bubble", theme: "light" },
+  { id: "classic-pages", title: "Classic Pages", shortTitle: "Classic", image: null, video: "assets/videos/showcase/home%20screen/showcase-hs-classic-paginated.mp4", variant: "classic", theme: "blue" },
   { id: "hidden-dock", title: "Hidden Dock", shortTitle: "Hidden Dock", image: "assets/mockups/hero/showcase-dock-hidden-dock.webp", variant: "hiddenDock", theme: "dark" },
+  { id: "zen", title: "Zen", shortTitle: "Zen", image: "assets/mockups/hero/showcase-hs-zen.webp", video: "assets/videos/showcase/home%20screen/showcase-hs-zen.mp4", variant: "hiddenDock", theme: "dark" },
   { id: "wheel-dock", title: "Wheel Dock", image: null, variant: "wheelDock", theme: "light" },
   { id: "app-drawer", title: "App Drawer", image: "assets/mockups/hero/showcase-ad-multi-column.webp", variant: "appDrawer", theme: "blue" },
   { id: "folders", title: "Folders", image: "assets/mockups/hero/showcase-folder-standard.webp", variant: "folders", theme: "dark" },
@@ -26,8 +27,7 @@ window.RP_SHOWCASE = [
   "bubble-cloud",
   "classic-pages",
   "continuous-canvas",
-  "hidden-dock",
-  "multi-column"
+  "zen"
 ];
 
 window.RP = {

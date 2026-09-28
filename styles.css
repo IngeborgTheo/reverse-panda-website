@@ -381,6 +381,7 @@ button { font: inherit; }
 }
 
 .lp__video {
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -394,6 +395,7 @@ button { font: inherit; }
 /* Video clips already include the phone frame, so the card drops its own. */
 .lp__shell.is-video,
 .showcase-gallery .lp__shell.is-video {
+  aspect-ratio: 724 / 1566;
   background: transparent;
   border: 0;
   border-radius: 0;
@@ -948,7 +950,7 @@ button { font: inherit; }
 
 .showcase-gallery {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: end;
   column-gap: clamp(0.65rem, 1.4vw, 1.15rem);
   padding:
@@ -964,7 +966,7 @@ button { font: inherit; }
 }
 
 .showcase-gallery .lp {
-  width: clamp(170px, 11vw, 220px);
+  width: clamp(200px, 17vw, 290px);
   max-width: 100%;
   justify-self: center;
   --gallery-y: 0px;
@@ -3848,7 +3850,7 @@ html.js [data-reveal="fade-right"]:not(.is-visible) {
   }
   .showcase-gallery .lp {
     flex: 0 0 auto;
-    width: clamp(170px, 24vw, 210px);
+    width: clamp(220px, 32vw, 270px);
     max-width: none;
     justify-self: auto;
     scroll-snap-align: start;
@@ -4010,8 +4012,8 @@ html.js [data-reveal="fade-right"]:not(.is-visible) {
   }
   .showcase-gallery .lp {
     flex: 0 0 auto;
-    width: calc((100% - 0.85rem) / 1.25);
-    max-width: 240px;
+    width: calc((100% - 0.85rem) / 1.2);
+    max-width: 290px;
     scroll-snap-align: start;
   }
   .showcase-gallery .lp:nth-child(n) {
