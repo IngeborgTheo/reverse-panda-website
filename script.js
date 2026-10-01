@@ -120,14 +120,26 @@
     const stage = root.querySelector(".theme-compare__stage");
     const valueTarget = root.getAttribute("data-compare-target") || "the right side";
     const range = root.querySelector("[data-theme-compare-range]");
+    const handle = root.querySelector(".theme-compare__handle");
+    const hint = root.querySelector(".theme-compare__hint");
     if (!stage || !range) return;
 
     const INITIAL = 58;
+    const TOUCH_INTENT_DISTANCE = 10;
+    const TOUCH_HORIZONTAL_RATIO = 1.2;
     let introPlayed = false;
     let dragging = false;
     let activePointer = null;
     let raf = 0;
     let pendingValue = null;
+    let touchStart = null;
+
+    const touchQuery = window.matchMedia("(hover: none) and (pointer: coarse)");
+    function updateHint() {
+      if (hint) hint.textContent = touchQuery.matches ? "DRAG HANDLE TO COMPARE" : "DRAG TO COMPARE";
+    }
+    updateHint();
+    touchQuery.addEventListener?.("change", updateHint);
 
     function commitPosition(value, { animate = false } = {}) {
       const clamped = Math.max(0, Math.min(100, Number(value)));
@@ -160,26 +172,77 @@
       return ((clientX - rect.left) / rect.width) * 100;
     }
 
-    stage.addEventListener("pointerdown", (event) => {
-      if (event.button != null && event.button !== 0) return;
-      activePointer = event.pointerId;
+    function startDrag(pointerId) {
+      activePointer = pointerId;
       dragging = true;
       root.classList.add("is-dragging");
       root.classList.remove("is-animating");
-      stage.setPointerCapture(activePointer);
+      stage.setPointerCapture(pointerId);
+    }
+
+    stage.addEventListener("pointerdown", (event) => {
+      if (event.button != null && event.button !== 0) return;
+      if (activePointer != null) return;
+
+      // Touch and pen: only the handle starts a drag, and only after a horizontal intent.
+      if (event.pointerType !== "mouse") {
+        if (!handle || !handle.contains(event.target)) return;
+        activePointer = event.pointerId;
+        touchStart = {
+          x: event.clientX,
+          y: event.clientY,
+          value: Number(range.value),
+        };
+        return;
+      }
+
+      startDrag(event.pointerId);
       queuePosition(positionFromClientX(event.clientX));
       event.preventDefault();
     });
 
     stage.addEventListener("pointermove", (event) => {
-      if (!dragging || event.pointerId !== activePointer) return;
+      if (event.pointerId !== activePointer) return;
+
+      if (touchStart) {
+        const dx = event.clientX - touchStart.x;
+        const dy = event.clientY - touchStart.y;
+        if (!dragging) {
+          if (Math.hypot(dx, dy) < TOUCH_INTENT_DISTANCE) return;
+          if (Math.abs(dx) > Math.abs(dy) * TOUCH_HORIZONTAL_RATIO) {
+            startDrag(event.pointerId);
+          } else {
+            endDrag(event);
+            return;
+          }
+        }
+        const width = stage.getBoundingClientRect().width;
+        if (width) queuePosition(touchStart.value + (dx / width) * 100);
+        return;
+      }
+
+      if (!dragging) return;
       queuePosition(positionFromClientX(event.clientX));
     });
 
+    if (handle) {
+      handle.addEventListener(
+        "touchmove",
+        (event) => {
+          if (dragging && touchStart) event.preventDefault();
+        },
+        { passive: false }
+      );
+    }
+
     function endDrag(event) {
       if (event && activePointer != null && event.pointerId !== activePointer) return;
+      if (activePointer != null && stage.hasPointerCapture?.(activePointer)) {
+        stage.releasePointerCapture(activePointer);
+      }
       dragging = false;
       activePointer = null;
+      touchStart = null;
       root.classList.remove("is-dragging");
     }
 

@@ -1600,7 +1600,7 @@ button { font: inherit; }
   border-radius: clamp(20px, 2.5vw, 28px);
   overflow: hidden;
   background: rgba(27, 25, 21, 0.04);
-  touch-action: none;
+  touch-action: pan-y;
   user-select: none;
   cursor: ew-resize;
 }
@@ -1700,15 +1700,17 @@ button { font: inherit; }
   box-shadow: 0 1px 0 rgba(27, 25, 21, 0.06);
   display: grid;
   place-items: center;
-  pointer-events: none;
+  pointer-events: auto;
+  touch-action: pan-y;
   cursor: ew-resize;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Invisible touch target of at least 48px around the handle. */
 .theme-compare__handle::before {
   content: "";
   position: absolute;
-  inset: -18px;
+  inset: min(0px, calc((100% - 48px) / 2));
 }
 
 .theme-compare.is-dragging .theme-compare__handle,
@@ -3986,10 +3988,6 @@ html.js [data-reveal="fade-right"]:not(.is-visible) {
   .theme-compare__handle {
     width: 2.6rem;
     height: 2.6rem;
-  }
-
-  .theme-compare__handle::before {
-    inset: -22px;
   }
 
   .story-bridge {
